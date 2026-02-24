@@ -1,0 +1,4015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="assets/1bossco-logo.png">
+
+  <!-- Modern font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+      ✅ UI ONLY (HTML + CSS)
+      - Mobile responsive
+      - Keeps ALL IDs used by GAS-connected JS
+      - No JS changes required
+    ========================================================= */
+
+    :root{
+      --bg1:#eef4ff;
+      --bg2:#f8fbff;
+
+      --card: rgba(255,255,255,.88);
+      --text:#0b1f33;
+      --muted:#64748b;
+
+      --blue-950:#08224a;
+      --blue-900:#0b2a5a;
+      --blue-800:#0f3b7a;
+      --blue-700:#1553a3;
+      --blue-600:#1d66c2;
+      --blue-100:#e7f0ff;
+
+      --green-600:#16a34a;
+      --red-600:#dc2626;
+
+      --border:#dbe7f6;
+      --border2:#e6edf7;
+
+      --shadow: 0 30px 70px rgba(2,22,55,.18);
+      --shadowSoft: 0 14px 34px rgba(2,22,55,.12);
+
+      --radius: 26px;
+      --radius2: 18px;
+    }
+
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    body{
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      color:var(--text);
+      background:
+        radial-gradient(900px 450px at 15% 10%, rgba(29,102,194,.16), transparent 60%),
+        radial-gradient(900px 450px at 85% 20%, rgba(21,83,163,.12), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+    }
+
+    .wrap{ width:100%; max-width:1040px; margin:0 auto; }
+    .card{
+      background: var(--card);
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      border: 1px solid rgba(255,255,255,.65);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding: 18px;
+      overflow:hidden;
+    }
+
+      .brandbar{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:14px;
+
+        padding: 16px 18px;              /* ✅ bigger header on desktop */
+        border-radius: 999px;
+        background: rgba(255,255,255,.75);
+        border: 1px solid rgba(255,255,255,.8);
+        box-shadow: 0 14px 28px rgba(2,22,55,.12);
+        margin-bottom: 14px;
+      }
+
+      .brandSide{
+        flex: 0 0 auto;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+      }
+
+      .brandCenter{
+        flex: 1 1 auto;
+        text-align:center;
+        line-height:1.1;
+        padding: 0 10px;
+        min-width: 0;
+      }
+
+      .brandLogo{
+        height: 58px;     /* ✅ bigger logos on desktop */
+        width: auto;
+        max-width: 190px;
+        object-fit: contain;
+
+        background:#fff;
+        padding: 8px 12px;
+        border:1px solid rgba(0,70,140,.12);
+        box-shadow: 0 6px 14px rgba(0,35,70,0.12);
+        border-radius: 16px;
+      }
+
+      .brandTitle{
+      font-weight: 950;
+      font-size: 22px;   /* desktop bigger */
+      letter-spacing: .2px;
+    }
+
+    .brandSub{
+      margin-top: 4px;
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .badge{
+      background: #eef4ff;
+      border: 1px solid #cddfff;
+      color: #16437e;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      white-space:nowrap;
+    }
+
+    /* Step pills */
+    .stepPills{
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin: 10px 0 14px;
+    }
+    .step{
+      background: #ffffff;
+      border: 1px solid var(--border2);
+      color: #5f6c84;
+      font-weight: 900;
+      font-size: 12px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      box-shadow: 0 6px 14px rgba(2,22,55,.06);
+      user-select:none;
+    }
+    .step.active{
+      background: var(--blue-900);
+      border-color: var(--blue-900);
+      color: #fff;
+      box-shadow: 0 16px 26px rgba(15,61,119,.25);
+    }
+
+    /* Notice box */
+    .notice{
+      display:none;
+      margin: 12px 0;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid var(--border2);
+      background:#f8fbff;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 13px;
+      box-shadow: 0 10px 20px rgba(2,22,55,.06);
+    }
+
+    /* Form steps */
+    .form-step{ display:none; }
+    .form-step.active{ display:block; }
+
+    /* Inputs */
+    label{
+      display:block;
+      font-size: 12px;
+      font-weight: 900;
+      color: #1b2b44;
+      margin-top: 14px;
+      letter-spacing: .02em;
+    }
+    .req{ color: var(--red-600); margin-left: 4px; }
+    .helper{
+      display:none;
+      margin-top: 6px;
+      color: #b91c1c;
+      font-weight: 800;
+      font-size: 12px;
+    }
+    input, select, textarea{
+      width:100%;
+      margin-top: 8px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1.5px solid var(--border);
+      background: rgba(255,255,255,.90);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      transition: .15s ease;
+    }
+    input:focus, select:focus, textarea:focus{
+      outline:none;
+      border-color: rgba(29,102,194,.60);
+      box-shadow: 0 0 0 4px rgba(29,102,194,.14);
+      background:#fff;
+    }
+    .invalid{
+      border-color: var(--red-600) !important;
+      background: #fff8f8 !important;
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 16px;
+      margin-top: 4px;
+    }
+    .field{ min-width:0; }
+    .field.full{ grid-column: 1 / -1; }
+
+    /* Inline checkbox */
+    .no-middle{
+      display:flex; align-items:center; gap:10px;
+      margin-top: 10px;
+      font-weight: 800;
+      color: #334155;
+      font-size: 13px;
+    }
+    .no-middle input{ width:auto; margin:0; }
+    .middle-disabled{
+      background:#f1f5f9 !important;
+      color:#64748b !important;
+    }
+
+    /* Radio cards */
+    .radio-group{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .radio-option{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 12px 12px;
+      border: 1.5px solid var(--border2);
+      border-radius: 18px;
+      background:#fff;
+      cursor:pointer;
+      user-select:none;
+      transition:.12s ease;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text);
+      box-shadow: 0 8px 14px rgba(2,22,55,.05);
+    }
+    .radio-option:hover{
+      border-color: rgba(29,102,194,.45);
+      background: rgba(231,240,255,.55);
+    }
+    .radio-option input[type="radio"]{
+      width: 18px; height: 18px;
+      accent-color: var(--blue-600);
+      flex: 0 0 auto;
+    }
+    .radio-option.selected{
+      border-color: rgba(29,102,194,.65);
+      background: rgba(231,240,255,.85);
+    }
+    .radio-group.invalid{
+      border:1px solid var(--red-600);
+      padding: 10px;
+      border-radius: 18px;
+      background: rgba(239,68,68,.06);
+    }
+
+    /* Checkbox cards */
+    .check-group{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .check-option{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 12px 12px;
+      border: 1.5px solid var(--border2);
+      border-radius: 18px;
+      background:#fff;
+      cursor:pointer;
+      user-select:none;
+      transition:.12s ease;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text);
+      box-shadow: 0 8px 14px rgba(2,22,55,.05);
+    }
+    .check-option:hover{
+      border-color: rgba(29,102,194,.45);
+      background: rgba(231,240,255,.55);
+    }
+    .check-option input[type="checkbox"]{
+      width: 18px; height: 18px;
+      accent-color: var(--blue-600);
+      flex:0 0 auto;
+    }
+    .check-option.selected{
+      border-color: rgba(29,102,194,.65);
+      background: rgba(231,240,255,.85);
+    }
+    .check-group.invalid{
+      border:1px solid var(--red-600);
+      padding: 10px;
+      border-radius: 18px;
+      background: rgba(239,68,68,.06);
+    }
+
+    /* Price box */
+    .price-box{
+      margin-top: 14px;
+      padding: 14px 14px;
+      border-radius: 18px;
+      background: rgba(231,240,255,.70);
+      border: 1px solid rgba(29,102,194,.18);
+      box-shadow: 0 10px 22px rgba(2,22,55,.06);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .price-box strong{ font-weight: 900; }
+    .price-muted{
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .total-red{ color: var(--red-600); font-weight: 900; }
+
+    /* Calendar */
+    .calendar-wrap{
+      position: relative;
+      margin-top: 14px;
+      background: #fff;
+      border-radius: 22px;
+      border: 1px solid var(--border2);
+      box-shadow: 0 16px 34px rgba(2,22,55,.10);
+      overflow:hidden;
+    }
+    .cal-loading{
+      position:absolute;
+      inset:0;
+      background: rgba(255,255,255,.74);
+      backdrop-filter: blur(2px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index: 30;
+    }
+    .cal-loading-box{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 16px;
+      background:#fff;
+      border:1px solid var(--border2);
+      box-shadow: 0 12px 28px rgba(2,22,55,.12);
+      font-weight: 900;
+      color: var(--text);
+      font-size: 13px;
+    }
+    .spinner{
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 2px solid var(--border2);
+      border-top-color: var(--blue-600);
+      animation: spin .8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .cal-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 12px 12px;
+      border-bottom: 1px solid var(--border2);
+      background: linear-gradient(180deg, #f8fbff, #ffffff);
+    }
+    .cal-title{
+      font-weight: 900;
+      font-size: 14px;
+      color: var(--text);
+    }
+    .cal-nav{
+      width: 40px;
+      height: 38px;
+      border-radius: 14px;
+      border: 1px solid var(--border2);
+      background:#fff;
+      cursor:pointer;
+      color: var(--blue-800);
+      font-size: 18px;
+      font-weight: 900;
+    }
+    .cal-nav:disabled{ opacity:.6; cursor:not-allowed; }
+
+    .cal-grid{ display:grid; grid-template-columns: repeat(7, 1fr); }
+    .cal-dow div{
+      text-align:center;
+      padding: 10px 6px;
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--muted);
+      border-bottom: 1px solid #eef2f7;
+      background:#fff;
+    }
+    .cal-day{
+      min-height: 98px;
+      border-right: 1px solid #eef2f7;
+      border-bottom: 1px solid #eef2f7;
+      padding: 8px;
+      background:#fff;
+    }
+    .cal-day:nth-child(7n){ border-right:none; }
+    .cal-day.disabled{
+      background: repeating-linear-gradient(45deg,#fafcff,#fafcff 10px,#f1f5f9 10px,#f1f5f9 20px);
+      opacity:.85;
+    }
+    .cal-num{
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--text);
+    }
+    .slot-box{
+      margin-top: 6px;
+      display:flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    /* Slot button: stable left/right layout (mobile safe) */
+    #calDays .slot-btn{
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr auto;  /* AM/PM left, number/dash right */
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border2);
+      background: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      color: #1b3b64;
+      line-height: 1;
+      cursor: pointer;
+      transition: .12s ease;
+    }
+
+    /* left label */
+    #calDays .slot-btn span:first-child{
+      letter-spacing: .5px;
+    }
+
+    /* right value */
+    #calDays .slot-btn span:last-child{
+      justify-self: end;
+      min-width: 2.5ch;                /* makes '-' and '23' consistent */
+      text-align: right;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      opacity: .92;
+    }
+    .slot-btn:hover{
+      border-color: rgba(29,102,194,.45);
+      background: rgba(231,240,255,.60);
+    }
+    .slot-btn:disabled{ cursor:not-allowed; opacity:.55; }
+    .slot-btn.selected{
+      background: #1b4982;
+      border-color: #1b4982;
+      color:#fff;
+      font-weight: 900;
+    }
+    .selected-box{
+      margin: 12px;
+      padding: 12px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(29,102,194,.18);
+      background: rgba(231,240,255,.70);
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 10px 22px rgba(2,22,55,.06);
+    }
+
+    /* Step 4 review */
+    .review-card{
+      margin-top: 12px;
+      border: 1px solid var(--border2);
+      border-radius: 24px;
+      background: #fff;
+      overflow:hidden;
+      box-shadow: 0 18px 44px rgba(2,22,55,.10);
+    }
+    .review-hero{
+      padding: 16px 16px 14px;
+      background:
+        radial-gradient(900px 240px at 10% 0%, rgba(29,102,194,.16), transparent 55%),
+        radial-gradient(900px 240px at 95% 0%, rgba(21,83,163,.14), transparent 55%),
+        linear-gradient(180deg, #f8fbff, #ffffff);
+      border-bottom: 1px solid #eef2f7;
+    }
+    .review-title{
+      font-weight: 900;
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .review-sub{
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .review-body{ padding: 14px 14px 6px; }
+    .review-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .review-section{
+      border: 1px solid #eef2f7;
+      border-radius: 18px;
+      padding: 12px;
+      background: linear-gradient(180deg,#ffffff,#fbfdff);
+    }
+    .review-section-title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+    .review-section-title .left{
+      font-weight: 900;
+      font-size: 12px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .icon-pill{
+      width: 28px;
+      height: 28px;
+      border-radius: 12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(231,240,255,.90);
+      font-size: 13px;
+    }
+    .badge2{
+      font-size: 11px;
+      font-weight: 900;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border2);
+      background: #f8fbff;
+      color: #334155;
+      white-space:nowrap;
+    }
+    .review-row{
+      display:grid;
+      grid-template-columns: 140px 1fr;
+      gap: 10px;
+      padding: 10px 0;
+      border-top: 1px dashed #eef2f7;
+    }
+    .review-row:first-of-type{ border-top: none; padding-top: 0; }
+    .review-k{
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 900;
+    }
+    .review-v{
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--text);
+      text-align: right;
+      word-break: break-word;
+    }
+    .review-footer{
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-top: 1px solid #eef2f7;
+      background: linear-gradient(180deg,#f8fbff,#ffffff);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .review-note{
+      flex:1;
+      min-width: 240px;
+      font-size: 12px;
+      font-weight: 700;
+      color:#334155;
+      line-height: 1.55;
+      padding: 10px 12px;
+      border: 1px solid var(--border2);
+      border-radius: 16px;
+      background: #fff;
+    }
+    .review-confirm{
+      flex: 0 0 auto;
+      min-width: 240px;
+      padding: 10px 12px;
+      border: 1px solid rgba(29,102,194,.28);
+      border-radius: 16px;
+      background: rgba(231,240,255,.85);
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--text);
+    }
+    .review-confirm label{
+      display:flex;
+      align-items:flex-start;
+      gap: 10px;
+      margin: 0;
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--text);
+    }
+    .review-confirm input{
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+      accent-color: var(--blue-600);
+    }
+    .review-confirm small{
+      display:block;
+      margin-top: 4px;
+      color:#475569;
+      font-weight: 800;
+    }
+
+    /* Consent collapse */
+    .consent-wrap{
+      margin-top: 14px;
+      border-radius: 18px;
+      background: rgba(231,240,255,.75);
+      border: 1px solid rgba(29,102,194,.22);
+      overflow:hidden;
+      box-shadow: 0 10px 22px rgba(2,22,55,.06);
+    }
+    .consent-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 16px;
+      cursor:pointer;
+      user-select:none;
+      gap: 12px;
+    }
+    .consent-title{
+      font-weight: 900;
+      color: var(--text);
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .consent-req{ color: var(--red-600); font-weight: 900; }
+    .consent-toggle{
+      font-size: 12px;
+      color:#475569;
+      font-weight: 800;
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      white-space:nowrap;
+    }
+    .consent-body{
+      padding: 0 16px 16px;
+      display:none;
+    }
+    .consent-body.open{ display:block; }
+    .consent-text{
+      background:#fff;
+      border: 1px solid var(--border2);
+      border-radius: 16px;
+      padding: 14px;
+      font-size: 13px;
+      font-weight: 650;
+      line-height: 1.55;
+      color: var(--text);
+    }
+    .consent-text p{ margin: 0 0 12px; }
+    .consent-check{
+      margin-top: 12px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 900;
+    }
+    .consent-check input{
+      width: 18px;
+      height: 18px;
+      accent-color: var(--blue-600);
+    }
+    .consent-error{
+      margin-top: 10px;
+      font-size: 12px;
+      color: #b91c1c;
+      font-weight: 900;
+      display:none;
+    }
+    .consent-wrap.invalid{
+      border-color:#fecaca;
+      background:#fef2f2;
+    }
+
+    /* Buttons */
+    .buttons{
+      display:flex;
+      gap: 12px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+    .btn{
+      flex:1;
+      min-width: 160px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border:none;
+      cursor:pointer;
+      font-weight: 900;
+      font-size: 14px;
+      transition: transform .06s ease, filter .12s ease;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn.next{
+      background: linear-gradient(135deg, var(--blue-700), var(--blue-600));
+      color:#fff;
+      box-shadow: 0 16px 30px rgba(29,102,194,.18);
+    }
+    .btn.back{
+      background:#fff;
+      border: 1px solid rgba(29,102,194,.25);
+      color: var(--blue-800);
+    }
+    .btn.submit{
+      background: linear-gradient(135deg, #15803d, var(--green-600));
+      color:#fff;
+      box-shadow: 0 14px 28px rgba(22,163,74,.18);
+    }
+    .btn.submit:disabled{
+      opacity: .65;
+      cursor:not-allowed;
+      box-shadow:none;
+    }
+
+    /* Success overlay */
+    .success-overlay{
+      position:fixed;
+      inset:0;
+      background: rgba(2,22,55,0.55);
+      backdrop-filter: blur(5px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+      padding: 16px;
+    }
+    .success-card{
+      width:100%;
+      max-width: 520px;
+      background:#fff;
+      border-radius: 24px;
+      border: 1px solid var(--border2);
+      box-shadow: 0 26px 80px rgba(2,22,55,.28);
+      padding: 18px 18px 16px;
+      text-align:center;
+    }
+    .success-icon{
+      font-size: 44px;
+      line-height: 1;
+      margin-top: 4px;
+    }
+    .success-title{
+      font-weight: 900;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+    .success-sub{
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+    .success-details{
+      margin-top: 14px;
+      text-align:left;
+      border: 1px solid #eef2f7;
+      border-radius: 18px;
+      padding: 12px;
+      background:#f8fbff;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .success-details b{ font-weight: 900; }
+    .success-note{
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    /* ===== Mobile responsiveness ===== */
+    @media (max-width: 900px){
+      .brandSide{ min-width: 120px; }
+      .brandLogo{ height: 42px; }
+    }
+    @media (max-width: 720px){
+      body{ padding: 12px; }
+      .card{ padding: 14px; border-radius: 22px; }
+      .two-col{ grid-template-columns: 1fr; gap: 12px; }
+      .brandbar{ border-radius: 20px; flex-direction: column; align-items: stretch; }
+      .brandSide{ justify-content:center; min-width: unset; }
+      .brandCenter{ padding: 6px 0; }
+      .review-grid{ grid-template-columns: 1fr; }
+      .review-row{ grid-template-columns: 1fr; }
+      .review-v{ text-align:left; }
+      .buttons .btn{ min-width: 100%; }
+      .check-group, .radio-group{ grid-template-columns: 1fr; }
+      .cal-day{ min-height: 110px; }
+    }
+
+     @media (max-width: 720px){
+      body{ padding: 12px; }
+      .card{ padding: 14px; border-radius: 22px; }
+      .two-col{ grid-template-columns: 1fr; gap: 12px; }
+
+      /* ✅ keep logos left/right on mobile (DO NOT stack) */
+      .brandbar{
+        flex-direction: row;         /* important */
+        padding: 10px 12px;
+        border-radius: 20px;
+        gap: 10px;
+      }
+
+      .brandLogo{
+        height: 38px;               /* smaller on mobile */
+        max-width: 120px;
+        padding: 6px 8px;
+        border-radius: 12px;
+      }
+
+      .brandTitle{ font-size: 16px; }
+      .brandSub{ font-size: 11px; margin-top: 2px; }
+
+      .review-grid{ grid-template-columns: 1fr; }
+      .review-row{ grid-template-columns: 1fr; }
+      .review-v{ text-align:left; }
+      .buttons .btn{ min-width: 100%; }
+      .check-group, .radio-group{ grid-template-columns: 1fr; }
+      .cal-day{ min-height: 110px; }
+    }
+
+    /* ===========================
+        CALENDAR MOBILE IMPROVEMENTS
+        (looser + cleaner + scroll-safe)
+      =========================== */
+
+      /* give calendar area breathing room */
+      .calendar-wrap{
+        padding-bottom: 10px;
+      }
+
+      /* add spacing between day cells (instead of tight table feel) */
+      #calDays.cal-grid{
+        gap: 8px;
+        padding: 12px;
+        background: #f8fbff;
+      }
+
+      /* ✅ keep weekday labels aligned with day cards */
+      .cal-dow.cal-grid{
+        gap: 8px;                 /* same as #calDays gap */
+        padding: 12px 12px 0;     /* same left/right padding as #calDays */
+        background: #f8fbff;      /* match calendar background */
+      }
+
+      /* optional: make weekday labels look like small chips */
+      .cal-dow.cal-grid > div{
+        border-radius: 12px;
+        background: #ffffff;
+        border: 1px solid #eef2f7;
+        box-shadow: 0 4px 10px rgba(2,22,55,.04);
+      }
+
+      /* make each day look like a card */
+      #calDays .cal-day{
+        border: 1px solid #eef2f7;
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: 0 6px 16px rgba(2,22,55,.06);
+      }
+
+      /* remove the old tight grid borders */
+      #calDays .cal-day{
+        border-right: none !important;
+        border-bottom: none !important;
+      }
+
+      /* a bit more space inside each day */
+      #calDays .cal-day{
+        padding: 10px !important;
+        min-height: 106px;
+      }
+
+      /* keep numbers clear */
+      #calDays .cal-num{
+        font-size: 12px;
+      }
+
+      /* slot buttons: slightly taller and cleaner */
+      #calDays .slot-btn{
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+
+      /* make the number side compact */
+      #calDays .slot-btn span:last-child{
+        font-weight: 900;
+        font-variant-numeric: tabular-nums;
+        opacity: .9;
+      }
+
+      /* --------- Mobile tuning --------- */
+      @media (max-width: 720px){
+        /* Allow horizontal scroll if the phone is too narrow */
+        .calendar-wrap{
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .cal-dow.cal-grid{
+          gap: 10px;
+          padding: 12px 12px 0;
+        }
+
+        /* Keep 7 columns usable by giving the grid a minimum width */
+        .cal-grid{
+          min-width: 560px; /* scroll instead of squishing too tight */
+        }
+
+        #calDays.cal-grid{
+          gap: 10px;
+          padding: 12px;
+        }
+
+        #calDays .cal-day{
+          min-height: 112px !important;
+          padding: 10px !important;
+          border-radius: 16px;
+        }
+
+        #calDays .slot-btn{
+          font-size: 12px;
+          padding: 8px 10px;
+        }
+      }
+
+      /* Extra small phones */
+      @media (max-width: 420px){
+        .cal-grid{ min-width: 520px; }
+        #calDays .cal-day{ min-height: 108px !important; }
+      }
+
+      /* =========================================================
+          CALENDAR: PERFECT ALIGNMENT (DOW + DAYS)
+          ========================================================= */
+
+        .calendar-wrap{
+          /* keep the card look */
+          overflow: hidden; /* the scroll will be inside .cal-scroll */
+        }
+
+        /* the single scroll container so headers + days move together */
+        .cal-scroll{
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          background: #f8fbff;
+        }
+
+        /* one shared sizing system for BOTH rows */
+        .cal-scroll .cal-grid{
+          --cal-gap: 10px;
+          --cal-pad: 12px;
+          --cal-col: 78px;                 /* column width on mobile */
+          gap: var(--cal-gap);
+          padding: var(--cal-pad);
+          grid-template-columns: repeat(7, minmax(var(--cal-col), 1fr));
+          min-width: calc(
+            (7 * var(--cal-col)) + (6 * var(--cal-gap)) + (2 * var(--cal-pad))
+          );
+        }
+
+        /* weekday labels row: keep it visible while scrolling vertically */
+        .cal-dow{
+          position: sticky;
+          top: 0;
+          z-index: 5;
+          padding-bottom: 0; /* so it visually connects */
+        }
+
+        /* weekday chips styling (optional, keeps yours) */
+        .cal-dow > div{
+          text-align: center;
+          padding: 10px 6px;
+          font-size: 11px;
+          font-weight: 900;
+          color: var(--muted);
+          background: #ffffff;
+          border: 1px solid #eef2f7;
+          border-radius: 12px;
+          box-shadow: 0 4px 10px rgba(2,22,55,.04);
+        }
+
+        /* day cards */
+        #calDays .cal-day{
+          border: 1px solid #eef2f7 !important;
+          border-radius: 16px;
+          background: #fff;
+          box-shadow: 0 6px 16px rgba(2,22,55,.06);
+          padding: 10px !important;
+          min-height: 112px;
+        }
+
+        /* remove old “table-like” borders that break spacing */
+        #calDays .cal-day{
+          border-right: none !important;
+          border-bottom: none !important;
+        }
+
+        /* Extra small phones: slightly narrower columns */
+        @media (max-width: 420px){
+          .cal-scroll .cal-grid{
+            --cal-col: 72px;
+            --cal-gap: 8px;
+          }
+        }
+    /* ===========================
+      CONSENT / TERMS UI (FIXED)
+      Keeps your existing IDs used by JS
+      =========================== */
+
+    .consent-wrap{
+      margin-top: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(29,102,194,.22);
+      overflow:hidden;
+      box-shadow: 0 18px 40px rgba(2,22,55,.10);
+    }
+
+    .consent-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 16px;
+      cursor:pointer;
+      user-select:none;
+      gap: 12px;
+      background:
+        radial-gradient(900px 240px at 10% 0%, rgba(29,102,194,.14), transparent 55%),
+        linear-gradient(180deg, #f8fbff, #ffffff);
+      border-bottom: 1px solid #eef2f7;
+    }
+
+    .consent-title{
+      font-weight: 900;
+      color: var(--text);
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      font-size: 13px;
+      letter-spacing: .02em;
+    }
+
+    .consent-toggle{
+      background: rgba(231,240,255,.85);
+      border: 1px solid rgba(29,102,194,.18);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-size: 11px;
+      font-weight: 900;
+      color: #16437e;
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      white-space:nowrap;
+    }
+
+    .consent-body{
+      padding: 14px 16px 16px;
+      display:none;
+    }
+    .consent-body.open{ display:block; }
+
+    .consent-text{
+      border-radius: 18px;
+      border: 1px solid #e6edf7;
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
+      padding: 14px 14px 12px;
+      line-height: 1.6;
+    }
+
+    .terms-box{
+      max-height: 220px;
+      overflow: auto;
+      padding-right: 8px;
+    }
+    .terms-box::-webkit-scrollbar{ width: 10px; }
+    .terms-box::-webkit-scrollbar-thumb{
+      background: rgba(29,102,194,.25);
+      border-radius: 999px;
+      border: 3px solid rgba(255,255,255,.9);
+    }
+    .terms-box::-webkit-scrollbar-track{ background: transparent; }
+
+    .terms-title{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .terms-badge{
+      font-size: 11px;
+      font-weight: 900;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(29,102,194,.18);
+      background: rgba(231,240,255,.75);
+      color: #16437e;
+      white-space: nowrap;
+    }
+    .terms-h{
+      font-weight: 950;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .consent-check{
+      margin-top: 12px;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(29,102,194,.18);
+      background: rgba(231,240,255,.55);
+    }
+
+    .consent-check span{ display:block; font-weight: 900; }
+    .consent-check small{
+      display:block;
+      margin-top: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .consent-wrap.invalid{
+      border-color: rgba(220,38,38,.35);
+      background: rgba(254,242,242,.9);
+    }
+    .consent-error{
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(220,38,38,.08);
+      border: 1px solid rgba(220,38,38,.20);
+      font-size: 12px;
+      color: #b91c1c;
+      font-weight: 900;
+      display:none;
+    }
+
+    /* Small screens tighten terms height a bit */
+    @media (max-width: 720px){
+      .terms-box{ max-height: 200px; }
+      .terms-h{ font-size: 13px; }
+      .consent-toggle{ padding: 7px 10px; }
+    }
+    
+        /* Agreement checkbox row */
+        .consent-check{
+          margin-top: 12px;
+          padding: 12px 12px;
+          border-radius: 16px;
+          border: 1px solid rgba(29,102,194,.18);
+          background: rgba(231,240,255,.55);
+        }
+
+        .consent-check span{
+          display:block;
+          font-weight: 900;
+        }
+
+        .consent-check small{
+          display:block;
+          margin-top: 4px;
+          font-size: 12px;
+          font-weight: 700;
+          color: #475569;
+        }
+
+        /* Invalid state clearer */
+        .consent-wrap.invalid{
+          border-color: rgba(220,38,38,.35);
+          background: rgba(254,242,242,.9);
+        }
+
+        .consent-error{
+          padding: 10px 12px;
+          border-radius: 14px;
+          background: rgba(220,38,38,.08);
+          border: 1px solid rgba(220,38,38,.20);
+        }
+
+        /* Mobile tuning */
+        @media (max-width: 720px){
+          .terms-box{ max-height: 200px; }
+          .terms-h{ font-size: 13px; }
+          .consent-toggle{ padding: 7px 10px; }
+        }
+
+        /* ===========================
+          FIX: CALENDAR MOBILE OVERFLOW
+          Put this at the VERY END
+          =========================== */
+
+        .calendar-wrap{ overflow: hidden; }
+
+        /* make DOW + Days scroll together */
+        .cal-scroll{
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          background: #f8fbff;
+        }
+
+        /* shared grid sizing */
+        .cal-scroll .cal-grid{
+          --cal-gap: 10px;
+          --cal-pad: 12px;
+          --cal-col: 96px; /* ✅ wider so AM/PM + number fits */
+          gap: var(--cal-gap);
+          padding: var(--cal-pad);
+          grid-template-columns: repeat(7, minmax(var(--cal-col), 1fr));
+          min-width: calc((7 * var(--cal-col)) + (6 * var(--cal-gap)) + (2 * var(--cal-pad)));
+        }
+
+        /* sticky weekday row */
+        .cal-dow{
+          position: sticky;
+          top: 0;
+          z-index: 5;
+          background: #f8fbff;
+        }
+
+        /* day cards */
+        #calDays .cal-day{
+          border: 1px solid #eef2f7 !important;
+          border-radius: 16px;
+          background: #fff;
+          box-shadow: 0 6px 16px rgba(2,22,55,.06);
+          padding: 10px !important;
+          min-height: 112px;
+        }
+
+        /* ✅ slot buttons: tighter + NO OVERFLOW */
+        #calDays .slot-btn{
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 6px;
+          padding: 6px 10px;       /* ✅ smaller padding */
+          font-size: 11px;         /* ✅ smaller text */
+          white-space: nowrap;     /* ✅ keep in one line */
+          overflow: hidden;        /* ✅ prevents spill */
+        }
+
+        #calDays .slot-btn span:last-child{
+          min-width: 2ch;
+          text-align: right;
+          font-weight: 900;
+          font-variant-numeric: tabular-nums;
+        }
+       
+         /* number badge text */
+        .slot-btn .rem{
+          min-width: 24px;
+          text-align: right;
+          font-weight: 900;
+          font-variant-numeric: tabular-nums;
+        }
+
+        /* 0 = red */
+        .slot-btn .rem.rem-zero{
+          color: var(--red-600);
+        }
+
+        /* when selected, keep normal numbers white */
+        .slot-btn.selected .rem{
+          color: #fff;
+        }
+
+        /* but keep 0 red even when selected */
+        .slot-btn.selected .rem.rem-zero{
+          color: var(--red-600);
+        }
+
+        /* disabled buttons reduce opacity; keep the 0 visible red */
+        .slot-btn:disabled .rem.rem-zero{
+          opacity: 1;
+        }
+
+        /* extra small phones */
+        @media (max-width: 420px){
+          .cal-scroll .cal-grid{
+            --cal-col: 88px; /* still enough */
+            --cal-gap: 8px;
+          }
+        }
+        
+        /* ===== Force selected slot look (like before) ===== */
+        #calDays .slot-btn.selected{
+          background:#1b4982 !important;
+          border-color:#1b4982 !important;
+          color:#fff !important;
+          box-shadow: 0 10px 18px rgba(27,73,130,.25);
+        }
+
+        /* make AM/PM text white when selected */
+        #calDays .slot-btn.selected span:first-child{
+          color:#fff !important;
+          opacity: 1 !important;
+        }
+
+        /* make number white when selected */
+        #calDays .slot-btn.selected .rem{
+          color:#fff !important;
+        }
+
+        /* BUT if it's zero, keep it red even when selected */
+        #calDays .slot-btn.selected .rem.rem-zero{
+          color: var(--red-600) !important;
+        }
+
+        /* ===========================
+          SUBMIT LOADING OVERLAY (VFS)
+          =========================== */
+        .submit-overlay{
+          position: fixed;
+          inset: 0;
+          z-index: 9998; /* below successOverlay(9999), above everything else */
+          display: none;
+          align-items: center;
+          justify-content: center;
+          padding: 16px;
+          background: rgba(2,22,55,.55);
+          backdrop-filter: blur(6px);
+        }
+
+        .submit-card{
+          width: 100%;
+          max-width: 520px;
+          border-radius: 26px;
+          padding: 18px;
+          background: rgba(255,255,255,.96);
+          border: 1px solid rgba(231,240,255,.95);
+          box-shadow: 0 30px 80px rgba(2,22,55,.28);
+          overflow: hidden;
+        }
+
+        .submit-hero{
+          border-radius: 20px;
+          padding: 14px 14px 12px;
+          background:
+            radial-gradient(900px 260px at 10% 0%, rgba(29,102,194,.18), transparent 55%),
+            radial-gradient(900px 260px at 95% 0%, rgba(21,83,163,.14), transparent 55%),
+            linear-gradient(180deg, #f8fbff, #ffffff);
+          border: 1px solid rgba(29,102,194,.14);
+        }
+
+        .submit-title{
+          font-weight: 950;
+          font-size: 16px;
+          color: var(--text);
+        }
+
+        .submit-sub{
+          margin-top: 6px;
+          font-size: 13px;
+          font-weight: 800;
+          color: var(--muted);
+          line-height: 1.45;
+        }
+
+        /* Airplane animation lane */
+        .flight-lane{
+          position: relative;
+          margin-top: 14px;
+          height: 88px;
+          border-radius: 18px;
+          background: rgba(231,240,255,.75);
+          border: 1px solid rgba(29,102,194,.18);
+          overflow: hidden;
+          box-shadow: 0 10px 22px rgba(2,22,55,.06);
+        }
+
+        /* subtle moving clouds */
+        .clouds{
+          position:absolute;
+          inset:0;
+          background:
+            radial-gradient(24px 18px at 20% 35%, rgba(29,102,194,.18), transparent 60%),
+            radial-gradient(30px 22px at 45% 55%, rgba(21,83,163,.14), transparent 60%),
+            radial-gradient(22px 16px at 70% 30%, rgba(29,102,194,.16), transparent 60%),
+            radial-gradient(26px 18px at 85% 60%, rgba(21,83,163,.12), transparent 60%);
+          opacity: .9;
+          animation: cloudsMove 2.4s linear infinite;
+        }
+
+        @keyframes cloudsMove{
+          from{ transform: translateX(0); }
+          to{ transform: translateX(-60px); }
+        }
+
+        /* plane + trail */
+        .plane{
+          position:absolute;
+          left: -60px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 56px;
+          height: 56px;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          border-radius: 18px;
+          background: linear-gradient(135deg, var(--blue-700), var(--blue-600));
+          box-shadow: 0 18px 34px rgba(29,102,194,.28);
+          border: 1px solid rgba(255,255,255,.65);
+          animation: flyAcross 1.9s ease-in-out infinite;
+        }
+
+        .plane::before{
+          content:"✈";
+          color:#fff;
+          font-size: 24px;
+          font-weight: 900;
+          transform: rotate(10deg);
+        }
+
+        .trail{
+          position:absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          height: 3px;
+          width: 100%;
+          background: linear-gradient(90deg, rgba(29,102,194,0), rgba(29,102,194,.25), rgba(29,102,194,0));
+          opacity: .9;
+        }
+
+        @keyframes flyAcross{
+          0%   { left: -70px; transform: translateY(-50%) translateX(0) rotate(0deg); }
+          45%  { transform: translateY(-54%) rotate(2deg); }
+          100% { left: calc(100% + 70px); transform: translateY(-50%) rotate(0deg); }
+        }
+
+        /* progress dots */
+        .progress{
+          display:flex;
+          gap: 6px;
+          justify-content:center;
+          margin-top: 12px;
+        }
+
+        .dot{
+          width: 8px;
+          height: 8px;
+          border-radius: 999px;
+          background: rgba(29,102,194,.25);
+          animation: bounce 1s ease-in-out infinite;
+        }
+        .dot:nth-child(2){ animation-delay: .12s; }
+        .dot:nth-child(3){ animation-delay: .24s; }
+
+        @keyframes bounce{
+          0%,100%{ transform: translateY(0); opacity: .6; }
+          50%{ transform: translateY(-6px); opacity: 1; }
+        }
+
+        .submit-tip{
+          margin-top: 12px;
+          padding: 10px 12px;
+          border-radius: 16px;
+          border: 1px solid rgba(29,102,194,.16);
+          background: #fff;
+          font-size: 12px;
+          font-weight: 800;
+          color:#334155;
+          line-height: 1.5;
+        }
+
+        /* mobile tighten */
+        @media (max-width: 480px){
+          .submit-card{ padding: 16px; border-radius: 22px; }
+          .flight-lane{ height: 82px; }
+          .plane{ width: 52px; height: 52px; border-radius: 16px; }
+        }
+
+        .cal-day.holiday{
+        background: repeating-linear-gradient(45deg,#fff1f2,#fff1f2 10px,#ffe4e6 10px,#ffe4e6 20px);
+        border: 1px solid rgba(220,38,38,.25) !important;
+      }
+
+      .cal-day.holiday .cal-num{
+        color: #991b1b;
+      }
+
+      .holiday-tag{
+        margin-top: 6px;
+        padding: 6px 8px;
+        border-radius: 12px;
+        background: rgba(220,38,38,.08);
+        border: 1px solid rgba(220,38,38,.20);
+        color: #991b1b;
+        font-size: 11px;
+        font-weight: 900;
+        line-height: 1.2;
+
+        /* prevents layout breaking */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* ===== HOLIDAY: FULL RED BOX + HIDE AM/PM ===== */
+      #calDays .cal-day.holiday{
+        background: #fff1f2 !important;                 /* light red */
+        border: 2px solid rgba(220,38,38,.55) !important;
+        box-shadow: 0 10px 22px rgba(220,38,38,.10) !important;
+      }
+
+      /* make the date number red */
+      #calDays .cal-day.holiday .cal-num{
+        color: #b91c1c !important;
+      }
+
+      /* ✅ hide AM/PM completely on holiday */
+      #calDays .cal-day.holiday .slot-box{
+        display: none !important;
+      }
+
+      /* optional: make the holiday label stronger */
+      #calDays .cal-day.holiday .holiday-tag{
+        background: rgba(220,38,38,.12) !important;
+        border: 1px solid rgba(220,38,38,.30) !important;
+        color: #991b1b !important;
+      }
+
+      /* =========================================================
+        CALENDAR STATUS COLORS (PRO LOOK)
+        Put at VERY END of CSS
+      ========================================================= */
+
+        /* 🎉 HOLIDAY: full red, hide AM/PM */
+        #calDays .cal-day.holiday{
+          background: #fee2e2 !important;
+          border: 2px solid rgba(220,38,38,.55) !important;
+          box-shadow: 0 10px 22px rgba(220,38,38,.12) !important;
+        }
+        #calDays .cal-day.holiday .cal-num{ color:#991b1b !important; }
+        #calDays .cal-day.holiday .slot-box{ display:none !important; } /* ✅ hide AM/PM */
+
+        /* ✅ BOTH AVAILABLE (AM & PM): strong green */
+        #calDays .cal-day.avail-both{
+          background: #ecfdf5 !important;
+          border: 2px solid rgba(34,197,94,.60) !important;
+          box-shadow: 0 10px 22px rgba(34,197,94,.14) !important;
+        }
+        #calDays .cal-day.avail-both .cal-num{ color:#166534 !important; }
+
+        /* 🟡 ONE AVAILABLE (AM or PM only): yellow */
+        #calDays .cal-day.avail-one{
+          background: #fffbeb !important;
+          border: 2px solid rgba(245,158,11,.55) !important;
+          box-shadow: 0 10px 22px rgba(245,158,11,.14) !important;
+        }
+        #calDays .cal-day.avail-one .cal-num{ color:#92400e !important; }
+
+        /* 🔴 FULL (0 slots on both AM & PM): red */
+        #calDays .cal-day.full{
+          background: #fff1f2 !important;
+          border: 2px solid rgba(244,63,94,.45) !important;
+          box-shadow: 0 10px 22px rgba(244,63,94,.12) !important;
+        }
+        #calDays .cal-day.full .cal-num{ color:#9f1239 !important; }
+
+        /* Optional: make disabled days a bit “muted” */
+        #calDays .cal-day.disabled:not(.holiday){
+          opacity: .75;
+        }
+
+        /* ✅ Step 3 reminder box */
+        .step3-reminder{
+          width:100%;
+          margin: 10px 0 14px;
+          padding: 12px 14px;
+          border-radius: 14px;
+          background: rgba(255,255,255,.9);
+          border: 1px solid rgba(15, 23, 42, .10);
+          box-shadow: 0 10px 22px rgba(2, 6, 23, .06);
+        }
+
+        .step3-reminder__title{
+          font-weight: 800;
+          font-size: 13px;
+          letter-spacing: .2px;
+          color: #0b1f33;
+          margin-bottom: 6px;
+        }
+
+        .step3-reminder__text{
+          font-size: 13px;
+          line-height: 1.45;
+          color: #334155;
+        }
+
+        /* Mobile: slightly tighter */
+        @media (max-width: 520px){
+          .step3-reminder{ padding: 10px 12px; border-radius: 12px; }
+          .step3-reminder__text{ font-size: 12.5px; }
+        }
+
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card">
+
+      <!-- BRAND -->
+      <div class="brandbar">
+        <div class="brandSide">
+          <img src="assets/1bossco-logo.png" alt="1BOSSCO" class="brandLogo" onerror="this.style.display='none'">
+        </div>
+        <div class="brandCenter">
+          <div class="brandTitle">VFS · Appointment</div>
+        </div>
+        <div class="brandSide" style="justify-content:flex-end;">
+          <img src="assets/vfs-logo.jpg" alt="VFS" class="brandLogo" onerror="this.style.display='none'">
+        </div>
+      </div>
+
+      <!-- STEP PILLS -->
+      <div class="stepPills">
+        <div class="step active">1 · Personal</div>
+        <div class="step">2 · Visa</div>
+        <div class="step">3 · Schedule</div>
+        <div class="step">4 · Review</div>
+      </div>
+
+      <!-- NOTICE -->
+      <div class="notice" id="noticeBox"></div>
+
+      <!-- SUCCESS OVERLAY -->
+      <div class="success-overlay" id="successOverlay" style="display:none;">
+        <div class="success-card">
+          <div class="success-icon">✅</div>
+          <div class="success-title">Appointment Completed</div>
+          <div class="success-sub">Your appointment was saved successfully.</div>
+
+          <div class="success-details" id="successDetails"></div>
+
+          <button type="button" class="btn next" id="successOkBtn" style="margin-top:14px;">Done</button>
+          <div class="success-note">You can now close this page.</div>
+        </div>
+      </div>
+
+      <!-- SUBMIT LOADING OVERLAY -->
+      <div class="submit-overlay" id="submitOverlay" style="display:none;">
+        <div class="submit-card">
+          <div class="submit-hero">
+            <div class="submit-title">Saving your appointment…</div>
+            <div class="submit-sub">Please don’t close or refresh this page while we confirm your slot.</div>
+          </div>
+
+          <div class="flight-lane" aria-hidden="true">
+            <div class="clouds"></div>
+            <div class="trail"></div>
+            <div class="plane"></div>
+          </div>
+
+          <div class="progress" aria-hidden="true">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+
+          <div class="submit-tip">
+            <b>Tip:</b> If the connection is slow, this may take a few seconds.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAILURE OVERLAY -->
+      <div id="failOverlay" style="
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,.75);
+        display:none;
+        align-items:center;
+        justify-content:center;
+        z-index:10000;
+      ">
+        <div style="
+          background:#fff;
+          padding:28px;
+          border-radius:16px;
+          width:90%;
+          max-width:420px;
+          text-align:center;
+          box-shadow:0 20px 50px rgba(0,0,0,.25);
+        ">
+          <div style="font-size:46px;">❌</div>
+          <h2 style="margin:12px 0 8px;">Submission Failed</h2>
+          <p style="color:#555; font-size:14px; margin-bottom:20px;">
+            Something went wrong while saving your appointment.
+            Please check your internet connection and try again.
+          </p>
+
+          <button onclick="closeFailOverlay()" style="
+            padding:10px 18px;
+            border:none;
+            border-radius:8px;
+            background:#0b5cff;
+            color:#fff;
+            font-weight:600;
+            cursor:pointer;
+          ">
+            Try Again
+          </button>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <form id="appointmentForm">
+
+        <!-- ===================== STEP 1 ===================== -->
+        <div class="form-step active" id="step1">
+          <div class="two-col">
+
+            <div class="field">
+              <label>Email Address (active and accessible)<span class="req">*</span></label>
+              <input id="email" type="email" required placeholder="e.g., name@email.com" />
+              <div class="helper" id="emailHelper">This field is required.</div>
+            </div>
+
+            <div class="field">
+              <label>Mobile Number<span class="req">*</span></label>
+              <input id="mobile" type="tel" required placeholder="e.g., 09XXXXXXXXX" />
+              <div class="helper" id="mobileHelper">This field is required.</div>
+            </div>
+
+            <div class="field">
+              <label>Surname (as in passport)<span class="req">*</span></label>
+              <input id="surname" type="text" required placeholder="e.g., Dela Cruz" />
+              <div class="helper" id="surnameHelper">This field is required.</div>
+            </div>
+
+            <div class="field">
+              <label>Given Name (as in passport)<span class="req">*</span></label>
+              <input id="givenName" type="text" required placeholder="e.g., Juan" />
+              <div class="helper" id="givenHelper">This field is required.</div>
+            </div>
+
+            <div class="field">
+              <label>Middle Name (as in passport)<span class="req">*</span></label>
+              <input id="middleName" type="text" required placeholder="e.g., Santos" />
+              <div class="helper" id="middleHelper">This field is required.</div>
+
+              <label class="no-middle">
+                <input type="checkbox" id="noMiddleCheck" />
+                I don’t have a middle name
+              </label>
+            </div>
+
+            <div class="field">
+              <label>Suffix (if applicable)</label>
+              <select id="suffix">
+                <option value="" selected>None</option>
+                <option value="Jr.">Jr.</option>
+                <option value="Sr.">Sr.</option>
+                <option value="II">II</option>
+                <option value="III">III</option>
+                <option value="IV">IV</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label>Are you a permanent resident of Bataan?<span class="req">*</span></label>
+              <div class="radio-group" data-group="resident" id="residentGroup">
+                <label class="radio-option"><input type="radio" name="resident" value="Yes" required /> Yes</label>
+                <label class="radio-option"><input type="radio" name="resident" value="No" /> No</label>
+              </div>
+              <div class="helper" id="residentHelper">This field is required.</div>
+            </div>
+
+            <!-- Show ONLY if Resident = YES -->
+            <div class="field full" id="muniWrap" style="display:none;">
+              <label>Municipality / City (Bataan)<span class="req">*</span></label>
+              <select id="municipality">
+                <option value="" disabled selected>Select your municipality</option>
+                <option>Abucay</option><option>Bagac</option><option>Balanga City</option>
+                <option>Dinalupihan</option><option>Hermosa</option><option>Limay</option>
+                <option>Mariveles</option><option>Morong</option><option>Orani</option>
+                <option>Orion</option><option>Pilar</option><option>Samal</option>
+              </select>
+              <div class="helper" id="muniHelper">This field is required.</div>
+            </div>
+
+            <!-- Show ONLY if Resident = NO -->
+            <div class="field full" id="addressWrap" style="display:none;">
+              <label>Complete Address (Outside Bataan)<span class="req">*</span></label>
+              <input id="outsideAddress" type="text" placeholder="House No., Street, Barangay, City/Province" />
+              <div class="helper" id="addressHelper">This field is required.</div>
+            </div>
+
+            <div class="field full">
+              <label>Are you an OFW?<span class="req">*</span></label>
+              <div class="radio-group" data-group="ofw" id="ofwGroup">
+                <label class="radio-option"><input type="radio" name="ofw" value="Yes" required /> Yes</label>
+                <label class="radio-option"><input type="radio" name="ofw" value="No" /> No</label>
+              </div>
+              <div class="helper" id="ofwHelper">This field is required.</div>
+            </div>
+
+          </div>
+
+          <div class="buttons">
+            <button type="button" class="btn next" id="step1Next">Continue →</button>
+          </div>
+        </div>
+
+        <!-- ===================== STEP 2 ===================== -->
+        <div class="form-step" id="step2">
+
+          <div class="field full">
+            <label>Country<span class="req">*</span></label>
+            <select id="countryType" required>
+              <option value="" disabled selected>Loading countries...</option>
+            </select>
+            <div class="helper" id="countryHelper">This field is required.</div>
+
+            <!-- Service dropdown -->
+            <div id="serviceWrap" style="display:none;">
+              <label>Select Service / Category<span class="req">*</span></label>
+              <select id="serviceSelect"></select>
+              <div class="helper" id="serviceHelper">Please select a service.</div>
+            </div>
+
+            <label>Number of Pax<span class="req">*</span></label>
+            <input id="paxCount" type="number" inputmode="numeric" min="1" step="1" required placeholder="e.g., 1" />
+            <div class="helper" id="paxHelper">Please enter a valid number of pax (minimum 1).</div>
+
+            <!-- Pricing display -->
+            <div class="price-box" id="priceBox">
+              <strong>Price:</strong> <span id="priceText">Select a country and enter pax to see pricing.</span>
+              <div class="price-muted" id="priceNote"></div>
+            </div>
+
+            <!-- ✅ Step 3 Reminder (auto updates by country) -->
+            <div id="step3Reminder" class="step3-reminder">
+              <div class="step3-reminder__title">Reminder</div>
+              <div id="step3ReminderText" class="step3-reminder__text">
+                Select your Country first to see the required working days before travel.
+              </div>
+            </div>
+
+            <div class="field full">
+              <label>Intended Travel Date<span class="req">*</span></label>
+              <input id="apptDate" type="date" required />
+              <div class="helper" id="dateHelper">This field is required.</div>
+            </div>
+
+            <div class="field full">
+              <label>Application Type<span class="req">*</span></label>
+              <div class="radio-group" data-group="appType" id="appTypeGroup">
+                <label class="radio-option"><input type="radio" name="appType" value="Individual" required /> Individual</label>
+                <label class="radio-option"><input type="radio" name="appType" value="Travel Agency" /> Travel Agency</label>
+              </div>
+              <div class="helper" id="appTypeHelper">This field is required.</div>
+            </div>
+          </div>
+
+          <div class="field full">
+            <label>Visa Type Applied For<span class="req">*</span></label>
+            <select id="visaType" required>
+              <option value="" disabled selected>Select visa type</option>
+              <option value="Tourist">Tourist</option>
+              <option value="Business">Business</option>
+              <option value="Work">Work</option>
+              <option value="Student">Student</option>
+              <option value="Family / Dependent">Family / Dependent</option>
+              <option value="Other">Other</option>
+            </select>
+            <div class="helper" id="visaTypeHelper">This field is required.</div>
+          </div>
+
+          <div class="field full" id="otherVisaWrap" style="display:none;">
+            <label>Please specify other visa type<span class="req">*</span></label>
+            <input id="otherVisaType" type="text" placeholder="Type visa type here..." />
+            <div class="helper" id="otherVisaHelper">This field is required.</div>
+          </div>
+
+          <div class="field full">
+            <label>Entry Type<span class="req">*</span></label>
+            <select id="entryType" required>
+              <option value="" disabled selected>Select entry type</option>
+              <option value="Single Entry">Single Entry</option>
+              <option value="Double Entry">Double Entry</option>
+              <option value="Multiple Entry">Multiple Entry</option>
+            </select>
+            <div class="helper" id="entryTypeHelper">This field is required.</div>
+          </div>
+
+          <div class="field full">
+            <label>Is this a first-time Visa Application for this country?<span class="req">*</span></label>
+            <div class="radio-group" data-group="firstTimeVisa" id="firstTimeVisaGroup">
+              <label class="radio-option"><input type="radio" name="firstTimeVisa" value="Yes" required /> Yes</label>
+              <label class="radio-option"><input type="radio" name="firstTimeVisa" value="No" /> No</label>
+            </div>
+            <div class="helper" id="firstTimeVisaHelper">This field is required.</div>
+          </div>
+
+          <div class="field full">
+            <label>Have you accomplished your visa application form?<span class="req">*</span></label>
+            <div class="radio-group" data-group="appFormDone" id="appFormDoneGroup">
+              <label class="radio-option"><input type="radio" name="appFormDone" value="Yes" required /> Yes</label>
+              <label class="radio-option"><input type="radio" name="appFormDone" value="No" /> No</label>
+            </div>
+            <div class="helper" id="appFormDoneHelper">This field is required.</div>
+          </div>
+
+          <div class="buttons">
+            <button type="button" class="btn back backBtn">Back</button>
+            <button type="button" class="btn next" id="step2Next">Next</button>
+          </div>
+        </div>
+
+        <!-- ===================== STEP 3 ===================== -->
+        <div class="form-step" id="step3">
+
+          <div class="price-box" id="windowBox" style="margin-top:10px;">
+            <strong>Allowed Window:</strong>
+                <div id="windowText" class="price-muted">Select your Country + Intended Travel Date in Step 2.</div>
+              <div id="nearestText" class="price-muted"></div>
+            <div id="processingText" class="price-muted"></div>
+          </div>
+
+          <div class="calendar-wrap">
+            <div class="cal-loading" id="calLoading" style="display:none;">
+              <div class="cal-loading-box">
+                <div class="spinner"></div>
+                <div>Loading calendar…</div>
+              </div>
+            </div>
+
+            <div class="cal-head">
+              <button type="button" class="cal-nav" id="calPrev">‹</button>
+              <div class="cal-title" id="calTitle">Month YYYY</div>
+              <button type="button" class="cal-nav" id="calNext">›</button>
+            </div>
+
+            <div class="cal-scroll">
+              <div class="cal-grid cal-dow">
+                <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+              </div>
+
+              <div class="cal-grid" id="calDays"></div>
+            </div>
+
+            <div class="helper" id="slotHelper" style="display:none; margin:12px;">
+              Please select a date and time (AM or PM).
+            </div>
+
+            <div class="selected-box" id="selectedBox" style="display:none;">
+              <strong>Selected:</strong> <span id="selectedText"></span>
+            </div>
+
+            <input type="hidden" id="appointmentDate" />
+            <input type="hidden" id="appointmentSession" />
+          </div>
+
+          <div class="field full" style="margin-top:16px;">
+            <label>
+              Source (where did you find out about VFS Global @ the Bunker?) Click all that apply.
+              <span class="req">*</span>
+            </label>
+
+            <div class="check-group" id="sourceGroup">
+              <label class="check-option">
+                <input type="checkbox" name="source" value="Facebook (1Bataan / Gov.Joet)">
+                Facebook (1Bataan / Gov.Joet)
+              </label>
+              <label class="check-option">
+                <input type="checkbox" name="source" value="Facebook (InvestBataan / PPP & Investment Center)">
+                Facebook (InvestBataan / PPP & Investment Center)
+              </label>
+              <label class="check-option">
+                <input type="checkbox" name="source" value="Facebook (1BOSSCO/Peso Capitol Bataan/PESO Bataan)">
+                Facebook (1BOSSCO/Peso Capitol Bataan/PESO Bataan)
+              </label>
+              <label class="check-option">
+                <input type="checkbox" name="source" value="Word of Mouth">
+                Word of Mouth
+              </label>
+              <label class="check-option">
+                <input type="checkbox" name="source" value="YouTube">
+                YouTube
+              </label>
+              <label class="check-option">
+                <input type="checkbox" name="source" value="Tiktok">
+                Tiktok
+              </label>
+              <label class="check-option">
+                <input type="checkbox" id="sourceOtherCheck" name="source" value="Other">
+                Other
+              </label>
+            </div>
+
+            <div class="field full" id="sourceOtherWrap" style="display:none; margin-top:10px;">
+              <label>Please specify other source<span class="req">*</span></label>
+              <input id="sourceOtherText" type="text" placeholder="Type here..." />
+              <div class="helper" id="sourceOtherHelper">This field is required.</div>
+            </div>
+
+            <div class="helper" id="sourceHelper">Please select at least one source.</div>
+          </div>
+
+          <div class="buttons">
+            <button type="button" class="btn back backBtn">Back</button>
+            <button type="button" class="btn next" id="step3Next">Next</button>
+          </div>
+        </div>
+
+        <!-- ===================== STEP 4 ===================== -->
+        <div class="form-step" id="step4">
+
+          <div class="review-card" id="reviewCard">
+            <div class="review-hero">
+              <div class="review-title">Review & Submit</div>
+              <p class="review-sub" id="reviewSub">Please check your details before confirming.</p>
+            </div>
+
+            <div class="review-body">
+              <div class="review-grid">
+                <div class="review-section">
+                  <div class="review-section-title">
+                    <div class="left"><div class="icon-pill">👤</div>Applicant</div>
+                    <div class="badge2">Personal</div>
+                  </div>
+
+                  <div class="review-row"><div class="review-k">Full Name</div><div class="review-v" id="r_fullname">-</div></div>
+                  <div class="review-row"><div class="review-k">Email</div><div class="review-v" id="r_email">-</div></div>
+                  <div class="review-row"><div class="review-k">Mobile</div><div class="review-v" id="r_mobile">-</div></div>
+                </div>
+
+                <div class="review-section">
+                  <div class="review-section-title">
+                    <div class="left"><div class="icon-pill">🧾</div>Application</div>
+                    <div class="badge2">Details</div>
+                  </div>
+
+                  <div class="review-row"><div class="review-k">Country / Mission</div><div class="review-v" id="r_country">-</div></div>
+                  <div class="review-row"><div class="review-k">Pax</div><div class="review-v" id="r_pax">-</div></div>
+                  <div class="review-row"><div class="review-k">Pricing</div><div class="review-v" id="r_price">-</div></div>
+                  <div class="review-row"><div class="review-k">Intended Travel Date</div><div class="review-v" id="r_traveldate">-</div></div>
+                  <div class="review-row"><div class="review-k">Appointment Slot</div><div class="review-v" id="r_slot">-</div></div>
+                  <div class="review-row"><div class="review-k">Visa Type</div><div class="review-v" id="r_visa">-</div></div>
+                  <div class="review-row"><div class="review-k">Entry Type</div><div class="review-v" id="r_entry">-</div></div>
+                  <div class="review-row"><div class="review-k">Application Type</div><div class="review-v" id="r_apptype">-</div></div>
+                  <div class="review-row"><div class="review-k">First-time Visa</div><div class="review-v" id="r_firsttime">-</div></div>
+                  <div class="review-row"><div class="review-k">Form Done</div><div class="review-v" id="r_formdone">-</div></div>
+                </div>
+              </div>
+
+              <div class="review-footer">
+                <div class="review-note" id="reviewNote">
+                  <b>Note:</b> Please arrive <b>15 minutes early</b>. Bring your passport and requirements.
+                </div>
+
+                <div class="review-confirm">
+                  <label>
+                    <input type="checkbox" id="confirmCheck" />
+                    <div>
+                      I confirm the information is correct.
+                      <small>You can still go back and edit before submitting.</small>
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CONSENT / TERMS -->
+          <div class="consent-wrap" id="consentBox">
+
+            <div class="consent-head" id="consentHead">
+              <div class="consent-title">
+                ✅ Consent & Declaration <span class="consent-req">*</span>
+              </div>
+
+              <div class="consent-toggle">
+                <span id="consentArrow">▸</span>
+                <span>View terms</span>
+              </div>
+            </div>
+
+            <div class="consent-body" id="consentBody">
+              <div class="consent-text">
+
+                <div class="terms-title">
+                  <span class="terms-badge">Required</span>
+                  <div class="terms-h">Terms & Agreement</div>
+                </div>
+
+                <div class="terms-box">
+                  <p>
+                    By proceeding, I certify that <b>all information I provided is true, accurate, and complete</b>
+                    to the best of my knowledge. I understand that incomplete, inaccurate, or inconsistent information
+                    may result in deferment, rescheduling, or non-processing of my appointment.
+                  </p>
+
+                  <p>
+                    I acknowledge that my personal data may be collected, used, shared, and processed by the
+                    <b>Provincial Government of Bataan</b> and <b>VFS Global</b> solely for appointment scheduling
+                    and coordination, in accordance with applicable data privacy laws and regulations.
+                  </p>
+
+                  <p>
+                    I understand that appointment availability depends on VFS capacity and that changes may occur.
+                    I agree to follow the instructions provided and to bring required documents on the appointment date.
+                  </p>
+
+                  <p>
+                    If I am booking on behalf of other applicants, I confirm that I have authorization to provide
+                    their information for this purpose.
+                  </p>
+                </div>
+              </div>
+
+              <label class="consent-check">
+                <input type="checkbox" id="consentAgree" />
+                <div>
+                  <span>I have read and agree to the Terms & Agreement.</span>
+                  <small>This is required to submit your appointment.</small>
+                </div>
+              </label>
+
+              <div class="consent-error" id="consentErr">Consent is required before submitting.</div>
+            </div>
+
+          </div>
+
+          <div class="buttons">
+            <button type="button" class="btn back backBtn">Back</button>
+            <button type="submit" class="btn submit" id="submitBtn" disabled>Confirm Appointment</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+  <script>
+    /* =========================================================
+      API CONFIG (FOR GITHUB HOSTING)
+    ========================================================= */
+    const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyWbD2bPQNrTcRlzEiOpAKnMh38MO9bK0FwktXC5ryFEvSLCVcLMyyy4sJ4Hpr8UZNOTQ/exec";
+
+    async function apiGet(fn, p1="", p2=""){
+      const url = `${WEBAPP_URL}?fn=${encodeURIComponent(fn)}&p1=${encodeURIComponent(p1)}&p2=${encodeURIComponent(p2)}`;
+      const res = await fetch(url);
+      const json = await res.json();
+      if (!json.ok) throw new Error(json.message || "API error");
+      return json.data;
+    }
+
+    async function apiPost(fn, data){
+      const res = await fetch(WEBAPP_URL, {
+        method: "POST",
+        headers: { "Content-Type":"text/plain;charset=utf-8" },
+        body: JSON.stringify({ fn, data })
+      });
+      const json = await res.json();
+      if (!json.ok) throw new Error(json.message || "API error");
+      return json.data;
+    }
+
+    /* =========================================================
+      GLOBAL STATE
+    ========================================================= */
+    let PUBLIC_COUNTRIES = [];
+    let COUNTRY_NAME_TO_ID = {};
+    let COUNTRY_ID_TO_PROC = {}; // processing_days
+    let HOLIDAY_SET = new Set();   // still useful for fast checks
+    let HOLIDAY_MAP = {};          // "YYYY-MM-DD" -> "Holiday Name"
+
+    let PRICE_ROWS_FOR_COUNTRY = [];
+    let SELECTED_PRICE_ROW = null;
+    let PRICE_LOADING = false;  // ← add this
+
+    let SELECTED_COUNTRY_ID = "";
+    let SELECTED_PROC_DAYS = 0;
+
+    let LATEST_AVAILABLE_ISO = "";
+    let NEAREST_AVAILABLE_ISO = "";
+
+    // Availability map by date
+    // { "YYYY-MM-DD": { is_open, capacity_am, booked_am, capacity_pm, booked_pm } }
+    let AVAIL_MAP = {};
+
+    /* =========================================================
+      STEP NAVIGATION
+    ========================================================= */
+    const steps = document.querySelectorAll(".form-step");
+    const indicators = document.querySelectorAll(".step");
+    const backBtns = document.querySelectorAll(".back");
+    const noticeBox = document.getElementById("noticeBox");
+    let currentStep = 0;
+
+    function updateSteps() {
+      steps.forEach((step, index) => {
+        step.classList.toggle("active", index === currentStep);
+        if (indicators[index]) indicators[index].classList.toggle("active", index === currentStep);
+      });
+    }
+
+    function showNotice(msg, ok=true) {
+      noticeBox.style.display = "block";
+      noticeBox.style.borderColor = ok ? "rgba(34,197,94,.25)" : "rgba(239,68,68,.25)";
+      noticeBox.style.background = ok ? "rgba(34,197,94,.08)" : "rgba(239,68,68,.06)";
+      noticeBox.style.color = ok ? "#14532d" : "#991b1b";
+      noticeBox.textContent = msg;
+    }
+
+    function hideNotice() {
+      noticeBox.style.display = "none";
+      noticeBox.textContent = "";
+    }
+
+    function markInvalid(el, helperEl) {
+      if (!el) return;
+      el.classList.add("invalid");
+      if (helperEl) helperEl.style.display = "block";
+    }
+
+    function clearInvalid(el, helperEl) {
+      if (!el) return;
+      el.classList.remove("invalid");
+      if (helperEl) helperEl.style.display = "none";
+    }
+
+    /* =========================================================
+  SCROLL TO FIRST INVALID (UX)
+========================================================= */
+function scrollToEl(el){
+  if (!el) return;
+  const y = el.getBoundingClientRect().top + window.pageYOffset - 110; // offset for header
+  window.scrollTo({ top: y, behavior: "smooth" });
+  try { el.focus({ preventScroll: true }); } catch(e){}
+}
+
+function scrollToHelper(helperEl){
+  if (!helperEl) return;
+  const y = helperEl.getBoundingClientRect().top + window.pageYOffset - 110;
+  window.scrollTo({ top: y, behavior: "smooth" });
+}
+
+function scrollToFirstErrorInStep(stepEl){
+  if (!stepEl) return;
+
+  // 1) invalid inputs/selects/textareas
+  let target = stepEl.querySelector(".invalid");
+
+  // 2) invalid radio/check groups (you add class "invalid" to group containers)
+  if (!target) target = stepEl.querySelector(".radio-group.invalid, .check-group.invalid, .consent-wrap.invalid");
+
+  // 3) visible helper messages (fallback)
+  if (!target){
+    const helpers = Array.from(stepEl.querySelectorAll(".helper, .consent-error"))
+      .filter(h => getComputedStyle(h).display !== "none");
+    if (helpers.length) return scrollToHelper(helpers[0]);
+  }
+
+  if (target) scrollToEl(target);
+}
+
+    function attachClearOnInput(inputId, helperId) {
+      const input = document.getElementById(inputId);
+      const helper = document.getElementById(helperId);
+      if (!input) return;
+
+      const handler = () => {
+        if (String(input.value || "").trim() !== "") {
+          clearInvalid(input, helper);
+          hideNotice();
+        }
+      };
+      input.addEventListener("input", handler);
+      input.addEventListener("change", handler);
+    }
+
+    /* =========================================================
+      UTILS
+    ========================================================= */
+    function toNum(x, fallback=0){
+      const n = Number(String(x ?? "").replace(/,/g,"").trim());
+      return Number.isFinite(n) ? n : fallback;
+    }
+
+    function fmtMoney(currency, n) {
+      const val = Number(n || 0).toLocaleString("en-PH");
+      return currency ? `${currency} ${val}` : val;
+    }
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    /* =========================================================
+      INPUT ELEMENTS
+    ========================================================= */
+    const emailEl = document.getElementById("email");
+    const mobileEl = document.getElementById("mobile");
+    const noMiddleCheck = document.getElementById("noMiddleCheck");
+    const middleNameEl = document.getElementById("middleName");
+
+    const countryTypeEl = document.getElementById("countryType");
+    const paxCountEl = document.getElementById("paxCount");
+    const priceTextEl = document.getElementById("priceText");
+    const priceNoteEl = document.getElementById("priceNote");
+
+    const serviceWrap = document.getElementById("serviceWrap");
+    const serviceSelect = document.getElementById("serviceSelect");
+
+    const apptDateEl = document.getElementById("apptDate");
+    const visaTypeEl = document.getElementById("visaType");
+    const entryTypeEl = document.getElementById("entryType");
+    const otherVisaWrap = document.getElementById("otherVisaWrap");
+    const otherVisaEl = document.getElementById("otherVisaType");
+
+    const sourceGroupEl = document.getElementById("sourceGroup");
+    const sourceHelperEl = document.getElementById("sourceHelper");
+    const sourceOtherCheckEl = document.getElementById("sourceOtherCheck");
+    const sourceOtherWrapEl = document.getElementById("sourceOtherWrap");
+    const sourceOtherTextEl = document.getElementById("sourceOtherText");
+    const muniWrapEl = document.getElementById("muniWrap");
+    const municipalityEl = document.getElementById("municipality");
+
+    const addressWrapEl = document.getElementById("addressWrap");
+    const outsideAddressEl = document.getElementById("outsideAddress");
+    const submitBtn = document.getElementById("submitBtn");
+
+    /* =========================================================
+      CHECKBOX CARDS
+    ========================================================= */
+    function setupCheckboxCards(groupId){
+      const group = document.getElementById(groupId);
+      if (!group) return;
+
+      const labels = group.querySelectorAll(".check-option");
+      labels.forEach(label => {
+        const cb = label.querySelector('input[type="checkbox"]');
+        cb.addEventListener("change", () => {
+          label.classList.toggle("selected", cb.checked);
+          group.classList.remove("invalid");
+          if (sourceHelperEl) sourceHelperEl.style.display = "none";
+          hideNotice();
+        });
+        label.classList.toggle("selected", cb.checked);
+      });
+    }
+    setupCheckboxCards("sourceGroup");
+
+    function toggleSourceOther(){
+      const isOther = !!(sourceOtherCheckEl && sourceOtherCheckEl.checked);
+      if (!sourceOtherWrapEl || !sourceOtherTextEl) return;
+
+      sourceOtherWrapEl.style.display = isOther ? "block" : "none";
+      sourceOtherTextEl.required = isOther;
+
+      if (!isOther){
+        sourceOtherTextEl.value = "";
+        clearInvalid(sourceOtherTextEl, document.getElementById("sourceOtherHelper"));
+      }
+    }
+
+    if (sourceOtherCheckEl){
+      sourceOtherCheckEl.addEventListener("change", () => {
+        toggleSourceOther();
+        hideNotice();
+      });
+    }
+
+    if (sourceOtherTextEl){
+      sourceOtherTextEl.addEventListener("input", () => {
+        if (sourceOtherTextEl.value.trim()){
+          clearInvalid(sourceOtherTextEl, document.getElementById("sourceOtherHelper"));
+          hideNotice();
+        }
+      });
+    }
+    toggleSourceOther();
+
+    /* =========================================================
+      PRICE LOADING TEXT
+    ========================================================= */
+    function showPriceLoading(){
+      priceTextEl.textContent = "Loading… please wait";
+      priceNoteEl.textContent = "";
+    }
+
+    /* =========================================================
+      EMAIL VALIDATION LIVE
+    ========================================================= */
+    if (emailEl) {
+      emailEl.addEventListener("input", () => {
+        if (isValidEmail(emailEl.value.trim())) {
+          clearInvalid(emailEl, document.getElementById("emailHelper"));
+          hideNotice();
+        }
+      });
+    }
+
+    /* =========================================================
+      MOBILE FORMATTING (PH)
+    ========================================================= */
+    function formatPHMobile(digits) {
+      if (digits.length <= 4) return digits;
+      if (digits.length <= 7) return digits.slice(0,4) + " " + digits.slice(4);
+      return digits.slice(0,4) + " " + digits.slice(4,7) + " " + digits.slice(7,11);
+    }
+
+    if (mobileEl) {
+      mobileEl.setAttribute("inputmode", "numeric");
+      mobileEl.setAttribute("autocomplete", "tel");
+      mobileEl.setAttribute("maxlength", "13");
+
+      mobileEl.addEventListener("keydown", (e) => {
+        if (e.ctrlKey || e.metaKey) return;
+        const allowed = ["Backspace","Delete","ArrowLeft","ArrowRight","Tab","Home","End"];
+        if (allowed.includes(e.key)) return;
+        if (!/^[0-9]$/.test(e.key)) e.preventDefault();
+      });
+
+      mobileEl.addEventListener("input", () => {
+        const digits = mobileEl.value.replace(/\D/g, "").slice(0, 11);
+        mobileEl.value = formatPHMobile(digits);
+        clearInvalid(mobileEl, document.getElementById("mobileHelper"));
+        hideNotice();
+      });
+
+      mobileEl.addEventListener("paste", (e) => {
+        e.preventDefault();
+        const pasted = (e.clipboardData || window.clipboardData).getData("text");
+        const digits = String(pasted).replace(/\D/g, "").slice(0, 11);
+        mobileEl.value = formatPHMobile(digits);
+        clearInvalid(mobileEl, document.getElementById("mobileHelper"));
+        hideNotice();
+      });
+    }
+
+    /* =========================================================
+      CLEAR-ON-INPUT HOOKS
+    ========================================================= */
+    attachClearOnInput("surname", "surnameHelper");
+    attachClearOnInput("givenName", "givenHelper");
+    attachClearOnInput("middleName", "middleHelper");
+    attachClearOnInput("municipality", "muniHelper");
+    attachClearOnInput("countryType", "countryHelper");
+    attachClearOnInput("paxCount", "paxHelper");
+    attachClearOnInput("apptDate", "dateHelper");
+    attachClearOnInput("visaType", "visaTypeHelper");
+    attachClearOnInput("entryType", "entryTypeHelper");
+
+    /* =========================================================
+      DATE: block past dates
+    ========================================================= */
+    if (apptDateEl) {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      apptDateEl.min = `${yyyy}-${mm}-${dd}`;
+
+      apptDateEl.addEventListener("keydown", (e) => e.preventDefault());
+      apptDateEl.addEventListener("paste", (e) => e.preventDefault());
+      apptDateEl.addEventListener("change", () => {
+        clearInvalid(apptDateEl, document.getElementById("dateHelper"));
+        hideNotice();
+      });
+    }
+
+    /* =========================================================
+      MIDDLE NAME CHECKBOX
+    ========================================================= */
+    if (noMiddleCheck && middleNameEl) {
+      noMiddleCheck.addEventListener("change", () => {
+        const helper = document.getElementById("middleHelper");
+        if (noMiddleCheck.checked) {
+          middleNameEl.required = false;
+          middleNameEl.value = "N/A";
+          middleNameEl.disabled = true;
+          middleNameEl.classList.add("middle-disabled");
+          clearInvalid(middleNameEl, helper);
+          hideNotice();
+        } else {
+          middleNameEl.disabled = false;
+          middleNameEl.required = true;
+          middleNameEl.value = "";
+          middleNameEl.classList.remove("middle-disabled");
+        }
+      });
+    }
+
+    /* =========================================================
+      RADIO CARD HIGHLIGHT
+    ========================================================= */
+    function setupRadioCards(groupSelector, groupId, helperId) {
+      const group = document.querySelector(groupSelector);
+      const groupBox = document.getElementById(groupId);
+      const helper = document.getElementById(helperId);
+      if (!group) return;
+
+      const labels = group.querySelectorAll(".radio-option");
+      labels.forEach(label => {
+        const radio = label.querySelector('input[type="radio"]');
+        radio.addEventListener("change", () => {
+          labels.forEach(l => l.classList.remove("selected"));
+          label.classList.add("selected");
+          if (groupBox) groupBox.classList.remove("invalid");
+          if (helper) helper.style.display = "none";
+          hideNotice();
+        });
+      });
+    }
+    setupRadioCards('[data-group="resident"]', "residentGroup", "residentHelper");
+    setupRadioCards('[data-group="ofw"]', "ofwGroup", "ofwHelper");
+    setupRadioCards('[data-group="appType"]', "appTypeGroup", "appTypeHelper");
+    setupRadioCards('[data-group="appFormDone"]', "appFormDoneGroup", "appFormDoneHelper");
+    setupRadioCards('[data-group="firstTimeVisa"]', "firstTimeVisaGroup", "firstTimeVisaHelper");
+
+    function toggleResidentFields(){
+      const resident = document.querySelector('input[name="resident"]:checked');
+      const val = resident ? resident.value : "";
+
+      if (!muniWrapEl || !addressWrapEl || !municipalityEl || !outsideAddressEl) return;
+
+      if (val === "Yes"){
+        muniWrapEl.style.display = "block";
+        addressWrapEl.style.display = "none";
+
+        municipalityEl.required = true;
+        outsideAddressEl.required = false;
+        outsideAddressEl.value = "";
+        clearInvalid(outsideAddressEl, document.getElementById("addressHelper"));
+      }
+      else if (val === "No"){
+        muniWrapEl.style.display = "none";
+        addressWrapEl.style.display = "block";
+
+        municipalityEl.required = false;
+        municipalityEl.value = "";
+        clearInvalid(municipalityEl, document.getElementById("muniHelper"));
+
+        outsideAddressEl.required = true;
+      }
+      else {
+        muniWrapEl.style.display = "none";
+        addressWrapEl.style.display = "none";
+
+        municipalityEl.required = false;
+        outsideAddressEl.required = false;
+      }
+    }
+
+    /* =========================================================
+      STEP 1 NEXT
+    ========================================================= */
+    document.getElementById("step1Next").addEventListener("click", () => {
+      if (emailEl) emailEl.value = emailEl.value.replace(/\s+/g, "");
+
+      const email = document.getElementById("email");
+      const mobile = document.getElementById("mobile");
+      const surname = document.getElementById("surname");
+      const given = document.getElementById("givenName");
+      const middle = document.getElementById("middleName");
+      const muni = document.getElementById("municipality");
+
+      const resident = document.querySelector('input[name="resident"]:checked');
+      const ofw = document.querySelector('input[name="ofw"]:checked');
+
+      const residentGroup = document.getElementById("residentGroup");
+      const ofwGroup = document.getElementById("ofwGroup");
+
+      let ok = true;
+
+      ["emailHelper","surnameHelper","givenHelper","middleHelper","muniHelper","mobileHelper","residentHelper","ofwHelper","addressHelper"]
+        .forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.style.display = "none";
+        });
+
+      [email, mobile, surname, given, middle, muni].forEach(el => el && el.classList.remove("invalid"));
+      residentGroup && residentGroup.classList.remove("invalid");
+      ofwGroup && ofwGroup.classList.remove("invalid");
+
+      if (!email.value.trim() || !isValidEmail(email.value.trim())) {
+        ok = false;
+        markInvalid(email, document.getElementById("emailHelper"));
+        const h = document.getElementById("emailHelper");
+        if (h) h.textContent = "Please enter a valid email address (must contain @).";
+      }
+      if (!mobile.value.trim()) { ok = false; markInvalid(mobile, document.getElementById("mobileHelper")); }
+      if (!surname.value.trim()) { ok = false; markInvalid(surname, document.getElementById("surnameHelper")); }
+      if (!given.value.trim()) { ok = false; markInvalid(given, document.getElementById("givenHelper")); }
+      if (!noMiddleCheck.checked && !middle.value.trim()) { ok = false; markInvalid(middle, document.getElementById("middleHelper")); }
+
+      const residentVal = resident ? resident.value : "";
+
+      if (residentVal === "Yes"){
+        if (!muni.value) { ok = false; markInvalid(muni, document.getElementById("muniHelper")); }
+      }
+
+      if (residentVal === "No"){
+        const addr = document.getElementById("outsideAddress");
+        if (!addr.value.trim()){
+          ok = false;
+          markInvalid(addr, document.getElementById("addressHelper"));
+        }
+      }
+
+      if (!resident) {
+        ok = false;
+        residentGroup && residentGroup.classList.add("invalid");
+        const h = document.getElementById("residentHelper");
+        if (h) h.style.display = "block";
+      }
+
+      if (!ofw) {
+        ok = false;
+        ofwGroup && ofwGroup.classList.add("invalid");
+        const h = document.getElementById("ofwHelper");
+        if (h) h.style.display = "block";
+      }
+
+      if (ok) {
+        hideNotice();
+        currentStep = 1;
+        updateSteps();
+            } else {
+        showNotice("Please complete all required fields in Step 1.", false);
+        scrollToFirstErrorInStep(document.getElementById("step1"));
+      }
+    });
+
+    document.querySelectorAll('input[name="resident"]').forEach(r => {
+      r.addEventListener("change", () => {
+        toggleResidentFields();
+        hideNotice();
+      });
+    });
+
+    toggleResidentFields(); // run once on load
+
+   async function loadHolidaysForRange(fromISO, toISO){
+    try{
+      const fromY = Number(String(fromISO).slice(0,4));
+      const toY   = Number(String(toISO).slice(0,4));
+
+      HOLIDAY_SET = new Set();
+      HOLIDAY_MAP = {};
+
+      for (let y = fromY; y <= toY; y++){
+        const url = `https://date.nager.at/api/v3/PublicHolidays/${y}/PH`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("Holiday API error " + res.status);
+
+        const arr = await res.json(); // [{date, localName, name, ...}]
+        (arr || []).forEach(h => {
+          const iso = String(h.date || "");
+          if (!iso) return;
+
+          // keep only within requested range
+          if (iso < fromISO || iso > toISO) return;
+
+          HOLIDAY_SET.add(iso);
+          HOLIDAY_MAP[iso] = String(h.name || h.localName || "Holiday");
+        });
+      }
+
+      console.log("HOLIDAYS LOADED:", Object.keys(HOLIDAY_MAP).slice(0, 10));
+    }catch(err){
+      console.error("Holiday load failed:", err);
+      HOLIDAY_SET = new Set();
+      HOLIDAY_MAP = {};
+    }
+  }
+    /* =========================================================
+      STEP 2: COUNTRIES + PRICES
+    ========================================================= */
+    async function loadCountriesIntoUser(){
+      try{
+        const rows = await apiGet("public_getCountries");
+
+        PUBLIC_COUNTRIES = rows || [];
+        COUNTRY_NAME_TO_ID = {};
+        COUNTRY_ID_TO_PROC = {};
+
+        countryTypeEl.innerHTML = `<option value="" disabled selected>Select a country</option>`;
+
+        PUBLIC_COUNTRIES.forEach(c => {
+          COUNTRY_NAME_TO_ID[c.country_name] = c.country_id;
+          COUNTRY_ID_TO_PROC[c.country_id] = toNum(c.processing_days, 14);
+
+          const opt = document.createElement("option");
+          opt.value = c.country_name;
+          opt.textContent = c.country_name;
+          countryTypeEl.appendChild(opt);
+        });
+      } catch(err){
+        hideSubmitOverlay();
+
+        const middlePosition = (document.body.scrollHeight - window.innerHeight) / 2;
+        window.scrollTo({ top: middlePosition, behavior: "smooth" });
+
+        setTimeout(() => {
+          showFailOverlay();
+        }, 200);
+      }
+    }
+
+    async function loadPricesForSelectedCountry(){
+  PRICE_LOADING = true;
+  showPriceLoading();
+
+  const countryName = countryTypeEl.value;
+  const countryId = COUNTRY_NAME_TO_ID[countryName];
+
+  PRICE_ROWS_FOR_COUNTRY = [];
+  SELECTED_PRICE_ROW = null;
+
+  serviceWrap.style.display = "none";
+  serviceSelect.innerHTML = "";
+
+    // ✅ if no country selected, stop loading and show normal message
+    if (!countryId){
+      PRICE_LOADING = false;
+      updatePriceBoxFromSheet();
+      return;
+    }
+
+    try{
+      const rows = await apiGet("public_getPrices", countryId);
+
+      PRICE_ROWS_FOR_COUNTRY = (rows || []).map(r => ({
+        price_id: r.price_id || "",
+        country_id: r.country_id || countryId,
+        service_name: r.service_name || "",
+        price: toNum(r.price, 0),
+        currency: (r.currency || "PHP").toString().trim(),
+        notes: r.notes || "",
+        pricing_mode: (r.pricing_mode || "PER_PAX").toString().trim().toUpperCase(),
+        pax_min: toNum(r.pax_min, 1),
+        pax_max: toNum(r.pax_max, 999999)
+      }));
+
+    } catch(err){
+      console.error(err);
+      showNotice("Failed to load prices.", false);
+      PRICE_ROWS_FOR_COUNTRY = [];
+      SELECTED_PRICE_ROW = null;
+
+    } finally {
+      // ✅ ALWAYS end loading (success OR error)
+      PRICE_LOADING = false;
+      updatePriceBoxFromSheet();
+    }
+  }
+
+    function matchingRowsForPax(pax){
+      return PRICE_ROWS_FOR_COUNTRY.filter(r => pax >= r.pax_min && pax <= r.pax_max);
+    }
+
+    function rebuildServiceDropdownIfNeeded(pax){
+      const matches = matchingRowsForPax(pax);
+
+      if (matches.length > 1){
+        serviceWrap.style.display = "block";
+
+        const current = serviceSelect.value || "";
+        serviceSelect.innerHTML = `<option value="" disabled ${current ? "" : "selected"}>Select service</option>`;
+
+        matches.forEach(r => {
+          const label = `${r.service_name} (Pax ${r.pax_min}-${r.pax_max})`;
+          const opt = document.createElement("option");
+          opt.value = r.price_id || label;
+          opt.textContent = label;
+          serviceSelect.appendChild(opt);
+        });
+
+        if (current && [...serviceSelect.options].some(o => o.value === current)){
+          serviceSelect.value = current;
+        } else {
+          serviceSelect.value = "";
+        }
+      } else {
+        serviceWrap.style.display = "none";
+        serviceSelect.innerHTML = "";
+      }
+    }
+
+    function chooseRowForDisplay(pax){
+      const matches = matchingRowsForPax(pax);
+      if (matches.length === 0) return null;
+      if (matches.length === 1) return matches[0];
+
+      const chosenKey = serviceSelect.value;
+      if (!chosenKey) return null;
+      return matches.find(r => (r.price_id || "") === chosenKey) || null;
+    }
+
+    function updatePriceBoxFromSheet(){
+
+      if (PRICE_LOADING){
+        showPriceLoading();
+        return;
+      }
+      const pax = toNum(paxCountEl.value, 0);
+
+      if (!countryTypeEl.value) {
+        priceTextEl.textContent = "Select a country and enter pax to see pricing.";
+        priceNoteEl.textContent = "";
+        SELECTED_PRICE_ROW = null;
+        serviceWrap.style.display = "none";
+        return;
+      }
+
+      if (!Number.isFinite(pax) || pax < 1) {
+        priceTextEl.textContent = "Enter a valid pax number (minimum 1).";
+        priceNoteEl.textContent = "";
+        SELECTED_PRICE_ROW = null;
+        serviceWrap.style.display = "none";
+        return;
+      }
+
+      if (!PRICE_ROWS_FOR_COUNTRY.length) {
+        priceTextEl.textContent = "No prices set in admin for this country.";
+        priceNoteEl.textContent = "";
+        SELECTED_PRICE_ROW = null;
+        serviceWrap.style.display = "none";
+        return;
+      }
+
+      rebuildServiceDropdownIfNeeded(pax);
+      const row = chooseRowForDisplay(pax);
+
+      if (!row){
+        const matches = matchingRowsForPax(pax);
+        if (matches.length > 1){
+          priceTextEl.textContent = "Multiple services match this pax. Please select a service.";
+        } else {
+          priceTextEl.textContent = "No price found for this pax range. Check admin pax_min/pax_max.";
+        }
+        priceNoteEl.textContent = "";
+        SELECTED_PRICE_ROW = null;
+        return;
+      }
+
+      SELECTED_PRICE_ROW = row;
+
+      const currency = row.currency || "PHP";
+      const unitPrice = toNum(row.price, 0);
+      const mode = row.pricing_mode;
+
+      let total = unitPrice;
+      let line = "";
+
+      if (mode === "PER_PAX"){
+        total = unitPrice * pax;
+        line = `${row.service_name}: ${fmtMoney(currency, unitPrice)} × ${pax} = <span class="total-red">${fmtMoney(currency, total)}</span>`;
+      } else {
+        total = unitPrice;
+        line = `${row.service_name}: <span class="total-red">${fmtMoney(currency, total)}</span> (fixed)`;
+      }
+
+      priceTextEl.innerHTML = line;
+      priceNoteEl.textContent = row.notes || "";
+    }
+
+    /* =========================================================
+      VISA: "Other" toggle
+    ========================================================= */
+    function toggleOtherVisa() {
+      const isOther = visaTypeEl.value === "Other";
+      otherVisaWrap.style.display = isOther ? "block" : "none";
+      otherVisaEl.required = isOther;
+      if (!isOther) {
+        otherVisaEl.value = "";
+        clearInvalid(otherVisaEl, document.getElementById("otherVisaHelper"));
+      }
+    }
+    visaTypeEl.addEventListener("change", () => { toggleOtherVisa(); hideNotice(); });
+    otherVisaEl.addEventListener("input", () => {
+      if (otherVisaEl.value.trim()) {
+        clearInvalid(otherVisaEl, document.getElementById("otherVisaHelper"));
+        hideNotice();
+      }
+    });
+    toggleOtherVisa();
+
+    /* =========================================================
+      CALENDAR + AVAILABILITY + PROCESSING DAYS
+    ========================================================= */
+    const calTitleEl = document.getElementById("calTitle");
+    const calDaysEl = document.getElementById("calDays");
+    const calPrevBtn = document.getElementById("calPrev");
+    const calNextBtn = document.getElementById("calNext");
+
+    const windowTextEl = document.getElementById("windowText");
+    const processingTextEl = document.getElementById("processingText");
+    const nearestTextEl = document.getElementById("nearestText");
+
+    const appointmentDateEl = document.getElementById("appointmentDate");
+    const appointmentSessionEl = document.getElementById("appointmentSession");
+    const selectedBoxEl = document.getElementById("selectedBox");
+    const selectedTextEl = document.getElementById("selectedText");
+    const slotHelperEl = document.getElementById("slotHelper");
+
+    const calLoadingEl = document.getElementById("calLoading");
+
+    function showCalLoading(){
+      if (calLoadingEl) calLoadingEl.style.display = "flex";
+      if (calPrevBtn) calPrevBtn.disabled = true;
+      if (calNextBtn) calNextBtn.disabled = true;
+    }
+    function hideCalLoading(){
+      if (calLoadingEl) calLoadingEl.style.display = "none";
+      if (calPrevBtn) calPrevBtn.disabled = false;
+      if (calNextBtn) calNextBtn.disabled = false;
+    }
+
+    let calCursor = new Date();
+    let lastAvailKey = "";
+
+    function fmtISO(d){
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth()+1).padStart(2,"0");
+      const dd = String(d.getDate()).padStart(2,"0");
+      return `${yyyy}-${mm}-${dd}`;
+    }
+    function fmtLong(d){
+      return d.toLocaleDateString("en-PH", { year:"numeric", month:"long", day:"numeric" });
+    }
+    function isoToDate(iso){
+      if (!iso) return null;
+      const [y,m,d] = String(iso).split("-").map(Number);
+      if (!y || !m || !d) return null;
+      const dt = new Date(y, m-1, d);
+      return isNaN(dt.getTime()) ? null : dt;
+    }
+    function cloneDate(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+
+    function isWeekend(d){
+      const dow = d.getDay(); // 0 Sun, 6 Sat
+      return dow === 0 || dow === 6;
+    }
+
+    function isHolidayISO(iso){
+      return HOLIDAY_SET && HOLIDAY_SET.has(String(iso));
+    }
+
+    function isBusinessDay(d){
+      const dow = d.getDay(); // 0 Sun ... 6 Sat
+      if (dow === 0 || dow === 6) return false;
+      const iso = fmtISO(d);
+      if (isHolidayISO(iso)) return false;
+      return true;
+    }
+
+    // ✅ ADD working days starting the NEXT day (does NOT count the start date)
+    function addWorkingDaysStartNext(startDate, days){
+      let d = cloneDate(startDate);
+      let remaining = Number(days || 0);
+
+      while (remaining > 0){
+        d.setDate(d.getDate() + 1);   // move to NEXT day first
+        if (isBusinessDay(d)) remaining--;
+      }
+      return d;
+    }
+
+    // ✅ SUBTRACT working days counting backwards (does NOT count the travel date itself)
+    function subtractWorkingDays(date, workingDays){
+      let d = cloneDate(date);
+      let remaining = Number(workingDays || 0);
+
+      while (remaining > 0){
+        d.setDate(d.getDate() - 1);
+
+        if (!isBusinessDay(d)) continue;
+        remaining--;
+      }
+      return d;
+    }
+
+    function getTravelDate(){
+      if (!apptDateEl || !apptDateEl.value) return null;
+      const parts = apptDateEl.value.split("-");
+      if (parts.length !== 3) return null;
+      const y = Number(parts[0]), m = Number(parts[1])-1, dd = Number(parts[2]);
+      const d = new Date(y, m, dd);
+      return isNaN(d.getTime()) ? null : d;
+    }
+
+    function computeAllowedWindow(){
+    const travel = getTravelDate();
+    if (!travel) return null;
+
+    const procDays = Number(SELECTED_PROC_DAYS || 0);
+    if (!Number.isFinite(procDays) || procDays <= 0) return null;
+
+    // latest appointment date allowed so that travel is at least procDays working days after appointment
+    const latestByProcessing = subtractWorkingDays(travel, procDays);
+    return { travel, latestByProcessing, procDays };
+  }
+
+    async function loadLatestAvailable(upToISO){
+      LATEST_AVAILABLE_ISO = "";
+      try{
+        const iso = await apiGet("public_getLatestAvailableDate", upToISO);
+        LATEST_AVAILABLE_ISO = iso || "";
+      } catch(err){
+        console.error(err);
+        LATEST_AVAILABLE_ISO = "";
+      }
+      renderCalendar();
+    }
+
+    async function loadNearestAvailable(upToISO){
+      NEAREST_AVAILABLE_ISO = "";
+      try{
+        const iso = await apiGet("public_getNearestAvailableFromToday", upToISO);
+        NEAREST_AVAILABLE_ISO = iso || "";
+      } catch(err){
+        console.error(err);
+        NEAREST_AVAILABLE_ISO = "";
+      }
+      renderCalendar();
+    }
+
+    async function loadAvailabilityForMonth(year, monthIndex){
+      const start = new Date(year, monthIndex, 1);
+      const end = new Date(year, monthIndex + 1, 0);
+      const from = fmtISO(start);
+      const to = fmtISO(end);
+
+      try{
+        const rows = await apiGet("public_getDays", from, to);
+
+        AVAIL_MAP = {};
+        (rows || []).forEach(r => {
+        const date = String(r.date);
+        AVAIL_MAP[date] = {
+          is_open: String(r.is_open).toUpperCase() === "TRUE",
+          capacity_am: Number(r.capacity_am || 0),
+          booked_am: Number(r.booked_am || 0),
+          capacity_pm: Number(r.capacity_pm || 0),
+          booked_pm: Number(r.booked_pm || 0)
+        };
+      });
+
+      // ✅ compute nearest locally if server returned blank
+      ensureNearestFallback();
+
+      renderCalendar();
+      hideCalLoading();
+      } catch(err){
+        console.error(err);
+        showNotice("Failed to load availability.", false);
+        AVAIL_MAP = {};
+        renderCalendar();
+        hideCalLoading();
+      }
+    }
+
+    async function calendarEnsureAvailabilityThenRender(){
+    const y = calCursor.getFullYear();
+    const m = calCursor.getMonth();
+    const key = `${y}-${String(m+1).padStart(2,"0")}`;
+
+    showCalLoading();
+
+    // if already loaded for this month, just render
+    if (key === lastAvailKey) {
+      renderCalendar();
+      hideCalLoading();
+      return;
+    }
+
+    // ✅ remember the month key BEFORE loading
+    lastAvailKey = key;
+
+    // ✅ load holidays for this month, then availability
+    const start = new Date(y, m, 1);
+    const end   = new Date(y, m + 1, 0);
+
+    await loadHolidaysForRange(fmtISO(start), fmtISO(end));
+    await loadAvailabilityForMonth(y, m);
+  }
+
+    function getRemainingFromAvail(dateISO, session){
+      const row = AVAIL_MAP[dateISO];
+      if (!row) return null;
+      if (!row.is_open) return 0;
+
+      if (session === "AM") {
+        return Math.max(0, (row.capacity_am || 0) - (row.booked_am || 0));
+      }
+      return Math.max(0, (row.capacity_pm || 0) - (row.booked_pm || 0));
+    }
+
+    function hasAnySlotsOnISO(iso){
+  const row = AVAIL_MAP[iso];
+  if (!row || !row.is_open) return false;
+
+  const amRem = Math.max(0, (row.capacity_am || 0) - (row.booked_am || 0));
+  const pmRem = Math.max(0, (row.capacity_pm || 0) - (row.booked_pm || 0));
+  return (amRem > 0) || (pmRem > 0);
+}
+
+function computeNearestFromLoadedAvail(maxAllowedDate){
+  // Search from TODAY up to maxAllowedDate using current AVAIL_MAP
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  const end = maxAllowedDate ? new Date(maxAllowedDate.getFullYear(), maxAllowedDate.getMonth(), maxAllowedDate.getDate()) : null;
+  if (!end) return "";
+
+  let d = new Date(today);
+
+  // safety loop (up to ~2 years)
+  for (let i = 0; i < 750; i++){
+    if (d.getTime() > end.getTime()) break;
+
+    const iso = fmtISO(d);
+
+    // must be allowed business day (your logic already blocks weekends + holidays)
+    if (isBusinessDay(d) && hasAnySlotsOnISO(iso)){
+      return iso;
+    }
+
+    d.setDate(d.getDate() + 1);
+  }
+
+  return "";
+}
+
+      /**
+       * Ensures NEAREST_AVAILABLE_ISO is set based on AVAIL_MAP
+       * when the server nearest is empty.
+       */
+      function ensureNearestFallback(){
+        const win = computeAllowedWindow();
+        if (!win) return;
+
+        // If server gave a nearest date, keep it
+        if (NEAREST_AVAILABLE_ISO) return;
+
+        const maxAllowed = win.latestByProcessing;
+        const localNearest = computeNearestFromLoadedAvail(maxAllowed);
+        if (localNearest) NEAREST_AVAILABLE_ISO = localNearest;
+      }
+
+    function renderCalendar(){
+      if (!calDaysEl || !calTitleEl) return;
+
+      const win = computeAllowedWindow();
+      const maxAllowed = win ? win.latestByProcessing : null;
+
+      // Header texts
+      if (!win){
+        windowTextEl.textContent = "Select your Country + Intended Travel Date in Step 2.";
+        processingTextEl.textContent = "";
+      } else {
+        windowTextEl.textContent =
+          `Appointments must be scheduled at least ${win.procDays} WORKING DAYS before travel. Available dates depend on VFS availability.`;
+
+        // ✅ make sure we compute nearest from AVAIL_MAP if server nearest is blank
+        ensureNearestFallback();
+
+        if (nearestTextEl){
+          if (NEAREST_AVAILABLE_ISO){
+            nearestTextEl.textContent =
+              `Nearest available appointment date: ${fmtLong(isoToDate(NEAREST_AVAILABLE_ISO))}`;
+          } else {
+            nearestTextEl.textContent =
+              `Nearest available appointment date: (no slots found up to allowed limit)`;
+          }
+        }
+
+        // Don't wipe processing end unless you want to
+        // (optional) if (!appointmentDateEl.value) processingTextEl.textContent = "";
+      }
+
+      // Month title
+      const year = calCursor.getFullYear();
+      const month = calCursor.getMonth();
+      calTitleEl.textContent = calCursor.toLocaleDateString("en-PH", { month:"long", year:"numeric" });
+
+      const first = new Date(year, month, 1);
+      const startDow = first.getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      calDaysEl.innerHTML = "";
+
+      // blanks before day 1
+      for (let i = 0; i < startDow; i++){
+        const blank = document.createElement("div");
+        blank.className = "cal-day disabled";
+        blank.innerHTML = `<div class="cal-num"></div>`;
+        calDaysEl.appendChild(blank);
+      }
+
+      // today baseline
+      const today = new Date();
+      today.setHours(0,0,0,0);
+
+      // render days
+      for (let day = 1; day <= daysInMonth; day++){
+        const d = new Date(year, month, day);
+        const iso = fmtISO(d);
+
+        let disabledDay = false;
+
+        // past date
+        if (d < today) disabledDay = true;
+
+        // must have window
+        if (!win) disabledDay = true;
+        else if (maxAllowed && d.getTime() > maxAllowed.getTime()) disabledDay = true;
+
+        // ✅ disable weekends + holidays (calendar UI)
+        if (isWeekend(d)) disabledDay = true;
+        if (isHolidayISO(iso)) disabledDay = true;
+
+      const cell = document.createElement("div");
+      const isHol = isHolidayISO(iso);
+
+      // get remaining first
+      const amRem = getRemainingFromAvail(iso, "AM");
+      const pmRem = getRemainingFromAvail(iso, "PM");
+
+      // ----- STATUS CALC -----
+      const row = AVAIL_MAP[iso];
+      const isOpen = !!(row && row.is_open);
+
+      const amOk = (amRem !== null && amRem > 0);
+      const pmOk = (pmRem !== null && pmRem > 0);
+
+      const hasAny  = amOk || pmOk;
+      const hasBoth = amOk && pmOk;
+      const isFull  = (amRem === 0 && pmRem === 0); // open but no slots
+
+      // base class
+      cell.className = "cal-day" + (disabledDay ? " disabled" : "");
+      if (isHol) cell.classList.add("holiday");
+
+      // ✅ availability colors (ONLY if allowed + not holiday)
+      if (!disabledDay && !isHol && isOpen) {
+        if (hasBoth) cell.classList.add("avail-both");
+        else if (hasAny) cell.classList.add("avail-one");
+        else if (isFull) cell.classList.add("full");
+      }
+
+      // button disabling
+      const amDisabled = disabledDay || amRem === null || amRem <= 0;
+      const pmDisabled = disabledDay || pmRem === null || pmRem <= 0;
+
+      const amLabel = (amRem === null) ? "-" : `${amRem}`;
+      const pmLabel = (pmRem === null) ? "-" : `${pmRem}`;
+
+      const amZeroClass = (amRem === 0) ? "rem-zero" : "";
+      const pmZeroClass = (pmRem === 0) ? "rem-zero" : "";
+
+      const holidayName = HOLIDAY_MAP[iso] || "";
+
+      cell.innerHTML = `
+        <div class="cal-num">${day}</div>
+
+        ${holidayName ? `<div class="holiday-tag" title="${holidayName}">🎉 ${holidayName}</div>` : ""}
+
+        ${isHol ? "" : `
+          <div class="slot-box">
+            <button type="button" class="slot-btn" data-date="${iso}" data-session="AM" ${amDisabled ? "disabled":""}>
+              <span>AM</span><span class="rem ${amZeroClass}">${amLabel}</span>
+            </button>
+            <button type="button" class="slot-btn" data-date="${iso}" data-session="PM" ${pmDisabled ? "disabled":""}>
+              <span>PM</span><span class="rem ${pmZeroClass}">${pmLabel}</span>
+            </button>
+          </div>
+        `}
+      `;
+
+      calDaysEl.appendChild(cell);
+        }
+
+      // slot click handlers
+      calDaysEl.querySelectorAll(".slot-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          calDaysEl.querySelectorAll(".slot-btn.selected")
+            .forEach(b => b.classList.remove("selected"));
+          btn.classList.add("selected");
+
+          const dateISO = btn.getAttribute("data-date");
+          const session = btn.getAttribute("data-session");
+
+          appointmentDateEl.value = dateISO;
+          appointmentSessionEl.value = session;
+
+          const appt = isoToDate(dateISO);
+          const procDays = Number(SELECTED_PROC_DAYS || 0);
+
+          if (appt && procDays > 0) {
+            const end = addWorkingDaysStartNext(appt, procDays);
+            processingTextEl.textContent =
+              `Processing starts next day • ${procDays} working days ends on: ${fmtLong(end)}`;
+          }
+
+          selectedBoxEl.style.display = "block";
+          selectedTextEl.textContent = `${dateISO} (${session})`;
+
+          slotHelperEl.style.display = "none";
+          hideNotice();
+        });
+      });
+    }
+
+    if (calPrevBtn) {
+      calPrevBtn.addEventListener("click", () => {
+        calCursor = new Date(calCursor.getFullYear(), calCursor.getMonth()-1, 1);
+        calendarEnsureAvailabilityThenRender();
+      });
+    }
+    if (calNextBtn) {
+      calNextBtn.addEventListener("click", () => {
+        calCursor = new Date(calCursor.getFullYear(), calCursor.getMonth()+1, 1);
+        calendarEnsureAvailabilityThenRender();
+      });
+    }
+
+    /* =========================================================
+      STEP 2 EVENTS
+    ========================================================= */
+    countryTypeEl.addEventListener("change", () => {
+      const countryName = countryTypeEl.value;
+      SELECTED_COUNTRY_ID = COUNTRY_NAME_TO_ID[countryName] || "";
+      SELECTED_PROC_DAYS = COUNTRY_ID_TO_PROC[SELECTED_COUNTRY_ID] || 0;
+
+      appointmentDateEl.value = "";
+      appointmentSessionEl.value = "";
+      selectedBoxEl.style.display = "none";
+
+      showPriceLoading();
+      loadPricesForSelectedCountry();
+
+      calendarEnsureAvailabilityThenRender();
+
+      clearInvalid(countryTypeEl, document.getElementById("countryHelper"));
+      hideNotice();
+    });
+
+    paxCountEl.addEventListener("input", () => {
+      updatePriceBoxFromSheet();
+      clearInvalid(paxCountEl, document.getElementById("paxHelper"));
+      hideNotice();
+    });
+
+    serviceSelect.addEventListener("change", () => {
+      updatePriceBoxFromSheet();
+      clearInvalid(serviceSelect, document.getElementById("serviceHelper"));
+      hideNotice();
+    });
+
+    /* =========================================================
+      STEP 2 NEXT
+    ========================================================= */
+    document.getElementById("step2Next").addEventListener("click", async () => {
+    const appTypeChecked = document.querySelector('input[name="appType"]:checked');
+    const appTypeGroup = document.getElementById("appTypeGroup");
+
+    const appFormDoneChecked = document.querySelector('input[name="appFormDone"]:checked');
+    const appFormDoneGroup = document.getElementById("appFormDoneGroup");
+
+    const firstTimeVisaChecked = document.querySelector('input[name="firstTimeVisa"]:checked');
+    const firstTimeVisaGroup = document.getElementById("firstTimeVisaGroup");
+
+    let ok = true;
+
+    clearInvalid(countryTypeEl, document.getElementById("countryHelper"));
+    clearInvalid(paxCountEl, document.getElementById("paxHelper"));
+    clearInvalid(apptDateEl, document.getElementById("dateHelper"));
+    clearInvalid(visaTypeEl, document.getElementById("visaTypeHelper"));
+    clearInvalid(entryTypeEl, document.getElementById("entryTypeHelper"));
+    clearInvalid(otherVisaEl, document.getElementById("otherVisaHelper"));
+    clearInvalid(serviceSelect, document.getElementById("serviceHelper"));
+
+    appTypeGroup && appTypeGroup.classList.remove("invalid");
+    appFormDoneGroup && appFormDoneGroup.classList.remove("invalid");
+    firstTimeVisaGroup && firstTimeVisaGroup.classList.remove("invalid");
+
+    ["appTypeHelper","appFormDoneHelper","firstTimeVisaHelper"].forEach(id => {
+      const h = document.getElementById(id);
+      if (h) h.style.display = "none";
+    });
+
+    const pax = toNum(paxCountEl.value, 0);
+
+    if (!countryTypeEl.value) { ok = false; markInvalid(countryTypeEl, document.getElementById("countryHelper")); }
+    if (!paxCountEl.value || !Number.isFinite(pax) || pax < 1) { ok = false; markInvalid(paxCountEl, document.getElementById("paxHelper")); }
+
+    if (!SELECTED_PRICE_ROW) {
+      ok = false;
+      if (serviceWrap.style.display !== "none") {
+        markInvalid(serviceSelect, document.getElementById("serviceHelper"));
+      }
+      showNotice("Please make sure pricing is selected/available for your pax.", false);
+      scrollToFirstErrorInStep(document.getElementById("step2"));
+    }
+
+    if (!apptDateEl.value) { ok = false; markInvalid(apptDateEl, document.getElementById("dateHelper")); }
+    if (!visaTypeEl.value) { ok = false; markInvalid(visaTypeEl, document.getElementById("visaTypeHelper")); }
+    if (visaTypeEl.value === "Other" && !otherVisaEl.value.trim()) { ok = false; markInvalid(otherVisaEl, document.getElementById("otherVisaHelper")); }
+    if (!entryTypeEl.value) { ok = false; markInvalid(entryTypeEl, document.getElementById("entryTypeHelper")); }
+
+    if (!appTypeChecked) {
+      ok = false;
+      appTypeGroup && appTypeGroup.classList.add("invalid");
+      const h = document.getElementById("appTypeHelper");
+      if (h) h.style.display = "block";
+    }
+    if (!firstTimeVisaChecked) {
+      ok = false;
+      firstTimeVisaGroup && firstTimeVisaGroup.classList.add("invalid");
+      const h = document.getElementById("firstTimeVisaHelper");
+      if (h) h.style.display = "block";
+    }
+    if (!appFormDoneChecked) {
+      ok = false;
+      appFormDoneGroup && appFormDoneGroup.classList.add("invalid");
+      const h = document.getElementById("appFormDoneHelper");
+      if (h) h.style.display = "block";
+    }
+
+    if (!ok){
+      if (noticeBox.style.display === "none") {
+        showNotice("Please complete all required fields in Step 2.", false);
+        scrollToFirstErrorInStep(document.getElementById("step2"));
+      }
+      return;
+    }
+
+    hideNotice();
+
+    const now = new Date();
+    calCursor = new Date(now.getFullYear(), now.getMonth(), 1);
+    lastAvailKey = "";
+
+    currentStep = 2;
+    updateSteps();
+
+    const win = computeAllowedWindow(); // ✅ now uses weekend+holiday-safe subtractWorkingDays()
+    const upToISO = win ? fmtISO(win.latestByProcessing) : "";
+
+    if (upToISO) {
+      loadLatestAvailable(upToISO);
+      loadNearestAvailable(upToISO);
+    } else {
+      LATEST_AVAILABLE_ISO = "";
+      NEAREST_AVAILABLE_ISO = "";
+    }
+
+    calendarEnsureAvailabilityThenRender();
+  });
+
+    /* =========================================================
+      BACK BUTTONS
+    ========================================================= */
+    backBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (currentStep > 0) {
+          hideNotice();
+          currentStep--;
+          updateSteps();
+        }
+      });
+    });
+
+    if (apptDateEl){
+      apptDateEl.addEventListener("change", () => {
+        appointmentDateEl.value = "";
+        appointmentSessionEl.value = "";
+        selectedBoxEl.style.display = "none";
+        calendarEnsureAvailabilityThenRender();
+      });
+    }
+
+    function syncStep3UI(){
+    const win = computeAllowedWindow(); // you already have this
+    const procDays = win ? win.procDays : null;
+
+    updateStep3Reminder(procDays);
+  }
+
+    /* =========================================================
+      STEP 3 NEXT -> STEP 4
+    ========================================================= */
+    document.getElementById("step3Next").addEventListener("click", () => {
+      const chosenDate = appointmentDateEl.value;
+      const chosenSession = appointmentSessionEl.value;
+
+      const travel = getTravelDate();
+      const appt = isoToDate(chosenDate);
+      const procDays = Number(SELECTED_PROC_DAYS || 0);
+
+      if (travel && appt && procDays){
+        const earliestTravel = addWorkingDaysStartNext(appt, procDays);
+        if (travel.getTime() < earliestTravel.getTime()){
+          showNotice(
+            `Your travel date must be on/after ${fmtLong(earliestTravel)} ` +
+            `(${procDays} working days after appointment).`,
+            false
+          );
+          currentStep = 1; // go back to Step 2 if you want
+          updateSteps();
+          scrollToEl(apptDateEl);
+          return;
+        }
+      }
+
+      if (!chosenDate || !chosenSession){
+        slotHelperEl.style.display = "block";
+        showNotice("Please select an appointment slot (AM/PM) in Step 3.", false);
+        scrollToEl(document.querySelector(".calendar-wrap"));
+        return;
+      }
+
+      const selectedSources = [...document.querySelectorAll('input[name="source"]:checked')].map(x => x.value);
+
+      let sourceOk = true;
+
+      if (sourceGroupEl) sourceGroupEl.classList.remove("invalid");
+      if (sourceHelperEl) sourceHelperEl.style.display = "none";
+      clearInvalid(sourceOtherTextEl, document.getElementById("sourceOtherHelper"));
+
+      if (selectedSources.length === 0){
+        sourceOk = false;
+        if (sourceGroupEl) sourceGroupEl.classList.add("invalid");
+        if (sourceHelperEl) sourceHelperEl.style.display = "block";
+      }
+
+      if (sourceOtherCheckEl && sourceOtherCheckEl.checked && !sourceOtherTextEl.value.trim()){
+        sourceOk = false;
+        markInvalid(sourceOtherTextEl, document.getElementById("sourceOtherHelper"));
+      }
+
+      if (!sourceOk){
+        showNotice("Please select at least one Source in Step 3.", false);
+        return;
+      }
+
+      hideNotice();
+      currentStep = 3;
+      buildReviewSummary();
+      updateSteps();
+      buildReviewSummary();
+    });
+
+    function buildReviewSummary(){
+      const email = (document.getElementById("email").value || "").trim();
+      const mobile = (document.getElementById("mobile").value || "").trim();
+      const surname = (document.getElementById("surname").value || "").trim();
+      const given = (document.getElementById("givenName").value || "").trim();
+      const middle = (document.getElementById("middleName").value || "").trim();
+      const suffix = (document.getElementById("suffix").value || "").trim();
+
+      const countryName = countryTypeEl.value || "";
+      const pax = toNum(paxCountEl.value, 0);
+      const travelDate = apptDateEl.value || "";
+      const appType = (document.querySelector('input[name="appType"]:checked') || {}).value || "";
+      const entryType = entryTypeEl.value || "";
+
+      const visaTypeApplied = (visaTypeEl.value === "Other")
+        ? `Other: ${(otherVisaEl.value || "").trim()}`
+        : (visaTypeEl.value || "");
+
+      const firstTimeVisa = (document.querySelector('input[name="firstTimeVisa"]:checked') || {}).value || "";
+      const appFormDone = (document.querySelector('input[name="appFormDone"]:checked') || {}).value || "";
+
+      const apptSlotDate = appointmentDateEl.value || "";
+      const apptSlotSession = appointmentSessionEl.value || "";
+
+      let fullName = `${surname}, ${given}`;
+
+      // Add suffix immediately after firstname
+      if (suffix) {
+        fullName += ` ${suffix}`;
+      }
+
+      // Add middle name last (ignore N/A)
+      if (middle && middle.toUpperCase() !== "N/A") {
+        fullName += ` ${middle}`;
+      }
+
+      fullName = fullName.replace(/\s+/g, " ").trim();
+
+      let pricingLine = "-";
+      if (SELECTED_PRICE_ROW){
+        const currency = SELECTED_PRICE_ROW.currency || "PHP";
+        const unitPrice = toNum(SELECTED_PRICE_ROW.price, 0);
+        const mode = (SELECTED_PRICE_ROW.pricing_mode || "PER_PAX").toUpperCase();
+        const total = (mode === "PER_PAX") ? unitPrice * pax : unitPrice;
+
+        pricingLine = `
+          ${SELECTED_PRICE_ROW.service_name || "Service"}:
+          ${fmtMoney(currency, unitPrice)}
+          ${mode === "PER_PAX"
+            ? `× ${pax} = <span class="total-red">${fmtMoney(currency, total)}</span>`
+            : `(fixed: <span class="total-red">${fmtMoney(currency, total)}</span>)`
+          }
+        `;
+      }
+
+      document.getElementById("r_fullname").textContent = fullName || "-";
+      document.getElementById("r_email").textContent = email || "-";
+      document.getElementById("r_mobile").textContent = mobile || "-";
+
+      document.getElementById("r_country").textContent = countryName || "-";
+      document.getElementById("r_pax").textContent = pax ? String(pax) : "-";
+      document.getElementById("r_price").innerHTML = pricingLine || "-";
+      document.getElementById("r_traveldate").textContent = travelDate || "-";
+      document.getElementById("r_slot").textContent = apptSlotDate ? `${apptSlotDate} (${apptSlotSession || "-"})` : "-";
+
+      document.getElementById("r_visa").textContent = visaTypeApplied || "-";
+      document.getElementById("r_entry").textContent = entryType || "-";
+      document.getElementById("r_apptype").textContent = appType || "-";
+      document.getElementById("r_firsttime").textContent = firstTimeVisa || "-";
+      document.getElementById("r_formdone").textContent = appFormDone || "-";
+
+      // Fill chips (optional nice UX)
+      const chipEmail = document.getElementById("chipEmail");
+      const chipMobile = document.getElementById("chipMobile");
+      const chipTotal = document.getElementById("chipTotal");
+      const chipSlot = document.getElementById("chipSlot");
+      if (chipEmail) chipEmail.textContent = email || "Email";
+      if (chipMobile) chipMobile.textContent = mobile || "Mobile";
+      if (chipSlot) chipSlot.textContent = apptSlotDate ? `${apptSlotDate} (${apptSlotSession || "-"})` : "Slot";
+
+      if (chipTotal){
+        if (SELECTED_PRICE_ROW){
+          const currency = SELECTED_PRICE_ROW.currency || "PHP";
+          const unitPrice = toNum(SELECTED_PRICE_ROW.price, 0);
+          const mode = (SELECTED_PRICE_ROW.pricing_mode || "PER_PAX").toUpperCase();
+          const total = (mode === "PER_PAX") ? unitPrice * pax : unitPrice;
+          chipTotal.textContent = fmtMoney(currency, total);
+        } else {
+          chipTotal.textContent = "Total";
+        }
+      }
+
+      const adminNote = (SELECTED_PRICE_ROW && SELECTED_PRICE_ROW.notes) ? String(SELECTED_PRICE_ROW.notes).trim() : "";
+      const reviewNoteEl = document.getElementById("reviewNote");
+      if (reviewNoteEl){
+        reviewNoteEl.innerHTML = adminNote
+          ? `<b>Note:</b> ${adminNote}`
+          : `<b>Note:</b> Please arrive <b>15 minutes early</b>. Bring your passport and requirements.`;
+      }
+
+      const reviewSub = document.getElementById("reviewSub");
+      if (reviewSub){
+        reviewSub.textContent = apptSlotDate
+          ? `Ready to submit — ${apptSlotDate} (${apptSlotSession || "-"})`
+          : `Check the details below.`;
+      }
+    }
+
+    function updateStep3Reminder(procDays){
+    const box = document.getElementById("step3ReminderText");
+    if (!box) return;
+
+    if (!procDays || isNaN(procDays)){
+      box.textContent = "Select your Country first to see the required working days before travel.";
+      return;
+    }
+
+    box.innerHTML =
+      `Appointments must be scheduled at least <b>${procDays} WORKING DAYS</b> before travel. ` +
+      `Available dates depend on VFS availability. ` +
+      `<br><b>Tip:</b> Please check this reminder before choosing your Intended Travel Date.`;
+  }
+
+    /* =========================================================
+      FINAL SUBMIT
+    ========================================================= */
+    document.getElementById("appointmentForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const confirmCheck = document.getElementById("confirmCheck");
+      if (!confirmCheck || !confirmCheck.checked){
+        showNotice("Please confirm the information is correct.", false);
+        scrollToEl(confirmCheck);
+        return;
+      }
+
+      const residentEl = document.querySelector('input[name="resident"]:checked');
+      const ofwEl = document.querySelector('input[name="ofw"]:checked');
+
+      const appTypeChecked = document.querySelector('input[name="appType"]:checked');
+      const appFormDoneChecked = document.querySelector('input[name="appFormDone"]:checked');
+      const firstTimeVisaChecked = document.querySelector('input[name="firstTimeVisa"]:checked');
+
+      const countryName = countryTypeEl.value;
+      const countryId = COUNTRY_NAME_TO_ID[countryName] || "";
+      const pax = toNum(paxCountEl.value, 0);
+
+      const consentAgree = document.getElementById("consentAgree");
+      const consentBox = document.getElementById("consentBox");
+      const consentBody = document.getElementById("consentBody");
+      const consentArrow = document.getElementById("consentArrow");
+      const consentErr = document.getElementById("consentErr");
+
+      if (!consentAgree || !consentAgree.checked){
+        showNotice("Please agree to the Consent and Declaration.", false);
+        if (consentBox) consentBox.classList.add("invalid");
+        if (consentErr) consentErr.style.display = "block";
+
+        if (consentBody && !consentBody.classList.contains("open")){
+          consentBody.classList.add("open");
+          if (consentArrow) consentArrow.textContent = "▾";
+        }
+        scrollToEl(document.getElementById("consentBox"));
+        return;
+      }
+
+      if (!SELECTED_PRICE_ROW){
+        showNotice("Pricing is not selected/available. Please go back to Step 2.", false);
+        return;
+      }
+
+      const visaTypeApplied = visaTypeEl.value === "Other"
+        ? `Other: ${otherVisaEl.value.trim()}`
+        : visaTypeEl.value;
+
+      const mode = SELECTED_PRICE_ROW.pricing_mode;
+      const currency = SELECTED_PRICE_ROW.currency || "PHP";
+      const unitPrice = toNum(SELECTED_PRICE_ROW.price, 0);
+      const totalPrice = mode === "PER_PAX" ? unitPrice * pax : unitPrice;
+
+      const data = {
+        email: document.getElementById("email").value.trim(),
+        mobile: document.getElementById("mobile").value.trim(),
+        surname: document.getElementById("surname").value.trim(),
+        givenName: document.getElementById("givenName").value.trim(),
+        middleName: document.getElementById("middleName").value.trim(),
+        suffix: document.getElementById("suffix").value,
+        municipality:
+          (residentEl && residentEl.value === "Yes")
+            ? (document.getElementById("municipality").value || "")
+            : (document.getElementById("outsideAddress")?.value || "").trim(),
+
+        resident: residentEl ? residentEl.value : "",
+        ofw: ofwEl ? ofwEl.value : "",
+        resident_address: (document.getElementById("outsideAddress")?.value || "").trim(),
+
+        country_name: countryName,
+        country_id: countryId,
+        paxCount: pax,
+
+        price_id: SELECTED_PRICE_ROW.price_id || "",
+        service_name: SELECTED_PRICE_ROW.service_name || "",
+        pricing_mode: mode,
+        currency: currency,
+        unit_price: unitPrice,
+        total_price: totalPrice,
+        notes: SELECTED_PRICE_ROW.notes || "",
+
+        apptDate: apptDateEl.value,
+        applicationType: appTypeChecked ? appTypeChecked.value : "",
+        visaTypeAppliedFor: visaTypeApplied,
+        entryType: entryTypeEl.value,
+        firstTimeVisa: firstTimeVisaChecked ? firstTimeVisaChecked.value : "",
+        appFormDone: appFormDoneChecked ? appFormDoneChecked.value : "",
+
+        appointmentDate: appointmentDateEl.value || "",
+        appointmentSession: appointmentSessionEl.value || "",
+        source: [...document.querySelectorAll('input[name="source"]:checked')].map(x => x.value),
+        source_other: (sourceOtherCheckEl && sourceOtherCheckEl.checked) ? (sourceOtherTextEl.value.trim()) : ""
+      };
+
+      submitBtn.disabled = true;
+      const oldText = submitBtn.textContent;
+      submitBtn.textContent = "Saving...";
+
+      // ✅ Scroll to middle of page (mobile friendly)
+      const middlePosition = (document.body.scrollHeight - window.innerHeight) / 2;
+
+      window.scrollTo({
+        top: middlePosition,
+        behavior: "smooth"
+      });
+
+      // delay showing overlay slightly for smooth effect
+      setTimeout(() => {
+        showSubmitOverlay();
+      }, 250);
+
+      try{
+        await apiPost("saveAppointment", data);
+        hideSubmitOverlay();
+
+        fillSuccessDetails();
+        lockFormAfterSuccess();
+
+        // ✅ Scroll to middle again before showing success
+        const middlePosition = (document.body.scrollHeight - window.innerHeight) / 2;
+
+        window.scrollTo({
+          top: middlePosition,
+          behavior: "smooth"
+        });
+
+        setTimeout(() => {
+          showSuccessOverlay();
+        }, 250);
+
+      } catch(err){
+        console.error(err);
+        hideSubmitOverlay();
+        showNotice(err && err.message ? err.message : "Failed to save. Try again.", false);
+        submitBtn.disabled = false;
+        submitBtn.textContent = oldText || "Confirm Appointment";
+      }
+    });
+
+    /* =========================================================
+      STEP 4: Confirm + Consent enable submit
+    ========================================================= */
+    function updateSubmitEnabled(){
+      const confirmCheck = document.getElementById("confirmCheck");
+      const consentAgree = document.getElementById("consentAgree");
+      const submitBtn = document.getElementById("submitBtn");
+
+      const ok = !!(confirmCheck && confirmCheck.checked) && !!(consentAgree && consentAgree.checked);
+      if (submitBtn) submitBtn.disabled = !ok;
+    }
+
+    (function setupConsentUI(){
+      const head = document.getElementById("consentHead");
+      const body = document.getElementById("consentBody");
+      const arrow = document.getElementById("consentArrow");
+      const consentBox = document.getElementById("consentBox");
+      const consentAgree = document.getElementById("consentAgree");
+      const consentErr = document.getElementById("consentErr");
+
+      if (head && body && arrow){
+        head.addEventListener("click", () => {
+          const isOpen = body.classList.toggle("open");
+          arrow.textContent = isOpen ? "▾" : "▸";
+        });
+      }
+
+      if (consentAgree){
+        consentAgree.addEventListener("change", () => {
+          if (consentBox) consentBox.classList.remove("invalid");
+          if (consentErr) consentErr.style.display = "none";
+          updateSubmitEnabled();
+        });
+      }
+
+      const confirmCheck = document.getElementById("confirmCheck");
+      if (confirmCheck){
+        confirmCheck.addEventListener("change", () => {
+          updateSubmitEnabled();
+        });
+      }
+
+      updateSubmitEnabled();
+    })();
+
+    function lockFormAfterSuccess(){
+      document.querySelectorAll("#appointmentForm input, #appointmentForm select, #appointmentForm button, #appointmentForm textarea")
+        .forEach(el => el.disabled = true);
+
+      const okBtn = document.getElementById("successOkBtn");
+      if (okBtn) okBtn.disabled = false;
+
+      hideNotice();
+
+      backBtns.forEach(btn => {
+        btn.disabled = true;
+        btn.style.opacity = "0.6";
+        btn.style.cursor = "not-allowed";
+      });
+
+      try{
+        history.pushState(null, "", location.href);
+        window.addEventListener("popstate", () => {
+          history.pushState(null, "", location.href);
+        });
+      } catch(e){}
+    }
+
+    function showSuccessOverlay(){
+      const overlay = document.getElementById("successOverlay");
+      if (overlay) overlay.style.display = "flex";
+    }
+
+    /* =========================================================
+          SUBMIT LOADING OVERLAY
+        ========================================================= */
+        function showSubmitOverlay(){
+          const o = document.getElementById("submitOverlay");
+          if (o) o.style.display = "flex";
+        }
+
+        function hideSubmitOverlay(){
+          const o = document.getElementById("submitOverlay");
+          if (o) o.style.display = "none";
+        }
+
+        function showFailOverlay(){
+          document.getElementById("failOverlay").style.display = "flex";
+        }
+
+        function closeFailOverlay(){
+          document.getElementById("failOverlay").style.display = "none";
+        }
+
+    function fillSuccessDetails(){
+      const box = document.getElementById("successDetails");
+      if (!box) return;
+
+      const email = (document.getElementById("email")?.value || "").trim();
+      const country = (document.getElementById("countryType")?.value || "").trim();
+      const slotDate = (document.getElementById("appointmentDate")?.value || "").trim();
+      const slotSes = (document.getElementById("appointmentSession")?.value || "").trim();
+
+      box.innerHTML = `
+        <div><b>Email:</b> ${email || "-"}</div>
+        <div><b>Country:</b> ${country || "-"}</div>
+        <div><b>Appointment:</b> ${slotDate ? `${slotDate} (${slotSes || "-"})` : "-"}</div>
+      `;
+    }
+
+    const successOkBtn = document.getElementById("successOkBtn");
+    if (successOkBtn){
+      successOkBtn.addEventListener("click", () => {
+        const overlay = document.getElementById("successOverlay");
+        if (overlay) overlay.style.display = "none";
+      });
+    }
+
+    /* =========================================================
+      INIT
+    ========================================================= */
+    updateSteps();
+    loadCountriesIntoUser();
+    updatePriceBoxFromSheet();
+    calendarEnsureAvailabilityThenRender();
+  </script>
+</body>
+</html>
