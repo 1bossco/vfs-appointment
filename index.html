@@ -1327,6 +1327,15 @@
         .slot-btn .rem.rem-zero{
           color: var(--red-600);
         }
+        
+        /* >0 = green */
+        .slot-btn .rem.rem-ok{
+          color: var(--green-600);
+        }
+
+        .slot-btn:disabled .rem.rem-ok{
+          opacity: 1;
+        }
 
         /* when selected, keep normal numbers white */
         .slot-btn.selected .rem{
@@ -1358,22 +1367,53 @@
           color:#fff !important;
           box-shadow: 0 10px 18px rgba(27,73,130,.25);
         }
+        
+        /* ===========================
+              SLOT PILL STATES (MATCH SELECTED STYLE)
+            =========================== */
 
-        /* make AM/PM text white when selected */
-        #calDays .slot-btn.selected span:first-child{
-          color:#fff !important;
-          opacity: 1 !important;
-        }
+            /* base for colored pills (keep your pill shape) */
+            #calDays .slot-btn.slot-ok:not(.selected),
+            #calDays .slot-btn.slot-zero:not(.selected){
+              border-color: transparent;
+              color: #fff;
+              font-weight: 900;
+              box-shadow: 0 10px 18px rgba(2,22,55,.12);
+            }
 
-        /* make number white when selected */
-        #calDays .slot-btn.selected .rem{
-          color:#fff !important;
-        }
+            /* 🟢 Available */
+            #calDays .slot-btn.slot-ok:not(.selected){
+              background: linear-gradient(135deg, #16a34a, #22c55e);
+            }
 
-        /* BUT if it's zero, keep it red even when selected */
-        #calDays .slot-btn.selected .rem.rem-zero{
-          color: var(--red-600) !important;
-        }
+            /* 🔴 0 slots */
+            #calDays .slot-btn.slot-zero:not(.selected){
+              background: linear-gradient(135deg, #dc2626, #ef4444);
+            }
+
+            /* Make the number white too */
+            #calDays .slot-btn.slot-ok:not(.selected) .rem,
+            #calDays .slot-btn.slot-zero:not(.selected) .rem{
+              color: #fff !important;
+            }
+
+            /* Keep colored pills visible even if disabled */
+            #calDays .slot-btn.slot-ok:disabled,
+            #calDays .slot-btn.slot-zero:disabled{
+              opacity: 1;
+              cursor: not-allowed;
+            }
+
+            /* ✅ Selected stays BLUE and always wins */
+            #calDays .slot-btn.selected{
+              background:#1b4982 !important;
+              border-color:#1b4982 !important;
+              color:#fff !important;
+            }
+            #calDays .slot-btn.selected .rem{
+              color:#fff !important;
+            }
+      
 
         /* ===========================
           SUBMIT LOADING OVERLAY (VFS)
@@ -1540,69 +1580,36 @@
           .plane{ width: 52px; height: 52px; border-radius: 16px; }
         }
 
-        .cal-day.holiday{
-        background: repeating-linear-gradient(45deg,#fff1f2,#fff1f2 10px,#ffe4e6 10px,#ffe4e6 20px);
-        border: 1px solid rgba(220,38,38,.25) !important;
-      }
-
-      .cal-day.holiday .cal-num{
-        color: #991b1b;
-      }
-
-      .holiday-tag{
-        margin-top: 6px;
-        padding: 6px 8px;
-        border-radius: 12px;
-        background: rgba(220,38,38,.08);
-        border: 1px solid rgba(220,38,38,.20);
-        color: #991b1b;
-        font-size: 11px;
-        font-weight: 900;
-        line-height: 1.2;
-
-        /* prevents layout breaking */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      /* ===== HOLIDAY: FULL RED BOX + HIDE AM/PM ===== */
-      #calDays .cal-day.holiday{
-        background: #fff1f2 !important;                 /* light red */
-        border: 2px solid rgba(220,38,38,.55) !important;
-        box-shadow: 0 10px 22px rgba(220,38,38,.10) !important;
-      }
-
-      /* make the date number red */
-      #calDays .cal-day.holiday .cal-num{
-        color: #b91c1c !important;
-      }
-
-      /* ✅ hide AM/PM completely on holiday */
-      #calDays .cal-day.holiday .slot-box{
-        display: none !important;
-      }
-
-      /* optional: make the holiday label stronger */
-      #calDays .cal-day.holiday .holiday-tag{
-        background: rgba(220,38,38,.12) !important;
-        border: 1px solid rgba(220,38,38,.30) !important;
-        color: #991b1b !important;
-      }
-
       /* =========================================================
         CALENDAR STATUS COLORS (PRO LOOK)
         Put at VERY END of CSS
       ========================================================= */
 
-        /* 🎉 HOLIDAY: full red, hide AM/PM */
+        /* HOLIDAY: light red bg, hide AM/PM */
         #calDays .cal-day.holiday{
           background: #fee2e2 !important;
           border: 2px solid rgba(220,38,38,.55) !important;
           box-shadow: 0 10px 22px rgba(220,38,38,.12) !important;
         }
         #calDays .cal-day.holiday .cal-num{ color:#991b1b !important; }
-        #calDays .cal-day.holiday .slot-box{ display:none !important; } /* ✅ hide AM/PM */
+        #calDays .cal-day.holiday .slot-box{ display:none !important; }
+
+        .holiday-tag{
+          margin-top: 5px;
+          padding: 4px 7px;
+          border-radius: 10px;
+          background: rgba(220,38,38,.10);
+          border: 1px solid rgba(220,38,38,.22);
+          color: #991b1b;
+          font-size: 10px;
+          font-weight: 900;
+          line-height: 1.2;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        #calDays .cal-day.disabled:not(.holiday){ opacity: .75; }
 
         /* ✅ BOTH AVAILABLE (AM & PM): strong green */
         #calDays .cal-day.avail-both{
@@ -1629,7 +1636,7 @@
         #calDays .cal-day.full .cal-num{ color:#9f1239 !important; }
 
         /* Optional: make disabled days a bit “muted” */
-        #calDays .cal-day.disabled:not(.holiday){
+        #calDays .cal-day.disabled{
           opacity: .75;
         }
 
@@ -1663,6 +1670,215 @@
           .step3-reminder{ padding: 10px 12px; border-radius: 12px; }
           .step3-reminder__text{ font-size: 12.5px; }
         }
+
+        /* ===========================
+            PRICING DISCLAIMER (OFFICIAL STYLE)
+          =========================== */
+
+          .pax-disclaimer{
+            margin-top: 14px;
+            border-radius: 18px;
+            border: 1px solid rgba(29,102,194,.22);
+            background: linear-gradient(180deg,#f8fbff,#ffffff);
+            box-shadow: 0 14px 28px rgba(2,22,55,.08);
+            overflow:hidden;
+          }
+
+          .pax-disclaimer-head{
+            padding: 12px 14px;
+            font-weight: 900;
+            font-size: 13px;
+            background: rgba(29,102,194,.10);
+            border-bottom: 1px solid rgba(29,102,194,.18);
+            color: #0b2a5a;
+          }
+
+          .pax-disclaimer-body{
+            padding: 14px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            line-height: 1.5;
+          }
+
+          .pax-disclaimer-body p{
+            margin-bottom: 8px;
+          }
+
+          .pax-disclaimer-check{
+            display:flex;
+            align-items:flex-start;
+            gap:10px;
+            margin-top:10px;
+            font-weight: 800;
+            cursor:pointer;
+          }
+
+          .pax-disclaimer-check input{
+            width:18px;
+            height:18px;
+            accent-color: var(--blue-600);
+          }
+
+          .pax-disclaimer-error{
+            margin-top:8px;
+            font-size:12px;
+            font-weight:900;
+            color:#b91c1c;
+            display:none;
+          }
+
+          .pax-disclaimer.invalid{
+            border-color: rgba(220,38,38,.35);
+            background: #fef2f2;
+          }
+
+          /* ===========================
+              SELECTED BOX + LEGEND
+            =========================== */
+
+            .selected-row{
+              display:flex;
+              align-items:center;
+              justify-content:space-between;
+              gap:12px;
+              flex-wrap:wrap;
+            }
+
+            .selected-left{
+              font-weight: 900;
+            }
+
+            .selected-legend{
+              display:flex;
+              align-items:center;
+              gap:8px;
+              flex-wrap:wrap;
+            }
+
+            .legend-pill{
+              padding: 6px 12px;
+              border-radius: 999px;
+              font-weight: 900;
+              font-size: 12px;
+              color:#fff;
+              box-shadow: 0 10px 18px rgba(2,22,55,.12);
+              user-select:none;
+              white-space:nowrap;
+            }
+
+            /* 🟢 Available */
+            .legend-ok{
+              background: linear-gradient(135deg, #16a34a, #22c55e);
+            }
+
+            /* 🔴 Full */
+            .legend-zero{
+              background: linear-gradient(135deg, #dc2626, #ef4444);
+            }
+
+            /* 🔵 Selected */
+            .legend-sel{
+              background: #1b4982;
+            }
+
+            /* ===========================
+                CALENDAR CENTER EMPTY MESSAGE
+              =========================== */
+
+              .cal-scroll{
+                position: relative; /* required for overlay centering */
+              }
+
+              .cal-empty{
+                position:absolute;
+                inset: 44px 14px 14px 14px; /* leave space for day headers */
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                pointer-events:none; /* user can still scroll */
+                z-index: 5;
+              }
+
+              .cal-empty-card{
+                width: min(560px, 92%);
+                background: rgba(255,255,255,.92);
+                border: 1px solid rgba(148,163,184,.45);
+                border-radius: 18px;
+                box-shadow: 0 20px 40px rgba(2,22,55,.10);
+                padding: 16px 18px;
+                backdrop-filter: blur(8px);
+              }
+
+              .cal-empty-title{
+                font-weight: 900;
+                font-size: 14px;
+                color: #0b2a5a;
+                margin-bottom: 6px;
+              }
+
+              .cal-empty-text{
+                font-weight: 700;
+                font-size: 13px;
+                color: #334155;
+                line-height: 1.45;
+              }
+
+              /* optional: make the key line stand out */
+              .cal-empty-text b{ color:#b91c1c; }
+
+              /* ===========================
+                CALENDAR CENTER OVERLAY (MODAL)
+                =========================== */
+
+              .cal-scroll{ position: relative; }
+
+              /* backdrop */
+              .cal-empty{
+                position:absolute;
+                inset: 0;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                z-index: 50;
+                padding: 16px;
+                background: rgba(2,22,55,.35);   /* dim like modal */
+                backdrop-filter: blur(2px);
+              }
+
+              /* modal card */
+              .cal-empty-card{
+                width: min(620px, 92%);
+                background: rgba(255,255,255,.95);
+                border: 1px solid rgba(148,163,184,.55);
+                border-radius: 20px;
+                box-shadow: 0 26px 70px rgba(2,22,55,.20);
+                padding: 18px 18px;
+              }
+
+              .cal-empty-title{
+                font-weight: 950;
+                font-size: 16px;
+                color: #0b2a5a;
+                margin-bottom: 8px;
+              }
+
+              .cal-empty-text{
+                font-weight: 750;
+                font-size: 13.5px;
+                color: #334155;
+                line-height: 1.5;
+              }
+
+              /* Make the overlay block clicks (true modal) */
+              .cal-empty{ pointer-events: auto; }
+              .cal-empty-card{ pointer-events: auto; }
+
+              .error-highlight {
+              border: 2px solid #ef4444 !important;
+              box-shadow: 0 0 0 4px rgba(239,68,68,0.15);
+              transition: all 0.3s ease;
+            }
 
   </style>
 </head>
@@ -1901,6 +2117,37 @@
               <div class="price-muted" id="priceNote"></div>
             </div>
 
+            <!-- Pricing Disclaimer -->
+            <div class="pax-disclaimer" id="paxDisclaimerBox" style="display:none;">
+              <div class="pax-disclaimer-head">
+                Pricing Disclaimer
+              </div>
+
+              <div class="pax-disclaimer-body">
+                <p>
+                  <strong>Disclaimer:</strong> The total amount shown above is a provisional estimate based on current rates.
+                </p>
+
+                <p>
+                  The final fee will be calculated on the day of your appointment and is subject to change without prior notice
+                  due to currency fluctuations or embassy updates.
+                </p>
+
+                <p>
+                  Additional charges for optional Value Added Services (VAS) may apply at the counter.
+                </p>
+
+                <label class="pax-disclaimer-check">
+                  <input type="checkbox" id="paxDisclaimerAgree">
+                  <span>I understand and acknowledge this pricing disclaimer.</span>
+                </label>
+
+                <div class="pax-disclaimer-error" id="paxDisclaimerHelper">
+                  You must acknowledge the pricing disclaimer before proceeding.
+                </div>
+              </div>
+            </div>
+
             <!-- ✅ Step 3 Reminder (auto updates by country) -->
             <div id="step3Reminder" class="step3-reminder">
               <div class="step3-reminder__title">Reminder</div>
@@ -2010,15 +2257,35 @@
               </div>
 
               <div class="cal-grid" id="calDays"></div>
+              <!-- Center message (shows only when no slots) -->
+                <div class="cal-empty" id="calEmptyBox" style="display:none;">
+                  <div class="cal-empty-card">
+                    <div class="cal-empty-title">All appointments are currently taken</div>
+                    <div class="cal-empty-text" id="calEmptyText">
+                      Nearest available appointment date: (no slots found up to allowed limit)<br>
+                      Please pick another Intended Travel Date in Step 2.
+                    </div>
+                  </div>
+                </div>
             </div>
 
             <div class="helper" id="slotHelper" style="display:none; margin:12px;">
               Please select a date and time (AM or PM).
             </div>
 
-            <div class="selected-box" id="selectedBox" style="display:none;">
-              <strong>Selected:</strong> <span id="selectedText"></span>
+           <div class="selected-box" id="selectedBox" style="display:none;">
+            <div class="selected-row">
+              <div class="selected-left">
+                <strong>Selected:</strong> <span id="selectedText"></span>
+              </div>
+
+              <div class="selected-legend" aria-label="Calendar legend">
+                <span class="legend-pill legend-ok">Available</span>
+                <span class="legend-pill legend-zero">Full</span>
+                <span class="legend-pill legend-sel">Selected</span>
+              </div>
             </div>
+          </div>
 
             <input type="hidden" id="appointmentDate" />
             <input type="hidden" id="appointmentSession" />
@@ -2206,28 +2473,35 @@
   </div>
   <script>
     /* =========================================================
-      API CONFIG (FOR GITHUB HOSTING)
-    ========================================================= */
-    const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyWbD2bPQNrTcRlzEiOpAKnMh38MO9bK0FwktXC5ryFEvSLCVcLMyyy4sJ4Hpr8UZNOTQ/exec";
+          API CONFIG (FOR GITHUB HOSTING)
+        ========================================================= */
+        const WEBAPP_URL = "https://script.google.com/a/macros/bataan.gov.ph/s/AKfycbzQnEGS3pAfSjtybYHvBHonschsZMUQEpfxgTKkGVDEfDELKX-yDl0itobMb2d_t6qX2g/exec";
 
-    async function apiGet(fn, p1="", p2=""){
-      const url = `${WEBAPP_URL}?fn=${encodeURIComponent(fn)}&p1=${encodeURIComponent(p1)}&p2=${encodeURIComponent(p2)}`;
-      const res = await fetch(url);
-      const json = await res.json();
-      if (!json.ok) throw new Error(json.message || "API error");
-      return json.data;
-    }
+        // ✅ FIX: API_BASE must exist (your apiGet uses it)
+        const API_BASE = WEBAPP_URL;
 
-    async function apiPost(fn, data){
-      const res = await fetch(WEBAPP_URL, {
-        method: "POST",
-        headers: { "Content-Type":"text/plain;charset=utf-8" },
-        body: JSON.stringify({ fn, data })
-      });
-      const json = await res.json();
-      if (!json.ok) throw new Error(json.message || "API error");
-      return json.data;
-    }
+        async function apiGet(fn, p1="", p2=""){
+          const url =
+            `${API_BASE}?fn=${encodeURIComponent(fn)}` +
+            `&p1=${encodeURIComponent(p1 || "")}` +
+            `&p2=${encodeURIComponent(p2 || "")}`;
+
+          const res = await fetch(url, { method: "GET" });
+          const json = await res.json();
+          if (!json.ok) throw new Error(json.message || "API error");
+          return json.data;
+        }
+
+        async function apiPost(fn, data){
+          const res = await fetch(WEBAPP_URL, {
+            method: "POST",
+            headers: { "Content-Type":"text/plain;charset=utf-8" },
+            body: JSON.stringify({ fn, data })
+          });
+          const json = await res.json();
+          if (!json.ok) throw new Error(json.message || "API error");
+          return json.data;
+        }
 
     /* =========================================================
       GLOBAL STATE
@@ -2235,8 +2509,15 @@
     let PUBLIC_COUNTRIES = [];
     let COUNTRY_NAME_TO_ID = {};
     let COUNTRY_ID_TO_PROC = {}; // processing_days
-    let HOLIDAY_SET = new Set();   // still useful for fast checks
+    // -- Holiday state (read from Holidays sheet) --
+    let HOLIDAY_SET = new Set();   // fast "YYYY-MM-DD" lookup
     let HOLIDAY_MAP = {};          // "YYYY-MM-DD" -> "Holiday Name"
+    const HOLIDAY_YEAR_LOADED = {}; // { "2026": true }
+    const HOLIDAY_YEAR_MAP   = {}; // { "2026": { date->name } }
+
+    const AVAIL_MONTH_CACHE = {};        // { "YYYY-MM": {date->row} }
+    let IS_SUBMITTING = false;
+
 
     let PRICE_ROWS_FOR_COUNTRY = [];
     let SELECTED_PRICE_ROW = null;
@@ -2246,11 +2527,93 @@
     let SELECTED_PROC_DAYS = 0;
 
     let LATEST_AVAILABLE_ISO = "";
-    let NEAREST_AVAILABLE_ISO = "";
+    let NEAREST_AVAILABLE_ISO = "";      // nearest WITHIN allowed window
+    let NEAREST_ANY_AVAILABLE_ISO = "";  // nearest ANY future slot (overall)
 
     // Availability map by date
     // { "YYYY-MM-DD": { is_open, capacity_am, booked_am, capacity_pm, booked_pm } }
     let AVAIL_MAP = {};
+
+    /* =========================================================
+        AUTO SAVE (LOCAL STORAGE)
+      ========================================================= */
+
+      const FORM_STORAGE_KEY = "vfs_appointment_form_data_v1";
+
+      function saveFormToStorage(){
+        const data = {};
+
+        document.querySelectorAll("#appointmentForm input, #appointmentForm select, #appointmentForm textarea")
+          .forEach(el => {
+            if (!el.id && !el.name) return;
+
+            if (el.type === "radio"){
+              if (el.checked){
+                data[el.name] = el.value;
+              }
+            }
+            else if (el.type === "checkbox"){
+              if (!data[el.name]) data[el.name] = [];
+              if (el.checked){
+                data[el.name].push(el.value);
+              }
+            }
+            else{
+              data[el.id] = el.value;
+            }
+          });
+
+        // Save selected appointment slot
+        data._appointmentDate = appointmentDateEl.value;
+        data._appointmentSession = appointmentSessionEl.value;
+
+        localStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(data));
+      }
+
+      function restoreFormFromStorage(){
+        const raw = localStorage.getItem(FORM_STORAGE_KEY);
+        if (!raw) return;
+
+        try{
+          const data = JSON.parse(raw);
+
+          document.querySelectorAll("#appointmentForm input, #appointmentForm select, #appointmentForm textarea")
+            .forEach(el => {
+
+              // Restore radio
+              if (el.type === "radio" && data[el.name]){
+                if (el.value === data[el.name]){
+                  el.checked = true;
+                  el.dispatchEvent(new Event("change"));
+                }
+              }
+
+              // Restore checkbox groups
+              else if (el.type === "checkbox" && Array.isArray(data[el.name])){
+                el.checked = data[el.name].includes(el.value);
+                el.dispatchEvent(new Event("change"));
+              }
+
+              // Restore normal fields
+              else if (el.id && data[el.id] !== undefined){
+                el.value = data[el.id];
+                el.dispatchEvent(new Event("input"));
+                el.dispatchEvent(new Event("change"));
+              }
+            });
+
+          // Restore selected appointment slot
+          if (data._appointmentDate){
+            appointmentDateEl.value = data._appointmentDate;
+          }
+          if (data._appointmentSession){
+            appointmentSessionEl.value = data._appointmentSession;
+          }
+
+        } catch(err){
+          console.error("Restore failed:", err);
+        }
+      }
 
     /* =========================================================
       STEP NAVIGATION
@@ -2360,6 +2723,36 @@ function scrollToFirstErrorInStep(stepEl){
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
+    function getMobileDigits(){
+      return String(mobileEl?.value || "").replace(/\D/g, "");
+    }
+
+    function isValidPHMobile(value){
+      const digits = String(value || "").replace(/\D/g, "");
+      return digits.length === 11 && digits.startsWith("09");
+    }
+
+    function resetPaxDisclaimer(){
+    const box = document.getElementById("paxDisclaimerBox");
+    const cb = document.getElementById("paxDisclaimerAgree");
+    const helper = document.getElementById("paxDisclaimerHelper");
+
+    if (cb) cb.checked = false; // never auto-check
+    if (helper) helper.style.display = "none";
+    if (box) box.classList.remove("invalid");
+  }
+
+  function hidePaxDisclaimer(){
+    const box = document.getElementById("paxDisclaimerBox");
+    resetPaxDisclaimer();
+    if (box) box.style.display = "none";
+  }
+
+  function showPaxDisclaimer(){
+    const box = document.getElementById("paxDisclaimerBox");
+    if (box) box.style.display = "block";
+  }
+
     /* =========================================================
       INPUT ELEMENTS
     ========================================================= */
@@ -2451,6 +2844,7 @@ function scrollToFirstErrorInStep(stepEl){
     function showPriceLoading(){
       priceTextEl.textContent = "Loading… please wait";
       priceNoteEl.textContent = "";
+      hidePaxDisclaimer();
     }
 
     /* =========================================================
@@ -2487,18 +2881,78 @@ function scrollToFirstErrorInStep(stepEl){
       });
 
       mobileEl.addEventListener("input", () => {
-        const digits = mobileEl.value.replace(/\D/g, "").slice(0, 11);
+        const helper = document.getElementById("mobileHelper");
+
+        // get digits only
+        let digits = mobileEl.value.replace(/\D/g, "").slice(0, 11);
+
+        // format with spaces
         mobileEl.value = formatPHMobile(digits);
-        clearInvalid(mobileEl, document.getElementById("mobileHelper"));
-        hideNotice();
+
+        // ❌ If empty → no error yet
+        if (digits.length === 0){
+          clearInvalid(mobileEl, helper);
+          if (helper) helper.style.display = "none";
+          return;
+        }
+
+        // ❌ If does NOT start with 09
+        if (!digits.startsWith("09")){
+          markInvalid(mobileEl, helper);
+          if (helper){
+            helper.textContent = "Mobile number must be 11 digits (starts with 09).";
+            helper.style.display = "block";
+          }
+          return;
+        }
+
+        // ❌ If less than 11 digits
+        if (digits.length < 11){
+          markInvalid(mobileEl, helper);
+          if (helper){
+            helper.textContent = "Mobile number must be 11 digits (starts with 09).";
+            helper.style.display = "block";
+          }
+          return;
+        }
+
+        // ❌ If more than 11 (extra safety)
+        if (digits.length > 11){
+          markInvalid(mobileEl, helper);
+          if (helper){
+            helper.textContent = "Mobile number must be exactly 11 digits.";
+            helper.style.display = "block";
+          }
+          return;
+        }
+
+        // ✅ Valid
+        clearInvalid(mobileEl, helper);
+        if (helper) helper.style.display = "none";
       });
 
       mobileEl.addEventListener("paste", (e) => {
         e.preventDefault();
         const pasted = (e.clipboardData || window.clipboardData).getData("text");
-        const digits = String(pasted).replace(/\D/g, "").slice(0, 11);
+        let digits = String(pasted).replace(/\D/g, "").slice(0, 11);
+
+        // ✅ enforce starting with 09
+        if (!digits.startsWith("09")){
+          // if user pasted like 912..., force 09 + remaining
+          if (digits.startsWith("9")) digits = "0" + digits;
+          if (!digits.startsWith("09")) digits = "09";
+        }
+
         mobileEl.value = formatPHMobile(digits);
-        clearInvalid(mobileEl, document.getElementById("mobileHelper"));
+
+        const helper = document.getElementById("mobileHelper");
+        if (digits.length !== 11 || !digits.startsWith("09")){
+          markInvalid(mobileEl, helper);
+          if (helper) helper.textContent = "Mobile number must be 11 digits and start with 09.";
+        } else {
+          clearInvalid(mobileEl, helper);
+        }
+
         hideNotice();
       });
     }
@@ -2654,7 +3108,18 @@ function scrollToFirstErrorInStep(stepEl){
         const h = document.getElementById("emailHelper");
         if (h) h.textContent = "Please enter a valid email address (must contain @).";
       }
-      if (!mobile.value.trim()) { ok = false; markInvalid(mobile, document.getElementById("mobileHelper")); }
+      const mobileDigits = mobile.value.replace(/\D/g, "");
+      if (!mobileDigits) {
+        ok = false;
+        markInvalid(mobile, document.getElementById("mobileHelper"));
+        const h = document.getElementById("mobileHelper");
+        if (h) h.textContent = "Mobile number is required.";
+      } else if (mobileDigits.length !== 11 || !mobileDigits.startsWith("09")) {
+        ok = false;
+        markInvalid(mobile, document.getElementById("mobileHelper"));
+        const h = document.getElementById("mobileHelper");
+        if (h) h.textContent = "Mobile number must be 11 digits and start with 09.";
+      }
       if (!surname.value.trim()) { ok = false; markInvalid(surname, document.getElementById("surnameHelper")); }
       if (!given.value.trim()) { ok = false; markInvalid(given, document.getElementById("givenHelper")); }
       if (!noMiddleCheck.checked && !middle.value.trim()) { ok = false; markInvalid(middle, document.getElementById("middleHelper")); }
@@ -2706,39 +3171,41 @@ function scrollToFirstErrorInStep(stepEl){
 
     toggleResidentFields(); // run once on load
 
-   async function loadHolidaysForRange(fromISO, toISO){
-    try{
+    /* =========================================================
+      HOLIDAYS: load from Holidays sheet, cached per year
+    ========================================================= */
+    async function loadHolidaysForRange(fromISO, toISO){
+      if (!fromISO || !toISO) return;
       const fromY = Number(String(fromISO).slice(0,4));
       const toY   = Number(String(toISO).slice(0,4));
-
-      HOLIDAY_SET = new Set();
-      HOLIDAY_MAP = {};
+      if (!fromY || !toY) return;
 
       for (let y = fromY; y <= toY; y++){
-        const url = `https://date.nager.at/api/v3/PublicHolidays/${y}/PH`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error("Holiday API error " + res.status);
+        const yKey = String(y);
+        if (HOLIDAY_YEAR_LOADED[yKey]) continue;
 
-        const arr = await res.json(); // [{date, localName, name, ...}]
-        (arr || []).forEach(h => {
-          const iso = String(h.date || "");
+        let rows = [];
+        try { rows = await apiGet("public_getHolidays", `${yKey}-01-01`, `${yKey}-12-31`); }
+        catch(e){ console.warn("[HOL] failed", yKey, e); HOLIDAY_YEAR_LOADED[yKey] = true; continue; }
+
+        const map = {};
+        (rows || []).forEach(h => {
+          const iso = normalizeISO(typeof h === "string" ? h : (h && h.date));
           if (!iso) return;
-
-          // keep only within requested range
-          if (iso < fromISO || iso > toISO) return;
-
-          HOLIDAY_SET.add(iso);
-          HOLIDAY_MAP[iso] = String(h.name || h.localName || "Holiday");
+          const name = (typeof h === "object" && h && h.name) ? String(h.name) : "Holiday";
+          map[iso] = name;
         });
+        HOLIDAY_YEAR_MAP[yKey] = map;
+        HOLIDAY_YEAR_LOADED[yKey] = true;
+        Object.keys(map).forEach(iso => { HOLIDAY_SET.add(iso); HOLIDAY_MAP[iso] = map[iso]; });
+        console.log("[HOL] loaded", yKey, Object.keys(map).length, "holidays");
       }
-
-      console.log("HOLIDAYS LOADED:", Object.keys(HOLIDAY_MAP).slice(0, 10));
-    }catch(err){
-      console.error("Holiday load failed:", err);
-      HOLIDAY_SET = new Set();
-      HOLIDAY_MAP = {};
     }
-  }
+
+    function isHolidayISO(iso){
+      return HOLIDAY_SET.has(String(iso || "").trim());
+    }
+
     /* =========================================================
       STEP 2: COUNTRIES + PRICES
     ========================================================= */
@@ -2876,6 +3343,7 @@ function scrollToFirstErrorInStep(stepEl){
         priceNoteEl.textContent = "";
         SELECTED_PRICE_ROW = null;
         serviceWrap.style.display = "none";
+        hidePaxDisclaimer();
         return;
       }
 
@@ -2884,6 +3352,7 @@ function scrollToFirstErrorInStep(stepEl){
         priceNoteEl.textContent = "";
         SELECTED_PRICE_ROW = null;
         serviceWrap.style.display = "none";
+        hidePaxDisclaimer();
         return;
       }
 
@@ -2892,6 +3361,7 @@ function scrollToFirstErrorInStep(stepEl){
         priceNoteEl.textContent = "";
         SELECTED_PRICE_ROW = null;
         serviceWrap.style.display = "none";
+        hidePaxDisclaimer();
         return;
       }
 
@@ -2908,9 +3378,13 @@ function scrollToFirstErrorInStep(stepEl){
         priceNoteEl.textContent = "";
         SELECTED_PRICE_ROW = null;
         return;
+        hidePaxDisclaimer();
       }
 
       SELECTED_PRICE_ROW = row;
+
+      showPaxDisclaimer();   // show only when valid
+      resetPaxDisclaimer();  // user must check again
 
       const currency = row.currency || "PHP";
       const unitPrice = toNum(row.price, 0);
@@ -2976,6 +3450,8 @@ function scrollToFirstErrorInStep(stepEl){
       if (calLoadingEl) calLoadingEl.style.display = "flex";
       if (calPrevBtn) calPrevBtn.disabled = true;
       if (calNextBtn) calNextBtn.disabled = true;
+      const emptyBox = document.getElementById("calEmptyBox");
+      if (emptyBox) emptyBox.style.display = "none";
     }
     function hideCalLoading(){
       if (calLoadingEl) calLoadingEl.style.display = "none";
@@ -3002,6 +3478,35 @@ function scrollToFirstErrorInStep(stepEl){
       const dt = new Date(y, m-1, d);
       return isNaN(dt.getTime()) ? null : dt;
     }
+
+    // Normalize date keys coming from Sheets/API.
+    // Accepts "YYYY-MM-DD", "YYYY-M-D", and fixes common "YYYY-DD-MM" cases (e.g. 2026-24-02 -> 2026-02-24).
+    function normalizeISO(s){
+      s = String(s || "").trim();
+      if (!s) return "";
+      const parts = s.split("-");
+      if (parts.length !== 3) return s;
+
+      const a = parts[0], b = parts[1], c = parts[2];
+
+      // Year-first
+      if (a.length === 4){
+        const y = Number(a);
+        let m = Number(b);
+        let d = Number(c);
+
+        // If middle is clearly a day (>12) and last looks like month (<=12), swap.
+        if (m > 12 && d >= 1 && d <= 12){
+          const tmp = m; m = d; d = tmp;
+        }
+
+        if (!y || !m || !d) return s;
+        return `${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+      }
+
+      return s;
+    }
+
     function cloneDate(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
 
     function isWeekend(d){
@@ -3009,10 +3514,19 @@ function scrollToFirstErrorInStep(stepEl){
       return dow === 0 || dow === 6;
     }
 
-    function isHolidayISO(iso){
-      return HOLIDAY_SET && HOLIDAY_SET.has(String(iso));
+    function isWeekendISO(iso){
+      const d = new Date(iso + "T00:00:00");
+      const day = d.getDay(); // 0 Sun .. 6 Sat
+      return day === 0 || day === 6;
     }
 
+    // ✅ this is what your working-days should use
+    function isBusinessDayISO(iso){
+      if (!iso) return false;
+      if (isWeekendISO(iso)) return false;
+      if (isHolidayISO(iso)) return false;
+      return true;
+    }
     function isBusinessDay(d){
       const dow = d.getDay(); // 0 Sun ... 6 Sat
       if (dow === 0 || dow === 6) return false;
@@ -3068,6 +3582,8 @@ function scrollToFirstErrorInStep(stepEl){
     return { travel, latestByProcessing, procDays };
   }
 
+  
+
     async function loadLatestAvailable(upToISO){
       LATEST_AVAILABLE_ISO = "";
       try{
@@ -3077,9 +3593,9 @@ function scrollToFirstErrorInStep(stepEl){
         console.error(err);
         LATEST_AVAILABLE_ISO = "";
       }
-      renderCalendar();
     }
 
+    // ✅ nearest appointment date WITHIN the allowed window (server)
     async function loadNearestAvailable(upToISO){
       NEAREST_AVAILABLE_ISO = "";
       try{
@@ -3089,68 +3605,117 @@ function scrollToFirstErrorInStep(stepEl){
         console.error(err);
         NEAREST_AVAILABLE_ISO = "";
       }
-      renderCalendar();
     }
 
-    async function loadAvailabilityForMonth(year, monthIndex){
-      const start = new Date(year, monthIndex, 1);
-      const end = new Date(year, monthIndex + 1, 0);
-      const from = fmtISO(start);
-      const to = fmtISO(end);
+    async function loadNearestAnyAvailable() {
+      try {
+        const country = String(document.getElementById("countrySelect")?.value || "").trim();
 
-      try{
-        const rows = await apiGet("public_getDays", from, to);
+        // ✅ FIXED: use existing backend route
+        const iso = await apiGet("public_getNearestAvailableFromToday", country);
 
-        AVAIL_MAP = {};
-        (rows || []).forEach(r => {
-        const date = String(r.date);
-        AVAIL_MAP[date] = {
-          is_open: String(r.is_open).toUpperCase() === "TRUE",
-          capacity_am: Number(r.capacity_am || 0),
-          booked_am: Number(r.booked_am || 0),
-          capacity_pm: Number(r.capacity_pm || 0),
-          booked_pm: Number(r.booked_pm || 0)
-        };
-      });
-
-      // ✅ compute nearest locally if server returned blank
-      ensureNearestFallback();
-
-      renderCalendar();
-      hideCalLoading();
-      } catch(err){
-        console.error(err);
-        showNotice("Failed to load availability.", false);
-        AVAIL_MAP = {};
-        renderCalendar();
-        hideCalLoading();
+        NEAREST_ANY_AVAILABLE_ISO = String(iso || "");
+      } catch (err) {
+        console.warn("loadNearestAnyAvailable failed:", err);
+        NEAREST_ANY_AVAILABLE_ISO = "";
       }
     }
 
+async function loadAvailabilityForMonth(year, monthIndex, setAsCurrent = true){
+  const start = new Date(year, monthIndex, 1);
+  const end   = new Date(year, monthIndex + 1, 0);
+  const from  = fmtISO(start);
+  const to    = fmtISO(end);
+  const key   = `${year}-${String(monthIndex+1).padStart(2,"0")}`;
+
+  // ✅ Month cache
+  if (AVAIL_MONTH_CACHE[key]) {
+    if (setAsCurrent) AVAIL_MAP = AVAIL_MONTH_CACHE[key];
+    return;
+  }
+
+  const rows = await apiGet("public_getDays", from, to);
+
+  const map = {};
+  (rows || []).forEach(r => {
+    const date = normalizeISO(r && r.date);
+    if (!date) return;
+    map[date] = {
+      is_open: String(r.is_open).toUpperCase() === "TRUE",
+      capacity_am: Number(r.capacity_am || 0),
+      booked_am: Number(r.booked_am || 0),
+      capacity_pm: Number(r.capacity_pm || 0),
+      booked_pm: Number(r.booked_pm || 0)
+    };
+  });
+
+  AVAIL_MONTH_CACHE[key] = map;
+  if (setAsCurrent) AVAIL_MAP = map;
+
+  // ✅ compute nearest locally if server returned blank
+  if (setAsCurrent) ensureNearestFallback();
+}
+
     async function calendarEnsureAvailabilityThenRender(){
-    const y = calCursor.getFullYear();
-    const m = calCursor.getMonth();
-    const key = `${y}-${String(m+1).padStart(2,"0")}`;
+  const y = calCursor.getFullYear();
+  const m = calCursor.getMonth();
+  const key = `${y}-${String(m+1).padStart(2,"0")}`;
+  const monthStart = new Date(y, m, 1);
+  const monthEnd   = new Date(y, m + 1, 0);
 
-    showCalLoading();
+  showCalLoading();
 
-    // if already loaded for this month, just render
-    if (key === lastAvailKey) {
-      renderCalendar();
+  try{
+    // Fast path: already cached month (still ensure holiday year loaded)
+    if (AVAIL_MONTH_CACHE[key]) {
+      AVAIL_MAP = AVAIL_MONTH_CACHE[key];
+      await loadHolidaysForRange(fmtISO(monthStart), fmtISO(monthEnd));
+
       hideCalLoading();
+      renderCalendar();
+
+      setTimeout(() => prefetchNextMonth(), 0);
       return;
     }
 
-    // ✅ remember the month key BEFORE loading
-    lastAvailKey = key;
+    // Load holidays + availability in parallel
+    await Promise.all([
+      loadHolidaysForRange(fmtISO(monthStart), fmtISO(monthEnd)),
+      loadAvailabilityForMonth(y, m)
+    ]);
 
-    // ✅ load holidays for this month, then availability
-    const start = new Date(y, m, 1);
-    const end   = new Date(y, m + 1, 0);
+    hideCalLoading();
+    renderCalendar();
 
-    await loadHolidaysForRange(fmtISO(start), fmtISO(end));
-    await loadAvailabilityForMonth(y, m);
+    setTimeout(() => prefetchNextMonth(), 0);
+
+  } catch(err){
+    console.error(err);
+    showNotice("Failed to load availability.", false);
+    AVAIL_MAP = {};
+    hideCalLoading();
+    renderCalendar();
   }
+}
+
+// ✅ Prefetch next month availability (makes month navigation feel instant)
+function prefetchNextMonth(){
+  try{
+    const y = calCursor.getFullYear();
+    const m = calCursor.getMonth();
+    const next = new Date(y, m + 1, 1);
+    const ny = next.getFullYear();
+    const nm = next.getMonth();
+    const key = `${ny}-${String(nm+1).padStart(2,"0")}`;
+    if (AVAIL_MONTH_CACHE[key]) return;
+
+    // Fire and forget: no UI changes
+    loadAvailabilityForMonth(ny, nm, false).catch(()=>{});
+    loadHolidaysForRange(`${ny}-01-01`, `${ny}-12-31`).catch(()=>{});
+  } catch(_e){}
+}
+
+
 
     function getRemainingFromAvail(dateISO, session){
       const row = AVAIL_MAP[dateISO];
@@ -3188,7 +3753,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
 
     const iso = fmtISO(d);
 
-    // must be allowed business day (your logic already blocks weekends + holidays)
+    // must be an allowed business day (blocks weekends)
     if (isBusinessDay(d) && hasAnySlotsOnISO(iso)){
       return iso;
     }
@@ -3255,7 +3820,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       const startDow = first.getDay();
       const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-      calDaysEl.innerHTML = "";
+        calDaysEl.innerHTML = "";
 
       // blanks before day 1
       for (let i = 0; i < startDow; i++){
@@ -3309,7 +3874,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       cell.className = "cal-day" + (disabledDay ? " disabled" : "");
       if (isHol) cell.classList.add("holiday");
 
-      // ✅ availability colors (ONLY if allowed + not holiday)
+      // ✅ availability colors (ONLY if allowed + not holiday + open)
       if (!disabledDay && !isHol && isOpen) {
         if (hasBoth) cell.classList.add("avail-both");
         else if (hasAny) cell.classList.add("avail-one");
@@ -3323,23 +3888,35 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       const amLabel = (amRem === null) ? "-" : `${amRem}`;
       const pmLabel = (pmRem === null) ? "-" : `${pmRem}`;
 
-      const amZeroClass = (amRem === 0) ? "rem-zero" : "";
-      const pmZeroClass = (pmRem === 0) ? "rem-zero" : "";
+     const amCountClass =
+      (amRem === 0) ? "rem-zero" :
+      (amRem !== null && amRem > 0) ? "rem-ok" : "";
+
+     const pmCountClass =
+      (pmRem === 0) ? "rem-zero" :
+      (pmRem !== null && pmRem > 0) ? "rem-ok" : "";
+
+      // ✅ pill state class for button background
+      const amBtnClass =
+        (amRem === 0) ? "slot-zero" :
+        (amRem !== null && amRem > 0) ? "slot-ok" : "";
+
+      const pmBtnClass =
+        (pmRem === 0) ? "slot-zero" :
+        (pmRem !== null && pmRem > 0) ? "slot-ok" : "";
 
       const holidayName = HOLIDAY_MAP[iso] || "";
 
       cell.innerHTML = `
         <div class="cal-num">${day}</div>
-
-        ${holidayName ? `<div class="holiday-tag" title="${holidayName}">🎉 ${holidayName}</div>` : ""}
-
+        ${holidayName ? `<div class="holiday-tag" title="${holidayName}">${holidayName}</div>` : ""}
         ${isHol ? "" : `
           <div class="slot-box">
-            <button type="button" class="slot-btn" data-date="${iso}" data-session="AM" ${amDisabled ? "disabled":""}>
-              <span>AM</span><span class="rem ${amZeroClass}">${amLabel}</span>
+            <button type="button" class="slot-btn ${amBtnClass}" data-date="${iso}" data-session="AM" ${amDisabled ? "disabled":""}>
+              <span>AM</span><span class="rem ${amCountClass}">${amLabel}</span>
             </button>
-            <button type="button" class="slot-btn" data-date="${iso}" data-session="PM" ${pmDisabled ? "disabled":""}>
-              <span>PM</span><span class="rem ${pmZeroClass}">${pmLabel}</span>
+           <button type="button" class="slot-btn ${pmBtnClass}" data-date="${iso}" data-session="PM" ${pmDisabled ? "disabled":""}>
+              <span>PM</span><span class="rem ${pmCountClass}">${pmLabel}</span>
             </button>
           </div>
         `}
@@ -3375,9 +3952,83 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
 
           slotHelperEl.style.display = "none";
           hideNotice();
+          updateCalendarOverlay(win);
         });
       });
+      updateCalendarOverlay(win);
     }
+
+      function getSelectedCountryProcDays() {
+        const sel = document.getElementById("countrySelect");
+        if (!sel) return 0;
+
+        const opt = sel.options[sel.selectedIndex];
+        if (!opt) return 0;
+
+        const val = opt.getAttribute("data-procdays");
+        return Number(val || 0);
+      }
+
+        function updateCalendarOverlay(win){
+          const emptyBox  = document.getElementById("calEmptyBox");
+          const emptyText = document.getElementById("calEmptyText");
+          const emptyTitle = emptyBox ? emptyBox.querySelector(".cal-empty-title") : null;
+          if (!emptyBox || !emptyText) return;
+
+          // default hide
+          emptyBox.style.display = "none";
+
+          // if Step 2 not complete
+          if (!win) return;
+
+          const today = new Date();
+          today.setHours(0,0,0,0);
+
+          const maxAllowed = win.latestByProcessing; // Date object
+          const travelIsCompatible = !!(maxAllowed && maxAllowed.getTime() >= today.getTime());
+
+          // ✅ If travel date is NOT compatible (too early), show "too early" message
+          if (!travelIsCompatible){
+            if (emptyTitle) emptyTitle.textContent = "Intended Travel Date is too early";
+
+            let html =
+              `Your selected travel date does not leave enough time for <b>${win.procDays} working days</b> processing.<br>` +
+              `Please go back to Step 2 and choose a <b>later Intended Travel Date</b> to see available appointment slots.`;
+
+            // show nearest overall IF it exists
+            if (NEAREST_ANY_AVAILABLE_ISO){
+              html += `<br><br><b>Nearest available overall:</b> ${fmtLong(isoToDate(NEAREST_ANY_AVAILABLE_ISO))}`;
+            }
+
+            emptyText.innerHTML = html;
+            emptyBox.style.display = "flex";
+            return;
+          }
+
+          // ✅ If there IS a slot within allowed window → no overlay
+          if (NEAREST_AVAILABLE_ISO){
+            emptyBox.style.display = "none";
+            return;
+          }
+
+          // ✅ If there are slots overall but none within window → still "too early"
+          if (NEAREST_ANY_AVAILABLE_ISO){
+            if (emptyTitle) emptyTitle.textContent = "Intended Travel Date is too early";
+            emptyText.innerHTML =
+              `We found available appointment slots, but none fall within your allowed travel window.<br>` +
+              `Please go back to Step 2 and choose a <b>later Intended Travel Date</b> to unlock more available dates.<br>` +
+              `<br><b>Nearest available overall:</b> ${fmtLong(isoToDate(NEAREST_ANY_AVAILABLE_ISO))}`;
+            emptyBox.style.display = "flex";
+            return;
+          }
+
+          // ✅ Travel date is compatible BUT no slots anywhere → show FB page message
+          if (emptyTitle) emptyTitle.textContent = "No available appointment dates";
+          emptyText.innerHTML =
+            `Your travel date is within the allowed processing window, but we currently have <b>no available appointment slots</b>.<br>` +
+            `Please check the <b>1BOSSCO Facebook page</b> for updates when we reopen new appointment dates.`;
+          emptyBox.style.display = "flex";
+        }
 
     if (calPrevBtn) {
       calPrevBtn.addEventListener("click", () => {
@@ -3396,9 +4047,12 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       STEP 2 EVENTS
     ========================================================= */
     countryTypeEl.addEventListener("change", () => {
+      hidePaxDisclaimer();
       const countryName = countryTypeEl.value;
       SELECTED_COUNTRY_ID = COUNTRY_NAME_TO_ID[countryName] || "";
       SELECTED_PROC_DAYS = COUNTRY_ID_TO_PROC[SELECTED_COUNTRY_ID] || 0;
+
+      updateStep3Reminder(SELECTED_PROC_DAYS);
 
       appointmentDateEl.value = "";
       appointmentSessionEl.value = "";
@@ -3494,37 +4148,80 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       const h = document.getElementById("appFormDoneHelper");
       if (h) h.style.display = "block";
     }
+      // existing validations above
+      // (country, pax, service, etc.)
 
-    if (!ok){
-      if (noticeBox.style.display === "none") {
-        showNotice("Please complete all required fields in Step 2.", false);
-        scrollToFirstErrorInStep(document.getElementById("step2"));
+      /* ================================
+        PRICING DISCLAIMER VALIDATION
+      ================================ */
+
+      const paxDisclaimerAgree = document.getElementById("paxDisclaimerAgree");
+      const paxDisclaimerBox = document.getElementById("paxDisclaimerBox");
+      const paxDisclaimerHelper = document.getElementById("paxDisclaimerHelper");
+
+      const disclaimerVisible = paxDisclaimerBox && paxDisclaimerBox.style.display !== "none";
+
+      if (disclaimerVisible && (!paxDisclaimerAgree || !paxDisclaimerAgree.checked)){
+        ok = false;
+
+        if (paxDisclaimerBox) paxDisclaimerBox.classList.add("invalid");
+        if (paxDisclaimerHelper) paxDisclaimerHelper.style.display = "block";
       }
-      return;
-    }
+
+
+      // ⬇⬇ THIS IS YOUR EXISTING BLOCK ⬇⬇
+      if (!ok){
+        if (noticeBox.style.display === "none") {
+          showNotice("Please complete all required fields in Step 2.", false);
+          scrollToFirstErrorInStep(document.getElementById("step2"));
+        }
+        return;
+      }
 
     hideNotice();
 
-    const now = new Date();
-    calCursor = new Date(now.getFullYear(), now.getMonth(), 1);
+    const nowDt = new Date();
+    calCursor = new Date(nowDt.getFullYear(), nowDt.getMonth(), 1);
     lastAvailKey = "";
+
+    // ✅ show loading BEFORE Step 3 becomes visible (prevents overlay flashing first)
+    showCalLoading();
 
     currentStep = 2;
     updateSteps();
 
-    const win = computeAllowedWindow(); // ✅ now uses weekend+holiday-safe subtractWorkingDays()
-    const upToISO = win ? fmtISO(win.latestByProcessing) : "";
+    // Load holidays for the travel date lookback window so working-day math is correct
+    const travelISO = (apptDateEl.value || "").trim();
+    if (travelISO){
+      const travelD = new Date(travelISO + "T00:00:00");
+      const procDays = Number(getSelectedCountryProcDays() || 0);
+      const lookbackDays = Math.max(120, procDays + 30);
+      const holFromD = new Date(travelD);
+      holFromD.setDate(holFromD.getDate() - lookbackDays);
+      await loadHolidaysForRange(
+        holFromD.toISOString().slice(0,10),
+        travelISO
+      );
+    }
 
+    const win = computeAllowedWindow();
+    const upToISO = win ? fmtISO(win.latestByProcessing) : "";
     if (upToISO) {
-      loadLatestAvailable(upToISO);
-      loadNearestAvailable(upToISO);
+      // ✅ load server-side helpers (no UI update yet)
+      await Promise.all([
+        loadLatestAvailable(upToISO),
+        loadNearestAvailable(upToISO),
+        loadNearestAnyAvailable()
+      ]);
     } else {
       LATEST_AVAILABLE_ISO = "";
       NEAREST_AVAILABLE_ISO = "";
+      NEAREST_ANY_AVAILABLE_ISO = "";
     }
 
-    calendarEnsureAvailabilityThenRender();
-  });
+    // ✅ then load the month availability + render (this will show overlay text AFTER loading)
+    await calendarEnsureAvailabilityThenRender();
+});
 
     /* =========================================================
       BACK BUTTONS
@@ -3731,13 +4428,17 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
     const box = document.getElementById("step3ReminderText");
     if (!box) return;
 
-    if (!procDays || isNaN(procDays)){
+    const countryName = (document.getElementById("countryType")?.value || "").trim();
+
+    // If no country or invalid procDays yet
+    if (!countryName || !procDays || isNaN(procDays)){
       box.textContent = "Select your Country first to see the required working days before travel.";
       return;
     }
 
     box.innerHTML =
-      `Appointments must be scheduled at least <b>${procDays} WORKING DAYS</b> before travel. ` +
+      `Appointments must be scheduled at least <b>${countryName}</b> ` +
+      `<b>${procDays} WORKING DAYS</b> before travel. ` +
       `Available dates depend on VFS availability. ` +
       `<br><b>Tip:</b> Please check this reminder before choosing your Intended Travel Date.`;
   }
@@ -3859,6 +4560,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
 
       try{
         await apiPost("saveAppointment", data);
+         localStorage.removeItem(FORM_STORAGE_KEY); // ✅ add here
         hideSubmitOverlay();
 
         fillSuccessDetails();
@@ -3889,13 +4591,19 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       STEP 4: Confirm + Consent enable submit
     ========================================================= */
     function updateSubmitEnabled(){
-      const confirmCheck = document.getElementById("confirmCheck");
-      const consentAgree = document.getElementById("consentAgree");
-      const submitBtn = document.getElementById("submitBtn");
+    const confirmCheck = document.getElementById("confirmCheck");
+    const consentAgree = document.getElementById("consentAgree");
+    const submitBtn = document.getElementById("submitBtn");
 
-      const ok = !!(confirmCheck && confirmCheck.checked) && !!(consentAgree && consentAgree.checked);
-      if (submitBtn) submitBtn.disabled = !ok;
+    // ✅ If currently submitting, ALWAYS keep disabled
+    if (IS_SUBMITTING){
+      if (submitBtn) submitBtn.disabled = true;
+      return;
     }
+
+    const ok = !!(confirmCheck && confirmCheck.checked) && !!(consentAgree && consentAgree.checked);
+    if (submitBtn) submitBtn.disabled = !ok;
+  }
 
     (function setupConsentUI(){
       const head = document.getElementById("consentHead");
@@ -3958,6 +4666,16 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       if (overlay) overlay.style.display = "flex";
     }
 
+    const paxDisclaimerAgree = document.getElementById("paxDisclaimerAgree");
+    if (paxDisclaimerAgree){
+      paxDisclaimerAgree.addEventListener("change", () => {
+        const box = document.getElementById("paxDisclaimerBox");
+        const helper = document.getElementById("paxDisclaimerHelper");
+        if (box) box.classList.remove("invalid");
+        if (helper) helper.style.display = "none";
+      });
+    }
+
     /* =========================================================
           SUBMIT LOADING OVERLAY
         ========================================================= */
@@ -4003,13 +4721,26 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       });
     }
 
+    // Auto-save on any change
+    document.querySelectorAll("#appointmentForm input, #appointmentForm select, #appointmentForm textarea")
+      .forEach(el => {
+        el.addEventListener("input", saveFormToStorage);
+        el.addEventListener("change", saveFormToStorage);
+      });
+
     /* =========================================================
       INIT
     ========================================================= */
     updateSteps();
+    updateStep3Reminder(SELECTED_PROC_DAYS);
     loadCountriesIntoUser();
     updatePriceBoxFromSheet();
     calendarEnsureAvailabilityThenRender();
+
+        // ✅ Restore saved form after short delay (wait for countries to load)
+    setTimeout(() => {
+      restoreFormFromStorage();
+    }, 500);
   </script>
 </body>
 </html>
