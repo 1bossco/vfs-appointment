@@ -1880,6 +1880,30 @@
               transition: all 0.3s ease;
             }
 
+            /* ✅ dates that exist (open) but not allowed due to Intended Travel window */
+            .cal-day.out-window{
+              background: #f1f5f9 !important;   /* solid gray */
+              opacity: 1 !important;           /* keep clean */
+            }
+
+            .cal-day.out-window .cal-num{
+              color: #334155 !important;
+            }
+
+            /* buttons look “locked” but still show counts */
+            .cal-day.out-window .slot-btn{
+              background: #e2e8f0 !important;
+              border-color: #cbd5e1 !important;
+              color: #475569 !important;
+              cursor: not-allowed !important;
+            }
+
+            .legend-pill.legend-gray{
+            background:#e2e8f0;
+            color:#475569;
+            border:1px solid #cbd5e1;
+          }
+
   </style>
 </head>
 <!-- redeploy -->
@@ -2283,6 +2307,7 @@
                 <span class="legend-pill legend-ok">Available</span>
                 <span class="legend-pill legend-zero">Full</span>
                 <span class="legend-pill legend-sel">Selected</span>
+                <span class="legend-pill legend-gray">Not allowed (travel window)</span>
               </div>
             </div>
           </div>
@@ -3844,9 +3869,10 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
         // past date
         if (d < today) disabledDay = true;
 
-        // must have window
-        if (!win) disabledDay = true;
-        else if (maxAllowed && d.getTime() > maxAllowed.getTime()) disabledDay = true;
+       // must have window
+      if (!win) disabledDay = true;
+
+      // NOTE: don't disable yet here — we'll decide after we know if the day is OPEN in Availability
 
         // ✅ disable weekends + holidays (calendar UI)
         if (isWeekend(d)) disabledDay = true;
@@ -3863,6 +3889,10 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       const row = AVAIL_MAP[iso];
       const isOpen = !!(row && row.is_open);
 
+      // ✅ OUTSIDE ALLOWED WINDOW (only matters if the day is OPEN)
+      const outOfWindow = !!(win && maxAllowed && d.getTime() > maxAllowed.getTime() && isOpen);
+      if (outOfWindow) disabledDay = true;
+
       const amOk = (amRem !== null && amRem > 0);
       const pmOk = (pmRem !== null && pmRem > 0);
 
@@ -3872,6 +3902,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
 
       // base class
       cell.className = "cal-day" + (disabledDay ? " disabled" : "");
+      if (outOfWindow) cell.classList.add("out-window");
       if (isHol) cell.classList.add("holiday");
 
       // ✅ availability colors (ONLY if allowed + not holiday + open)
@@ -4465,7 +4496,13 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
 
       const countryName = countryTypeEl.value;
       const countryId = COUNTRY_NAME_TO_ID[countryName] || "";
-      const pax = toNum(paxCountEl.value, 0);
+      const pax = toNum(paxCountEl.value, 1);  // ← changed fallback from 0 to 1
+
+      // Guard: should never reach here, but just in case
+      if (!pax || pax < 1) {
+        showNotice("Invalid pax count. Please go back to Step 2 and re-enter.", false);
+        return;
+      }
 
       const consentAgree = document.getElementById("consentAgree");
       const consentBox = document.getElementById("consentBox");
