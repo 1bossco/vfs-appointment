@@ -19,6 +19,7 @@
     ========================================================= */
 
     :root{
+    
       --bg1:#eef4ff;
       --bg2:#f8fbff;
 
@@ -242,7 +243,7 @@
     }
     .no-middle input{ width:auto; margin:0; }
     .middle-disabled{
-      background:#f1f5f9 !important;
+      background: #cbd5e1 !important;
       color:#64748b !important;
     }
 
@@ -1880,29 +1881,44 @@
               transition: all 0.3s ease;
             }
 
-            /* ✅ dates that exist (open) but not allowed due to Intended Travel window */
             .cal-day.out-window{
-              background: #f1f5f9 !important;   /* solid gray */
-              opacity: 1 !important;           /* keep clean */
+              background: #cbd5e1 !important;   /* darker gray */
+              opacity: 1 !important;
             }
 
-            .cal-day.out-window .cal-num{
-              color: #334155 !important;
-            }
-
-            /* buttons look “locked” but still show counts */
             .cal-day.out-window .slot-btn{
-              background: #e2e8f0 !important;
-              border-color: #cbd5e1 !important;
-              color: #475569 !important;
-              cursor: not-allowed !important;
+              background: #b6c2d1 !important;   /* darker button gray */
+              border-color: #94a3b8 !important;
+              color: #0f172a !important;
             }
 
             .legend-pill.legend-gray{
-            background:#e2e8f0;
-            color:#475569;
-            border:1px solid #cbd5e1;
+            background:#94a3b8;
+            color:#0f172a;
+            border:1px solid #64748b;
           }
+
+  
+        /* ===========================
+           MOBILE: CALENDAR BOTTOM SCROLLBAR
+           =========================== */
+        .cal-bottom-scroll{
+          display:none;
+          padding: 10px 14px 14px;
+          background: #f8fbff;
+          border-top: 1px solid #eef2f7;
+        }
+        .cal-range{
+          width: 100%;
+          height: 22px;
+        }
+        @media (max-width: 720px){
+          .cal-bottom-scroll{ display:block; }
+          /* iOS hides scrollbars; keep a subtle hint */
+          .cal-scroll{
+            scrollbar-width: thin;
+          }
+        }
 
   </style>
 </head>
@@ -2091,10 +2107,17 @@
               <div class="helper" id="muniHelper">This field is required.</div>
             </div>
 
-            <!-- Show ONLY if Resident = NO -->
             <div class="field full" id="addressWrap" style="display:none;">
-              <label>Complete Address (Outside Bataan)<span class="req">*</span></label>
-              <input id="outsideAddress" type="text" placeholder="House No., Street, Barangay, City/Province" />
+              <label>Province<span class="req">*</span></label>
+              <select id="outsideProvince">
+                <option value="" disabled selected>Select your province</option>
+                <option>Aurora</option>
+                <option>Bulacan</option>
+                <option>Nueva Ecija</option>
+                <option>Pampanga</option>
+                <option>Tarlac</option>
+                <option>Zambales</option>
+              </select>
               <div class="helper" id="addressHelper">This field is required.</div>
             </div>
 
@@ -2216,16 +2239,8 @@
             <div class="helper" id="otherVisaHelper">This field is required.</div>
           </div>
 
-          <div class="field full">
-            <label>Entry Type<span class="req">*</span></label>
-            <select id="entryType" required>
-              <option value="" disabled selected>Select entry type</option>
-              <option value="Single Entry">Single Entry</option>
-              <option value="Double Entry">Double Entry</option>
-              <option value="Multiple Entry">Multiple Entry</option>
-            </select>
-            <div class="helper" id="entryTypeHelper">This field is required.</div>
-          </div>
+          <!-- Entry Type is stored but fixed for users -->
+          <input type="hidden" id="entryType" value="Single Entry" />
 
           <div class="field full">
             <label>Is this a first-time Visa Application for this country?<span class="req">*</span></label>
@@ -2293,14 +2308,20 @@
                 </div>
             </div>
 
+            
+            <!-- Mobile horizontal scroll bar (calendar) -->
+            <div class="cal-bottom-scroll" id="calBottomScroll" aria-hidden="true">
+              <input type="range" class="cal-range" id="calHRange" min="0" max="0" value="0" />
+            </div>
+
             <div class="helper" id="slotHelper" style="display:none; margin:12px;">
               Please select a date and time (AM or PM).
             </div>
 
-           <div class="selected-box" id="selectedBox" style="display:none;">
+           <div class="selected-box" id="selectedBox">
             <div class="selected-row">
               <div class="selected-left">
-                <strong>Selected:</strong> <span id="selectedText"></span>
+                <strong>Selected:</strong> <span id="selectedText">—</span>
               </div>
 
               <div class="selected-legend" aria-label="Calendar legend">
@@ -2402,7 +2423,6 @@
                   <div class="review-row"><div class="review-k">Intended Travel Date</div><div class="review-v" id="r_traveldate">-</div></div>
                   <div class="review-row"><div class="review-k">Appointment Slot</div><div class="review-v" id="r_slot">-</div></div>
                   <div class="review-row"><div class="review-k">Visa Type</div><div class="review-v" id="r_visa">-</div></div>
-                  <div class="review-row"><div class="review-k">Entry Type</div><div class="review-v" id="r_entry">-</div></div>
                   <div class="review-row"><div class="review-k">Application Type</div><div class="review-v" id="r_apptype">-</div></div>
                   <div class="review-row"><div class="review-k">First-time Visa</div><div class="review-v" id="r_firsttime">-</div></div>
                   <div class="review-row"><div class="review-k">Form Done</div><div class="review-v" id="r_formdone">-</div></div>
@@ -2682,54 +2702,58 @@
     }
 
     /* =========================================================
-  SCROLL TO FIRST INVALID (UX)
-========================================================= */
-function scrollToEl(el){
-  if (!el) return;
-  const y = el.getBoundingClientRect().top + window.pageYOffset - 110; // offset for header
-  window.scrollTo({ top: y, behavior: "smooth" });
-  try { el.focus({ preventScroll: true }); } catch(e){}
-}
-
-function scrollToHelper(helperEl){
-  if (!helperEl) return;
-  const y = helperEl.getBoundingClientRect().top + window.pageYOffset - 110;
-  window.scrollTo({ top: y, behavior: "smooth" });
-}
-
-function scrollToFirstErrorInStep(stepEl){
-  if (!stepEl) return;
-
-  // 1) invalid inputs/selects/textareas
-  let target = stepEl.querySelector(".invalid");
-
-  // 2) invalid radio/check groups (you add class "invalid" to group containers)
-  if (!target) target = stepEl.querySelector(".radio-group.invalid, .check-group.invalid, .consent-wrap.invalid");
-
-  // 3) visible helper messages (fallback)
-  if (!target){
-    const helpers = Array.from(stepEl.querySelectorAll(".helper, .consent-error"))
-      .filter(h => getComputedStyle(h).display !== "none");
-    if (helpers.length) return scrollToHelper(helpers[0]);
-  }
-
-  if (target) scrollToEl(target);
-}
-
-    function attachClearOnInput(inputId, helperId) {
-      const input = document.getElementById(inputId);
-      const helper = document.getElementById(helperId);
-      if (!input) return;
-
-      const handler = () => {
-        if (String(input.value || "").trim() !== "") {
-          clearInvalid(input, helper);
-          hideNotice();
-        }
-      };
-      input.addEventListener("input", handler);
-      input.addEventListener("change", handler);
+        SCROLL TO FIRST INVALID (UX)
+      ========================================================= */
+    function scrollToTopSmooth(){
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
+
+    function scrollToEl(el){
+      if (!el) return;
+      const y = el.getBoundingClientRect().top + window.pageYOffset - 110; // offset for header
+      window.scrollTo({ top: y, behavior: "smooth" });
+      try { el.focus({ preventScroll: true }); } catch(e){}
+    }
+
+    function scrollToHelper(helperEl){
+      if (!helperEl) return;
+      const y = helperEl.getBoundingClientRect().top + window.pageYOffset - 110;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+
+    function scrollToFirstErrorInStep(stepEl){
+      if (!stepEl) return;
+
+      // 1) invalid inputs/selects/textareas
+      let target = stepEl.querySelector(".invalid");
+
+      // 2) invalid radio/check groups (you add class "invalid" to group containers)
+      if (!target) target = stepEl.querySelector(".radio-group.invalid, .check-group.invalid, .consent-wrap.invalid");
+
+      // 3) visible helper messages (fallback)
+      if (!target){
+        const helpers = Array.from(stepEl.querySelectorAll(".helper, .consent-error"))
+          .filter(h => getComputedStyle(h).display !== "none");
+        if (helpers.length) return scrollToHelper(helpers[0]);
+      }
+
+      if (target) scrollToEl(target);
+    }
+
+      function attachClearOnInput(inputId, helperId) {
+        const input = document.getElementById(inputId);
+        const helper = document.getElementById(helperId);
+        if (!input) return;
+
+        const handler = () => {
+          if (String(input.value || "").trim() !== "") {
+            clearInvalid(input, helper);
+            hideNotice();
+          }
+        };
+        input.addEventListener("input", handler);
+        input.addEventListener("change", handler);
+      }
 
     /* =========================================================
       UTILS
@@ -2811,6 +2835,7 @@ function scrollToFirstErrorInStep(stepEl){
     const addressWrapEl = document.getElementById("addressWrap");
     const outsideAddressEl = document.getElementById("outsideAddress");
     const submitBtn = document.getElementById("submitBtn");
+    const outsideProvince = (document.getElementById("outsideProvince")?.value || "").trim();
 
     /* =========================================================
       CHECKBOX CARDS
@@ -3066,16 +3091,22 @@ function scrollToFirstErrorInStep(stepEl){
       const resident = document.querySelector('input[name="resident"]:checked');
       const val = resident ? resident.value : "";
 
-      if (!muniWrapEl || !addressWrapEl || !municipalityEl || !outsideAddressEl) return;
+      const muniWrapEl = document.getElementById("muniWrap");
+      const addressWrapEl = document.getElementById("addressWrap");
+      const municipalityEl = document.getElementById("municipality");
+      const outsideProvinceEl = document.getElementById("outsideProvince");
+
+      if (!muniWrapEl || !addressWrapEl || !municipalityEl || !outsideProvinceEl) return;
 
       if (val === "Yes"){
         muniWrapEl.style.display = "block";
         addressWrapEl.style.display = "none";
 
         municipalityEl.required = true;
-        outsideAddressEl.required = false;
-        outsideAddressEl.value = "";
-        clearInvalid(outsideAddressEl, document.getElementById("addressHelper"));
+
+        outsideProvinceEl.required = false;
+        outsideProvinceEl.value = "";
+        clearInvalid(outsideProvinceEl, document.getElementById("addressHelper"));
       }
       else if (val === "No"){
         muniWrapEl.style.display = "none";
@@ -3085,14 +3116,14 @@ function scrollToFirstErrorInStep(stepEl){
         municipalityEl.value = "";
         clearInvalid(municipalityEl, document.getElementById("muniHelper"));
 
-        outsideAddressEl.required = true;
+        outsideProvinceEl.required = true;
       }
       else {
         muniWrapEl.style.display = "none";
         addressWrapEl.style.display = "none";
 
         municipalityEl.required = false;
-        outsideAddressEl.required = false;
+        outsideProvinceEl.required = false;
       }
     }
 
@@ -3150,16 +3181,18 @@ function scrollToFirstErrorInStep(stepEl){
       if (!noMiddleCheck.checked && !middle.value.trim()) { ok = false; markInvalid(middle, document.getElementById("middleHelper")); }
 
       const residentVal = resident ? resident.value : "";
+      const muniYes = (document.getElementById("municipality")?.value || "").trim();
+      const provNo  = (document.getElementById("outsideProvince")?.value || "").trim();
 
       if (residentVal === "Yes"){
         if (!muni.value) { ok = false; markInvalid(muni, document.getElementById("muniHelper")); }
       }
 
       if (residentVal === "No"){
-        const addr = document.getElementById("outsideAddress");
-        if (!addr.value.trim()){
+        const prov = document.getElementById("outsideProvince");
+        if (!prov.value){
           ok = false;
-          markInvalid(addr, document.getElementById("addressHelper"));
+          markInvalid(prov, document.getElementById("addressHelper"));
         }
       }
 
@@ -3181,6 +3214,7 @@ function scrollToFirstErrorInStep(stepEl){
         hideNotice();
         currentStep = 1;
         updateSteps();
+        scrollToTopSmooth();
             } else {
         showNotice("Please complete all required fields in Step 1.", false);
         scrollToFirstErrorInStep(document.getElementById("step1"));
@@ -3195,6 +3229,12 @@ function scrollToFirstErrorInStep(stepEl){
     });
 
     toggleResidentFields(); // run once on load
+
+    document.querySelectorAll('input[name="resident"]').forEach(r=>{
+      r.addEventListener("change", toggleResidentFields);
+    });
+
+    toggleResidentFields(); // run once on page load
 
     /* =========================================================
       HOLIDAYS: load from Holidays sheet, cached per year
@@ -3458,6 +3498,56 @@ function scrollToFirstErrorInStep(stepEl){
     const calDaysEl = document.getElementById("calDays");
     const calPrevBtn = document.getElementById("calPrev");
     const calNextBtn = document.getElementById("calNext");
+    const calScrollEl = document.querySelector(".cal-scroll");
+    const calBottomScrollEl = document.getElementById("calBottomScroll");
+    const calHRangeEl = document.getElementById("calHRange");
+
+    function syncCalHScroll(){
+      if (!calScrollEl || !calHRangeEl) return;
+      const max = Math.max(0, calScrollEl.scrollWidth - calScrollEl.clientWidth);
+      calHRangeEl.max = String(max);
+      calHRangeEl.value = String(Math.min(max, calScrollEl.scrollLeft));
+      // Hide the slider if there's nothing to scroll
+      if (calBottomScrollEl){
+        const isMobile = window.matchMedia("(max-width: 720px)").matches;
+        calBottomScrollEl.style.display = (isMobile && max > 0) ? "block" : "none";
+      }
+    }
+
+    function centerCalendarOnMobile(){
+      if (!calScrollEl) return;
+      const isMobile = window.matchMedia("(max-width: 720px)").matches;
+      if (!isMobile) return;
+
+      const max = calScrollEl.scrollWidth - calScrollEl.clientWidth;
+      if (max <= 0) return;
+
+      // Only auto-center if the user hasn't manually scrolled yet
+      if (calScrollEl.dataset.userScrolled === "1") return;
+
+      calScrollEl.scrollLeft = Math.floor(max / 2);
+      syncCalHScroll();
+    }
+
+    // Hook scroll + slider
+    if (calScrollEl){
+      calScrollEl.addEventListener("scroll", () => {
+        calScrollEl.dataset.userScrolled = "1";
+        syncCalHScroll();
+      }, { passive: true });
+    }
+    if (calHRangeEl && calScrollEl){
+      calHRangeEl.addEventListener("input", (e) => {
+        calScrollEl.dataset.userScrolled = "1";
+        calScrollEl.scrollLeft = Number(e.target.value || 0);
+        syncCalHScroll();
+      });
+    }
+    window.addEventListener("resize", () => {
+      // Don't reset userScrolled; just keep UI correct
+      syncCalHScroll();
+    });
+
 
     const windowTextEl = document.getElementById("windowText");
     const processingTextEl = document.getElementById("processingText");
@@ -3977,14 +4067,16 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
             processingTextEl.textContent =
               `Processing starts next day • ${procDays} working days ends on: ${fmtLong(end)}`;
           }
-
-          selectedBoxEl.style.display = "block";
           selectedTextEl.textContent = `${dateISO} (${session})`;
 
           slotHelperEl.style.display = "none";
           hideNotice();
           updateCalendarOverlay(win);
-        });
+              requestAnimationFrame(() => {
+        syncCalHScroll();
+        centerCalendarOnMobile();
+      });
+    });
       });
       updateCalendarOverlay(win);
     }
@@ -4064,12 +4156,14 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
     if (calPrevBtn) {
       calPrevBtn.addEventListener("click", () => {
         calCursor = new Date(calCursor.getFullYear(), calCursor.getMonth()-1, 1);
+        if (calScrollEl){ calScrollEl.dataset.userScrolled = "0"; }
         calendarEnsureAvailabilityThenRender();
       });
     }
     if (calNextBtn) {
       calNextBtn.addEventListener("click", () => {
         calCursor = new Date(calCursor.getFullYear(), calCursor.getMonth()+1, 1);
+        if (calScrollEl){ calScrollEl.dataset.userScrolled = "0"; }
         calendarEnsureAvailabilityThenRender();
       });
     }
@@ -4087,7 +4181,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
 
       appointmentDateEl.value = "";
       appointmentSessionEl.value = "";
-      selectedBoxEl.style.display = "none";
+      selectedBoxEl.style.display = "block";
 
       showPriceLoading();
       loadPricesForSelectedCountry();
@@ -4220,6 +4314,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
 
     currentStep = 2;
     updateSteps();
+    scrollToTopSmooth();
 
     // Load holidays for the travel date lookback window so working-day math is correct
     const travelISO = (apptDateEl.value || "").trim();
@@ -4271,7 +4366,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       apptDateEl.addEventListener("change", () => {
         appointmentDateEl.value = "";
         appointmentSessionEl.value = "";
-        selectedBoxEl.style.display = "none";
+        selectedTextEl.textContent = "—"; // just reset text
         calendarEnsureAvailabilityThenRender();
       });
     }
@@ -4304,6 +4399,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
           );
           currentStep = 1; // go back to Step 2 if you want
           updateSteps();
+          scrollToTopSmooth();
           scrollToEl(apptDateEl);
           return;
         }
@@ -4344,6 +4440,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       currentStep = 3;
       buildReviewSummary();
       updateSteps();
+      scrollToTopSmooth();
       buildReviewSummary();
     });
 
@@ -4413,7 +4510,6 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       document.getElementById("r_slot").textContent = apptSlotDate ? `${apptSlotDate} (${apptSlotSession || "-"})` : "-";
 
       document.getElementById("r_visa").textContent = visaTypeApplied || "-";
-      document.getElementById("r_entry").textContent = entryType || "-";
       document.getElementById("r_apptype").textContent = appType || "-";
       document.getElementById("r_firsttime").textContent = firstTimeVisa || "-";
       document.getElementById("r_formdone").textContent = appFormDone || "-";
@@ -4536,6 +4632,14 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       const currency = SELECTED_PRICE_ROW.currency || "PHP";
       const unitPrice = toNum(SELECTED_PRICE_ROW.price, 0);
       const totalPrice = mode === "PER_PAX" ? unitPrice * pax : unitPrice;
+      const residentRadio = document.querySelector('input[name="resident"]:checked');
+      const residentVal = residentRadio ? residentRadio.value : "";
+      const ofwRadio = document.querySelector('input[name="ofw"]:checked');
+      const ofwVal = ofwRadio ? ofwRadio.value : "";
+      const muniYes = (document.getElementById("municipality")?.value || "").trim();
+      const provNo  = (document.getElementById("outsideProvince")?.value || "").trim();
+      const muniOrAddress = (residentVal === "Yes") ? muniYes : provNo;
+
 
       const data = {
         email: document.getElementById("email").value.trim(),
@@ -4543,15 +4647,11 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
         surname: document.getElementById("surname").value.trim(),
         givenName: document.getElementById("givenName").value.trim(),
         middleName: document.getElementById("middleName").value.trim(),
-        suffix: document.getElementById("suffix").value,
-        municipality:
-          (residentEl && residentEl.value === "Yes")
-            ? (document.getElementById("municipality").value || "")
-            : (document.getElementById("outsideAddress")?.value || "").trim(),
+        suffix: document.getElementById("suffix").value,        municipality: muniOrAddress,
 
-        resident: residentEl ? residentEl.value : "",
-        ofw: ofwEl ? ofwEl.value : "",
-        resident_address: (document.getElementById("outsideAddress")?.value || "").trim(),
+        resident: residentVal,
+        ofw: ofwVal,
+        resident_address: (residentVal === "No") ? provNo : "",
 
         country_name: countryName,
         country_id: countryId,
@@ -4747,6 +4847,23 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
         <div><b>Email:</b> ${email || "-"}</div>
         <div><b>Country:</b> ${country || "-"}</div>
         <div><b>Appointment:</b> ${slotDate ? `${slotDate} (${slotSes || "-"})` : "-"}</div>
+
+        <div style="margin:12px 0 10px; height:1px; background:#e2e8f0;"></div>
+
+        <div style="font-size:12.5px; line-height:1.6; color:#334155;">
+
+          <div style="display:flex; align-items:flex-start; gap:8px;">
+            <span style="font-size:14px;">📧</span>
+            <div>
+              <b>Please check your email</b> for your official appointment confirmation and complete details.
+            </div>
+          </div>
+
+          <div style="margin-top:8px;">
+            <b>Important:</b> You will receive a separate email from <b>VFS</b> containing instructions and updates regarding your <b>online payment</b> prior to your scheduled appointment date.
+          </div>
+
+        </div>
       `;
     }
 
@@ -4764,6 +4881,13 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
         el.addEventListener("input", saveFormToStorage);
         el.addEventListener("change", saveFormToStorage);
       });
+
+      function scrollToTopSmooth() {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }
 
     /* =========================================================
       INIT
