@@ -604,16 +604,48 @@
       text-align: right;
       word-break: break-word;
     }
+    /* ===========================
+   STEP 4: Make confirm box LONG + mobile responsive
+   (paste at END of <style>)
+   =========================== */
+
     .review-footer{
-      margin-top: 12px;
-      padding: 12px 14px;
-      border-top: 1px solid #eef2f7;
-      background: linear-gradient(180deg,#f8fbff,#ffffff);
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
+      display: flex;
+      flex-direction: column;   /* stacks nicely */
       gap: 12px;
-      flex-wrap: wrap;
+      align-items: stretch;
+    }
+
+    .review-confirm{
+      width: 100%;
+      min-width: 0;            /* important so it can shrink on mobile */
+      flex: 1 1 auto;
+      padding: 14px 16px;      /* slightly bigger, looks like a long bar */
+    }
+
+    .review-confirm label{
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .review-confirm input{
+      flex: 0 0 auto;
+      margin-top: 3px;
+    }
+
+    .review-confirm > label > div{
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    /* Optional: slightly tighter on small phones */
+    @media (max-width: 720px){
+      .review-confirm{
+        padding: 12px 14px;
+        border-radius: 14px;
+      }
     }
     .review-note{
       flex:1;
@@ -1920,6 +1952,60 @@
           }
         }
 
+        /* ===========================
+          STEP 4 CONSENT: STICKY + MORE VISIBLE (USER FRIENDLY)
+          Paste at VERY END of <style>
+        =========================== */
+
+        #step4 .consent-wrap{
+          position: sticky;
+          bottom: 12px;                 /* stays visible near bottom */
+          z-index: 20;
+          margin-top: 14px;
+          border-radius: 20px;
+          border: 2px solid rgba(29,102,194,.30);
+          background: rgba(255,255,255,.96);
+          box-shadow: 0 18px 40px rgba(2,22,55,.14);
+        }
+
+        /* header looks like a “required” card */
+        #step4 .consent-head{
+          padding: 14px 16px;
+          background:
+            radial-gradient(900px 240px at 10% 0%, rgba(29,102,194,.18), transparent 55%),
+            linear-gradient(180deg, #f8fbff, #ffffff);
+        }
+
+        /* make the toggle button look clickable */
+        #step4 .consent-toggle{
+          background: rgba(29,102,194,.10);
+          border: 1px solid rgba(29,102,194,.22);
+          padding: 9px 12px;
+          font-size: 12px;
+        }
+
+        /* body spacing */
+        #step4 .consent-body{
+          padding: 14px 16px 16px;
+        }
+
+        /* clearer “Agree” checkbox row */
+        #step4 .consent-check{
+          margin-top: 12px;
+          padding: 12px 12px;
+          border-radius: 16px;
+          border: 1px solid rgba(29,102,194,.22);
+          background: rgba(231,240,255,.60);
+        }
+
+        /* nicer on mobile */
+        @media (max-width: 720px){
+          #step4 .consent-wrap{
+            bottom: 10px;
+            border-radius: 18px;
+          }
+        }
+
   </style>
 </head>
 <!-- redeploy -->
@@ -2108,7 +2194,7 @@
             </div>
 
             <div class="field full" id="addressWrap" style="display:none;">
-              <label>Province<span class="req">*</span></label>
+              <label>Province<span class="req">* Applicants are encouraged to arrange their visa appointment in their province of residence</span></label>
               <select id="outsideProvince">
                 <option value="" disabled selected>Select your province</option>
                 <option>Aurora</option>
@@ -2416,10 +2502,10 @@
                     <div class="left"><div class="icon-pill">🧾</div>Application</div>
                     <div class="badge2">Details</div>
                   </div>
-
                   <div class="review-row"><div class="review-k">Country / Mission</div><div class="review-v" id="r_country">-</div></div>
                   <div class="review-row"><div class="review-k">Pax</div><div class="review-v" id="r_pax">-</div></div>
                   <div class="review-row"><div class="review-k">Pricing</div><div class="review-v" id="r_price">-</div></div>
+                  <div class="review-row"><div class="review-k">Note</div><div class="review-v" id="r_priceNote">-</div></div>
                   <div class="review-row"><div class="review-k">Intended Travel Date</div><div class="review-v" id="r_traveldate">-</div></div>
                   <div class="review-row"><div class="review-k">Appointment Slot</div><div class="review-v" id="r_slot">-</div></div>
                   <div class="review-row"><div class="review-k">Visa Type</div><div class="review-v" id="r_visa">-</div></div>
@@ -2430,10 +2516,6 @@
               </div>
 
               <div class="review-footer">
-                <div class="review-note" id="reviewNote">
-                  <b>Note:</b> Please arrive <b>15 minutes early</b>. Bring your passport and requirements.
-                </div>
-
                 <div class="review-confirm">
                   <label>
                     <input type="checkbox" id="confirmCheck" />
@@ -3019,6 +3101,7 @@
     attachClearOnInput("apptDate", "dateHelper");
     attachClearOnInput("visaType", "visaTypeHelper");
     attachClearOnInput("entryType", "entryTypeHelper");
+    attachClearOnInput("outsideProvince", "addressHelper");
 
     /* =========================================================
       DATE: block past dates
@@ -4065,7 +4148,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
           if (appt && procDays > 0) {
             const end = addWorkingDaysStartNext(appt, procDays);
             processingTextEl.textContent =
-              `Processing starts next day • ${procDays} working days ends on: ${fmtLong(end)}`;
+               `Your selected (${dateISO} ${session}) Processing starts next day • ${procDays} working days ends on: ${fmtLong(end)}`;
           }
           selectedTextEl.textContent = `${dateISO} (${session})`;
 
@@ -4506,6 +4589,14 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       document.getElementById("r_country").textContent = countryName || "-";
       document.getElementById("r_pax").textContent = pax ? String(pax) : "-";
       document.getElementById("r_price").innerHTML = pricingLine || "-";
+
+      // ✅ PUT IT RIGHT HERE
+      const noteEl = document.getElementById("priceNote");
+      const reviewNoteE2 = document.getElementById("r_priceNote");
+
+      reviewNoteE2.textContent = noteEl && noteEl.textContent.trim()
+        ? noteEl.textContent
+        : "-";
       document.getElementById("r_traveldate").textContent = travelDate || "-";
       document.getElementById("r_slot").textContent = apptSlotDate ? `${apptSlotDate} (${apptSlotSession || "-"})` : "-";
 
@@ -4771,7 +4862,11 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
           updateSubmitEnabled();
         });
       }
-
+      // ✅ Open consent by default so users see it immediately
+        if (body && !body.classList.contains("open")){
+          body.classList.add("open");
+          if (arrow) arrow.textContent = "▾";
+        }
       updateSubmitEnabled();
     })();
 
@@ -4860,7 +4955,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
           </div>
 
           <div style="margin-top:8px;">
-            <b>Important:</b> You will receive a separate email from <b>VFS</b> containing instructions and updates regarding your <b>online payment</b> prior to your scheduled appointment date.
+            <b>Important:</b> You will receive a separate email from <b>VFS</b> containing instructions and updates regarding your <b>payment online for visa processing</b> prior to your scheduled appointment date.
           </div>
 
         </div>
