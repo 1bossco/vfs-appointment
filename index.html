@@ -3212,7 +3212,7 @@
                   <div class="cal-empty-card">
                     <div class="cal-empty-title">All appointments are currently taken</div>
                     <div class="cal-empty-text" id="calEmptyText">
-                      Nearest available appointment date: (no slots found up to allowed limit)<br>
+                      Earliest available appointment date: (no slots found up to allowed limit)<br>
                       Please pick another Intended Travel Date in Step 2.
                     </div>
                   </div>
@@ -4849,15 +4849,17 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
         // ✅ make sure we compute nearest from AVAIL_MAP if server nearest is blank
         ensureNearestFallback();
 
-        if (nearestTextEl){
-          if (NEAREST_AVAILABLE_ISO){
-            nearestTextEl.textContent =
-              `Nearest available appointment date: ${fmtLong(isoToDate(NEAREST_AVAILABLE_ISO))}`;
-          } else {
-            nearestTextEl.textContent =
-              `Nearest available appointment date: (no slots found up to allowed limit)`;
-          }
+        if (nearestTextEl) {
+        if (NEAREST_AVAILABLE_ISO) {
+          nearestTextEl.innerHTML =
+            `Earliest available appointment date: ${fmtLong(isoToDate(NEAREST_AVAILABLE_ISO))}<br>` +
+            `This is the soonest available slot currently offered by VFS Global for your selected location.`;
+        } else {
+          nearestTextEl.innerHTML =
+            `Earliest available appointment date: (no slots found up to allowed limit)<br>` +
+            `This is the soonest available slot currently offered by VFS Global for your selected location.`;
         }
+      }
 
         // Don't wipe processing end unless you want to
         // (optional) if (!appointmentDateEl.value) processingTextEl.textContent = "";
@@ -5002,9 +5004,9 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
           if (appt && procDays > 0) {
             const end = addWorkingDaysStartNext(appt, procDays);
             processingTextEl.textContent =
-               `Your selected (${dateISO} ${session}) Processing starts next day • ${procDays} working days ends on: ${fmtLong(end)}`;
+               `Your selected (${fmtLong(isoToDate(dateISO)) || dateISO} ${session}) • Processing starts next day — ${procDays} working days — ends on: ${fmtLong(end)}`;
           }
-          selectedTextEl.textContent = `${dateISO} (${session})`;
+          selectedTextEl.textContent = `${fmtLong(isoToDate(dateISO)) || dateISO} (${session})`;
 
           slotHelperEl.style.display = "none";
           hideNotice();
@@ -5057,7 +5059,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
 
             // show nearest overall IF it exists
             if (NEAREST_ANY_AVAILABLE_ISO){
-              html += `<br><br><b>Nearest available overall:</b> ${fmtLong(isoToDate(NEAREST_ANY_AVAILABLE_ISO))}`+
+              html += `<br><br><b>Earliest available overall:</b> ${fmtLong(isoToDate(NEAREST_ANY_AVAILABLE_ISO))}`+
               `<span style="color:#64748b;font-size:12px;"><br>This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
             emptyBox.style.display = "flex";;
             }
@@ -5079,7 +5081,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
             emptyText.innerHTML =
               `We found available appointment slots, but none fall within your allowed travel window.<br>` +
               `Please go back to Step 2 and choose a <b>later Intended Travel Date</b> to unlock more available dates.<br>` +
-              `<br><b>Nearest available overall:</b> ${fmtLong(isoToDate(NEAREST_ANY_AVAILABLE_ISO))}<br>`+
+              `<br><b>Earliest available overall:</b> ${fmtLong(isoToDate(NEAREST_ANY_AVAILABLE_ISO))}<br>`+
               `<span style="color:#64748b;font-size:12px;">This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
             emptyBox.style.display = "flex";
             return;
@@ -5453,8 +5455,8 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       reviewNoteE2.textContent = noteEl && noteEl.textContent.trim()
         ? noteEl.textContent
         : "-";
-      document.getElementById("r_traveldate").textContent = travelDate || "-";
-      document.getElementById("r_slot").textContent = apptSlotDate ? `${apptSlotDate} (${apptSlotSession || "-"})` : "-";
+      document.getElementById("r_traveldate").textContent = travelDate ? (fmtLong(isoToDate(travelDate)) || travelDate) : "-";
+      document.getElementById("r_slot").textContent = apptSlotDate ? `${fmtLong(isoToDate(apptSlotDate)) || apptSlotDate} (${apptSlotSession || "-"})` : "-";
 
       document.getElementById("r_visa").textContent = visaTypeApplied || "-";
       document.getElementById("r_apptype").textContent = appType || "-";
@@ -5911,7 +5913,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       box.innerHTML = `
         <div><b>Email:</b> ${email || "-"}</div>
         <div><b>Country:</b> ${country || "-"}</div>
-        <div><b>Appointment:</b> ${slotDate ? `${slotDate} (${slotSes || "-"})` : "-"}</div>
+        <div><b>Appointment:</b> ${slotDate ? `${fmtLong(isoToDate(slotDate)) || slotDate} (${slotSes || "-"})` : "-"}</div>
 
         <div style="margin:14px 0 12px; height:1px; background:#e2e8f0;"></div>
 
