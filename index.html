@@ -814,7 +814,7 @@
       position:fixed;
       inset:0;
       background: rgba(2,22,55,0.55);
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(3px);
       display:flex;
       align-items:center;
       justify-content:center;
@@ -2005,7 +2005,770 @@
             border-radius: 18px;
           }
         }
+     /* ===========================
+        PRICING DISCLAIMER (V2 - CLEAN)
+      =========================== */
 
+      .pax-disclaimer.v2{
+        margin-top: 14px;
+        border-radius: 20px;
+        background: rgba(255,255,255,.92);
+        border: 1px solid rgba(29,102,194,.18);
+        box-shadow: 0 18px 44px rgba(2,22,55,.10);
+        overflow: hidden;
+      }
+
+      .pax-disclaimer.v2 .pax-disclaimer-head{
+        display:flex;
+        align-items:flex-start;
+        justify-content:space-between;
+        gap: 12px;
+        padding: 14px 16px;
+        background:
+          radial-gradient(900px 240px at 10% 0%, rgba(29,102,194,.14), transparent 55%),
+          linear-gradient(180deg, #f8fbff, #ffffff);
+        border-bottom: 1px solid #eef2f7;
+      }
+
+      .pax-disclaimer.v2 .pax-disclaimer-head__title{
+        font-weight: 950;
+        font-size: 14px;
+        color: #0b2a5a;
+      }
+
+      .pax-disclaimer.v2 .pax-disclaimer-head__desc{
+        margin-top: 3px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #64748b;
+        line-height: 1.35;
+      }
+
+      .pax-disclaimer.v2 .pax-disclaimer-chip{
+        flex: 0 0 auto;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(29,102,194,.18);
+        background: rgba(231,240,255,.85);
+        color: #16437e;
+        font-weight: 900;
+        font-size: 11px;
+        white-space: nowrap;
+      }
+
+      .pax-disclaimer.v2 .pax-disclaimer-body{
+        padding: 16px;
+      }
+
+      .pax-disclaimer.v2 .pax-disclaimer-lead{
+        margin: 0 0 12px;
+        font-size: 13px;
+        font-weight: 650;
+        color: #334155;
+        line-height: 1.55;
+      }
+
+      .pax-disclaimer.v2 .pax-disclaimer-list{
+        display: grid;
+        gap: 10px;
+      }
+
+      .pax-disclaimer.v2 .pax-disclaimer-item{
+        border: 1px solid #eef2f7;
+        background: linear-gradient(180deg, #ffffff, #fbfdff);
+        border-radius: 16px;
+        padding: 12px 12px;
+      }
+
+      .pax-disclaimer.v2 .pax-disclaimer-item__title{
+        font-weight: 950;
+        font-size: 13px;
+        color: #0f172a;
+      }
+
+      .pax-disclaimer.v2 .pax-disclaimer-item__text{
+        margin-top: 4px;
+        font-size: 13px;
+        font-weight: 650;
+        color: #475569;
+        line-height: 1.55;
+      }
+
+      .pax-disclaimer.v2 .pax-disclaimer-check{
+        margin-top: 14px;
+        display:flex;
+        align-items:flex-start;
+        gap: 10px;
+        padding: 12px 12px;
+        border-radius: 16px;
+        border: 1px solid rgba(29,102,194,.18);
+        background: rgba(231,240,255,.55);
+        font-weight: 900;
+        font-size: 13px;
+        color: #0f172a;
+      }
+
+      .pax-disclaimer.v2 .pax-disclaimer-check input{
+        width: 18px;
+        height: 18px;
+        margin-top: 2px;
+        accent-color: var(--blue-600);
+      }
+
+      .pax-disclaimer.v2 .pax-disclaimer-check small{
+        display:block;
+        margin-top: 4px;
+        font-size: 12px;
+        font-weight: 750;
+        color: #64748b;
+      }
+
+      .pax-disclaimer.v2 .pax-disclaimer-error{
+        margin-top: 10px;
+        padding: 10px 12px;
+        border-radius: 14px;
+        background: rgba(220,38,38,.08);
+        border: 1px solid rgba(220,38,38,.18);
+        font-size: 12px;
+        color: #b91c1c;
+        font-weight: 900;
+        display:none;
+      }
+
+      /* Mobile polish */
+      @media (max-width: 720px){
+        .pax-disclaimer.v2 .pax-disclaimer-body{ padding: 14px; }
+        .pax-disclaimer.v2 .pax-disclaimer-item{ padding: 11px 11px; }
+      }
+
+      /* =========================================================
+         PRICING DISCLAIMER — POPUP REDESIGN
+      ========================================================= */
+
+      /* Trigger card */
+      .pdis-trigger-wrap{
+        margin-top: 14px;
+        padding: 16px;
+        border-radius: 20px;
+        border: 1.5px solid rgba(29,102,194,.22);
+        background: linear-gradient(135deg, rgba(231,240,255,.70), rgba(248,251,255,.90));
+        box-shadow: 0 10px 28px rgba(2,22,55,.08);
+      }
+      .pdis-trigger-label{
+        display:flex;
+        align-items:center;
+        gap: 10px;
+        font-weight: 950;
+        font-size: 14px;
+        color: #0b2a5a;
+        margin-bottom: 4px;
+      }
+      .pdis-trigger-badge{
+        background: #fef3c7;
+        border: 1px solid #fbbf24;
+        color: #92400e;
+        font-size: 11px;
+        font-weight: 900;
+        padding: 3px 9px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+      .pdis-trigger-sub{
+        font-size: 12px;
+        font-weight: 700;
+        color: #64748b;
+        margin-bottom: 12px;
+        line-height: 1.4;
+      }
+      .pdis-trigger-row{
+        display:flex;
+        align-items:center;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .pdis-open-btn{
+        display:inline-flex;
+        align-items:center;
+        gap: 8px;
+        padding: 12px 20px;
+        border-radius: 14px;
+        border: none;
+        background: var(--blue-900);
+        color: #fff;
+        font-weight: 900;
+        font-size: 13px;
+        cursor: pointer;
+        box-shadow: 0 10px 22px rgba(11,42,90,.28);
+        transition: .15s ease;
+      }
+      .pdis-open-btn:hover{
+        background: var(--blue-700);
+        transform: translateY(-1px);
+        box-shadow: 0 14px 28px rgba(11,42,90,.34);
+      }
+      .pdis-open-icon{ font-size: 15px; }
+      .pdis-status{
+        display:flex;
+        align-items:center;
+        gap: 7px;
+        font-size: 12px;
+        font-weight: 800;
+        color: #64748b;
+      }
+      .pdis-status-dot{
+        width: 10px; height: 10px;
+        border-radius: 999px;
+        background: #cbd5e1;
+        flex: 0 0 auto;
+        transition: .2s ease;
+      }
+      .pdis-status.done .pdis-status-dot{ background: #16a34a; }
+      .pdis-status.done .pdis-status-text{ color: #16a34a; }
+
+      /* Modal overlay */
+      .pdis-overlay{
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(8,34,74,.42);
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+        animation: pdisOverlayIn .2s ease;
+      }
+      .pdis-overlay{
+        /* pointer-events:none so background can still scroll */
+        pointer-events: none;
+      }
+      .pdis-overlay.open{
+        display:flex;
+        pointer-events: none; /* dim layer doesn't capture scroll */
+      }
+      .pdis-overlay.open .pdis-modal{
+        pointer-events: auto; /* only the modal card is interactive */
+      }
+      @keyframes pdisOverlayIn{
+        from{ opacity:0; }
+        to{ opacity:1; }
+      }
+
+      /* Modal box */
+      .pdis-modal{
+        background: #fff;
+        border-radius: 26px;
+        width: 100%;
+        max-width: 560px;
+        max-height: 90vh;
+        display:flex;
+        flex-direction:column;
+        box-shadow: 0 40px 80px rgba(2,22,55,.30);
+        overflow: hidden;
+        animation: pdisModalIn .22s cubic-bezier(.22,.68,0,1.2);
+      }
+      @keyframes pdisModalIn{
+        from{ opacity:0; transform:scale(.94) translateY(14px); }
+        to{ opacity:1; transform:scale(1) translateY(0); }
+      }
+
+      /* Modal header */
+      .pdis-modal-head{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap: 12px;
+        padding: 18px 20px 16px;
+        background: linear-gradient(180deg, #f0f7ff, #ffffff);
+        border-bottom: 1px solid #e8f0fb;
+        flex-shrink: 0;
+      }
+      .pdis-modal-head-left{
+        display:flex;
+        align-items:center;
+        gap: 12px;
+      }
+      .pdis-modal-icon{
+        width: 42px; height: 42px;
+        border-radius: 14px;
+        background: rgba(231,240,255,.90);
+        border: 1px solid rgba(29,102,194,.18);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+      .pdis-modal-title{
+        font-weight: 950;
+        font-size: 16px;
+        color: #0b2a5a;
+      }
+      .pdis-modal-sub{
+        margin-top: 2px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #64748b;
+      }
+      .pdis-important-chip{
+        flex: 0 0 auto;
+        background: #fef3c7;
+        border: 1px solid #fbbf24;
+        color: #92400e;
+        font-size: 11px;
+        font-weight: 900;
+        padding: 5px 12px;
+        border-radius: 999px;
+      }
+
+      /* Modal body */
+      .pdis-modal-body{
+        padding: 18px 20px;
+        overflow-y: auto;
+        flex: 1 1 auto;
+      }
+      .pdis-lead{
+        font-size: 13px;
+        font-weight: 650;
+        color: #334155;
+        line-height: 1.6;
+        margin-bottom: 14px;
+        padding: 12px 14px;
+        background: rgba(231,240,255,.50);
+        border-radius: 14px;
+        border-left: 3px solid var(--blue-600);
+      }
+      .pdis-items{ display:grid; gap: 10px; }
+      .pdis-item{
+        display:flex;
+        align-items:flex-start;
+        gap: 12px;
+        padding: 13px 14px;
+        border: 1px solid #eef2f7;
+        border-radius: 16px;
+        background: linear-gradient(180deg, #fff, #fbfdff);
+      }
+      .pdis-item-icon{
+        width: 34px; height: 34px;
+        border-radius: 12px;
+        background: rgba(231,240,255,.80);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+      .pdis-item-title{
+        font-weight: 950;
+        font-size: 13px;
+        color: #0f172a;
+        margin-bottom: 3px;
+      }
+      .pdis-item-text{
+        font-size: 12.5px;
+        font-weight: 650;
+        color: #475569;
+        line-height: 1.55;
+      }
+
+      /* Modal footer */
+      .pdis-modal-foot{
+        padding: 16px 20px 18px;
+        border-top: 1px solid #e8f0fb;
+        background: #f8fbff;
+        flex-shrink: 0;
+        display:flex;
+        flex-direction:column;
+        gap: 12px;
+      }
+      .pdis-ack-label{
+        display:flex;
+        align-items:flex-start;
+        gap: 10px;
+        cursor: pointer;
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1.5px solid rgba(29,102,194,.18);
+        background: rgba(231,240,255,.55);
+        transition: .12s ease;
+        user-select: none;
+      }
+      .pdis-ack-label:hover{ border-color: rgba(29,102,194,.45); background: rgba(231,240,255,.80); }
+      .pdis-ack-label input[type="checkbox"]{ display:none; }
+      .pdis-ack-box{
+        width: 20px; height: 20px;
+        border-radius: 7px;
+        border: 2px solid #c0cfe8;
+        background:#fff;
+        flex-shrink: 0;
+        margin-top: 1px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        transition: .12s ease;
+        position: relative;
+      }
+      .pdis-ack-label input:checked ~ .pdis-ack-box{
+        background: var(--blue-900);
+        border-color: var(--blue-900);
+      }
+      .pdis-ack-label input:checked ~ .pdis-ack-box::after{
+        content: "✓";
+        color:#fff;
+        font-size: 12px;
+        font-weight: 900;
+        position:absolute;
+      }
+      .pdis-ack-text{
+        font-size: 13px;
+        font-weight: 900;
+        color: #0f172a;
+        line-height: 1.45;
+      }
+      .pdis-confirm-btn{
+        width: 100%;
+        padding: 14px;
+        border-radius: 14px;
+        border: none;
+        background: var(--blue-900);
+        color: #fff;
+        font-weight: 900;
+        font-size: 14px;
+        cursor: pointer;
+        box-shadow: 0 10px 22px rgba(11,42,90,.28);
+        transition: .15s ease;
+      }
+      .pdis-confirm-btn:disabled{
+        background: #cbd5e1;
+        color: #94a3b8;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+      .pdis-confirm-btn:not(:disabled):hover{
+        background: var(--blue-700);
+        transform: translateY(-1px);
+        box-shadow: 0 14px 28px rgba(11,42,90,.34);
+      }
+
+      @media (max-width: 520px){
+        .pdis-modal{ border-radius: 22px; }
+        .pdis-modal-body{ padding: 14px 14px; }
+        .pdis-modal-head, .pdis-modal-foot{ padding-left: 14px; padding-right: 14px; }
+      }
+
+      /* Disclaimer field label (matches standard label style) */
+      .pdis-field-label{
+        font-size: 12px;
+        font-weight: 900;
+        color: #1b2b44;
+        margin-bottom: 8px;
+        letter-spacing: .02em;
+      }
+
+      /* Disclaimer helper error text (matches .helper style) */
+      .pdis-helper{
+        display: none;
+        margin-top: 8px;
+        color: #b91c1c;
+        font-weight: 800;
+        font-size: 12px;
+      }
+
+      /* Show helper when invalid */
+      #paxDisclaimerBox.invalid .pdis-helper{
+        display: block;
+      }
+
+      /* Red field label when invalid */
+      #paxDisclaimerBox.invalid .pdis-field-label{
+        color: #b91c1c;
+      }
+
+      /* ---- Disclaimer trigger: invalid / not yet acknowledged ---- */
+      #paxDisclaimerBox.invalid .pdis-trigger-wrap{
+        border-color: rgba(220,38,38,.55) !important;
+        background: linear-gradient(135deg, rgba(254,226,226,.70), rgba(255,248,248,.90)) !important;
+        box-shadow: 0 0 0 3px rgba(220,38,38,.14), 0 10px 28px rgba(220,38,38,.10) !important;
+      }
+      #paxDisclaimerBox.invalid .pdis-trigger-label{
+        color: #b91c1c;
+      }
+      #paxDisclaimerBox.invalid .pdis-trigger-badge{
+        background: #fee2e2;
+        border-color: rgba(220,38,38,.45);
+        color: #b91c1c;
+      }
+      #paxDisclaimerBox.invalid .pdis-open-btn{
+        background: var(--red-600);
+        box-shadow: 0 10px 22px rgba(220,38,38,.30);
+        animation: pdisShake .4s ease;
+      }
+      #paxDisclaimerBox.invalid .pdis-open-btn:hover{
+        background: #b91c1c;
+      }
+      #paxDisclaimerBox.invalid .pdis-trigger-sub{
+        color: #dc2626;
+      }
+      @keyframes pdisShake{
+        0%,100%{ transform: translateX(0); }
+        20%{ transform: translateX(-5px); }
+        40%{ transform: translateX(5px); }
+        60%{ transform: translateX(-4px); }
+        80%{ transform: translateX(4px); }
+      }
+
+      /* =========================================================
+         TERMS & AGREEMENT — POPUP (Step 4, matches Step 2 style)
+      ========================================================= */
+      .cons-trigger-wrap{
+        margin-top: 14px;
+        padding: 16px;
+        border-radius: 20px;
+        border: 1.5px solid rgba(29,102,194,.22);
+        background: linear-gradient(135deg, rgba(231,240,255,.70), rgba(248,251,255,.90));
+        box-shadow: 0 10px 28px rgba(2,22,55,.08);
+      }
+      .cons-field-label{
+        font-size: 12px;
+        font-weight: 900;
+        color: #1b2b44;
+        margin-bottom: 8px;
+        letter-spacing: .02em;
+      }
+      .cons-trigger-label{
+        display:flex;
+        align-items:center;
+        gap: 10px;
+        font-weight: 950;
+        font-size: 14px;
+        color: #0b2a5a;
+        margin-bottom: 12px;
+      }
+      .cons-trigger-badge{
+        background: #fef3c7;
+        border: 1px solid #fbbf24;
+        color: #92400e;
+        font-size: 11px;
+        font-weight: 900;
+        padding: 3px 9px;
+        border-radius: 999px;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .cons-trigger-row{
+        display:flex;
+        align-items:center;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .cons-open-btn{
+        display:inline-flex;
+        align-items:center;
+        gap: 8px;
+        padding: 12px 20px;
+        border-radius: 14px;
+        border: none;
+        background: var(--blue-900);
+        color: #fff;
+        font-weight: 900;
+        font-size: 13px;
+        cursor: pointer;
+        box-shadow: 0 10px 22px rgba(11,42,90,.28);
+        transition: .15s ease;
+      }
+      .cons-open-btn:hover{
+        background: var(--blue-700);
+        transform: translateY(-1px);
+      }
+      .cons-open-icon{ font-size: 15px; }
+      .cons-status{
+        display:flex;
+        align-items:center;
+        gap: 7px;
+        font-size: 12px;
+        font-weight: 800;
+        color: #64748b;
+      }
+      .cons-status-dot{
+        width: 10px; height: 10px;
+        border-radius: 999px;
+        background: #cbd5e1;
+        flex: 0 0 auto;
+        transition: .2s ease;
+      }
+      .cons-status.done .cons-status-dot{ background: #16a34a; }
+      .cons-status.done .cons-status-text{ color: #16a34a; }
+      .cons-helper{
+        display: none;
+        margin-top: 8px;
+        color: #b91c1c;
+        font-weight: 800;
+        font-size: 12px;
+      }
+      /* Invalid state */
+      #consentBox.invalid .cons-trigger-wrap{
+        border-color: rgba(220,38,38,.55) !important;
+        background: linear-gradient(135deg, rgba(254,226,226,.70), rgba(255,248,248,.90)) !important;
+        box-shadow: 0 0 0 3px rgba(220,38,38,.14), 0 10px 28px rgba(220,38,38,.10) !important;
+      }
+      #consentBox.invalid .cons-field-label{ color: #b91c1c; }
+      #consentBox.invalid .cons-trigger-label{ color: #b91c1c; }
+      #consentBox.invalid .cons-trigger-badge{
+        background: #fee2e2;
+        border-color: rgba(220,38,38,.45);
+        color: #b91c1c;
+      }
+      #consentBox.invalid .cons-open-btn{
+        background: var(--red-600);
+        box-shadow: 0 10px 22px rgba(220,38,38,.30);
+        animation: consShake .4s ease;
+      }
+      #consentBox.invalid .cons-open-btn:hover{ background: #b91c1c; }
+      #consentBox.invalid .cons-helper{ display: block; }
+      @keyframes consShake{
+        0%,100%{ transform: translateX(0); }
+        20%{ transform: translateX(-5px); }
+        40%{ transform: translateX(5px); }
+        60%{ transform: translateX(-4px); }
+        80%{ transform: translateX(4px); }
+      }
+      /* Modal overlay */
+      .cons-overlay{
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(8,34,74,.42);
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+        animation: consOverlayIn .2s ease;
+        pointer-events: none;
+      }
+      .cons-overlay.open{ display:flex; pointer-events: none; }
+      .cons-overlay.open .cons-modal{ pointer-events: auto; }
+      @keyframes consOverlayIn{ from{opacity:0;} to{opacity:1;} }
+      .cons-modal{
+        background: #fff;
+        border-radius: 26px;
+        width: 100%;
+        max-width: 560px;
+        max-height: 90vh;
+        display:flex;
+        flex-direction:column;
+        box-shadow: 0 40px 80px rgba(2,22,55,.30);
+        overflow: hidden;
+        animation: consModalIn .22s cubic-bezier(.22,.68,0,1.2);
+      }
+      @keyframes consModalIn{
+        from{ opacity:0; transform:scale(.94) translateY(14px); }
+        to{ opacity:1; transform:scale(1) translateY(0); }
+      }
+      .cons-modal-head{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap: 12px;
+        padding: 18px 20px 16px;
+        background: linear-gradient(180deg, #f0f7ff, #ffffff);
+        border-bottom: 1px solid #e8f0fb;
+        flex-shrink: 0;
+      }
+      .cons-modal-head-left{ display:flex; align-items:center; gap: 12px; }
+      .cons-modal-icon{
+        width: 42px; height: 42px;
+        border-radius: 14px;
+        background: rgba(231,240,255,.90);
+        border: 1px solid rgba(29,102,194,.18);
+        display:flex; align-items:center; justify-content:center;
+        font-size: 20px; flex-shrink: 0;
+      }
+      .cons-modal-title{ font-weight: 950; font-size: 16px; color: #0b2a5a; }
+      .cons-modal-sub{ margin-top: 2px; font-size: 12px; font-weight: 700; color: #64748b; }
+      .cons-required-chip{
+        flex: 0 0 auto;
+        background: #fef3c7;
+        border: 1px solid #fbbf24;
+        color: #92400e;
+        font-size: 11px; font-weight: 900;
+        padding: 5px 12px; border-radius: 999px;
+      }
+      .cons-modal-body{ padding: 18px 20px; overflow-y: auto; flex: 1 1 auto; }
+      .cons-lead{
+        font-size: 13px; font-weight: 650; color: #334155;
+        line-height: 1.6; margin-bottom: 14px;
+        padding: 12px 14px;
+        background: rgba(231,240,255,.50);
+        border-radius: 14px;
+        border-left: 3px solid var(--blue-600);
+      }
+      .cons-items{ display:grid; gap: 10px; }
+      .cons-item{
+        display:flex; align-items:flex-start; gap: 12px;
+        padding: 13px 14px;
+        border: 1px solid #eef2f7;
+        border-radius: 16px;
+        background: linear-gradient(180deg, #fff, #fbfdff);
+      }
+      .cons-item-icon{
+        width: 34px; height: 34px; border-radius: 12px;
+        background: rgba(231,240,255,.80);
+        display:flex; align-items:center; justify-content:center;
+        font-size: 16px; flex-shrink: 0;
+      }
+      .cons-item-title{ font-weight: 950; font-size: 13px; color: #0f172a; margin-bottom: 3px; }
+      .cons-item-text{ font-size: 12.5px; font-weight: 650; color: #475569; line-height: 1.55; }
+      .cons-modal-foot{
+        padding: 16px 20px 18px;
+        border-top: 1px solid #e8f0fb;
+        background: #f8fbff;
+        flex-shrink: 0;
+        display:flex; flex-direction:column; gap: 12px;
+      }
+      .cons-ack-label{
+        display:flex; align-items:flex-start; gap: 10px;
+        cursor: pointer; padding: 12px 14px;
+        border-radius: 14px;
+        border: 1.5px solid rgba(29,102,194,.18);
+        background: rgba(231,240,255,.55);
+        transition: .12s ease; user-select: none;
+      }
+      .cons-ack-label:hover{ border-color: rgba(29,102,194,.45); background: rgba(231,240,255,.80); }
+      .cons-ack-label input[type="checkbox"]{ display:none; }
+      .cons-ack-box{
+        width: 20px; height: 20px; border-radius: 7px;
+        border: 2px solid #c0cfe8; background:#fff;
+        flex-shrink: 0; margin-top: 1px;
+        display:flex; align-items:center; justify-content:center;
+        transition: .12s ease; position: relative;
+      }
+      .cons-ack-label input:checked ~ .cons-ack-box{
+        background: var(--blue-900); border-color: var(--blue-900);
+      }
+      .cons-ack-label input:checked ~ .cons-ack-box::after{
+        content: "✓"; color:#fff; font-size: 12px; font-weight: 900; position:absolute;
+      }
+      .cons-ack-text{ font-size: 13px; font-weight: 900; color: #0f172a; line-height: 1.45; }
+      .cons-confirm-btn{
+        width: 100%; padding: 14px; border-radius: 14px; border: none;
+        background: var(--blue-900); color: #fff;
+        font-weight: 900; font-size: 14px; cursor: pointer;
+        box-shadow: 0 10px 22px rgba(11,42,90,.28); transition: .15s ease;
+      }
+      .cons-confirm-btn:disabled{
+        background: #cbd5e1; color: #94a3b8; cursor: not-allowed; box-shadow: none;
+      }
+      .cons-confirm-btn:not(:disabled):hover{
+        background: var(--blue-700); transform: translateY(-1px);
+      }
+      @media (max-width:520px){
+        .cons-modal{ border-radius: 22px; }
+        .cons-modal-body{ padding: 14px; }
+        .cons-modal-head, .cons-modal-foot{ padding-left:14px; padding-right:14px; }
+      }
   </style>
 </head>
 <!-- redeploy -->
@@ -2250,33 +3013,95 @@
               <div class="price-muted" id="priceNote"></div>
             </div>
 
-            <!-- Pricing Disclaimer -->
-            <div class="pax-disclaimer" id="paxDisclaimerBox" style="display:none;">
-              <div class="pax-disclaimer-head">
-                Pricing Disclaimer
+           <!-- Pricing Disclaimer — popup trigger button -->
+            <div id="paxDisclaimerBox">
+
+              <!-- Hidden checkbox keeps existing JS validation intact -->
+              <input type="checkbox" id="paxDisclaimerAgree" style="display:none;" aria-hidden="true">
+
+              <!-- Trigger button shown in the form -->
+              <div class="pdis-trigger-wrap">
+                <div class="pdis-field-label">Pricing Disclaimer<span class="req">*</span></div>
+                <div class="pdis-trigger-label">
+                  <span class="pdis-trigger-badge">&#9888; Required</span>
+                  You must read and acknowledge before proceeding to Step 3.
+                </div>
+                <div class="pdis-trigger-row">
+                  <button type="button" class="pdis-open-btn" id="paxDisclaimerOpenBtn">
+                    <span class="pdis-open-icon">&#128203;</span>
+                    Read &amp; Acknowledge Disclaimer
+                  </button>
+                  <div class="pdis-status" id="paxDisclaimerStatus">
+                    <span class="pdis-status-dot"></span>
+                    <span class="pdis-status-text">Not yet acknowledged</span>
+                  </div>
+                </div>
+                <div class="pdis-helper" id="paxDisclaimerHelper">
+                  &#9888; You must acknowledge the pricing disclaimer before proceeding.
+                </div>
               </div>
+            </div>
 
-              <div class="pax-disclaimer-body">
-                <p>
-                  <strong>Disclaimer:</strong> The total amount shown above is a provisional estimate based on current rates.
-                </p>
+            <!-- Pricing Disclaimer Modal -->
+            <div class="pdis-overlay" id="paxDisclaimerModal" role="dialog" aria-modal="true" aria-labelledby="pdisModalTitle">
+              <div class="pdis-modal">
+                <div class="pdis-modal-head">
+                  <div class="pdis-modal-head-left">
+                    <div class="pdis-modal-icon">📋</div>
+                    <div>
+                      <div class="pdis-modal-title" id="pdisModalTitle">Pricing Disclaimer</div>
+                      <div class="pdis-modal-sub">Please read carefully before proceeding.</div>
+                    </div>
+                  </div>
+                  <span class="pdis-important-chip">Important</span>
+                </div>
 
-                <p>
-                  The final fee will be calculated on the day of your appointment and is subject to change without prior notice
-                  due to currency fluctuations or embassy updates.
-                </p>
+                <div class="pdis-modal-body">
+                  <p class="pdis-lead">
+                    The total amount shown is a <strong>provisional estimate</strong> based on current rates. Please be guided by the following:
+                  </p>
 
-                <p>
-                  Additional charges for optional Value Added Services (VAS) may apply at the counter.
-                </p>
+                  <div class="pdis-items">
+                    <div class="pdis-item">
+                      <div class="pdis-item-icon">📧</div>
+                      <div>
+                        <div class="pdis-item-title">Online Payment Process</div>
+                        <div class="pdis-item-text">You will receive a separate email from VFS Global containing a secure link to settle your fees online.</div>
+                      </div>
+                    </div>
+                    <div class="pdis-item">
+                      <div class="pdis-item-icon">💱</div>
+                      <div>
+                        <div class="pdis-item-title">Final Fees</div>
+                        <div class="pdis-item-text">The final amount is subject to change without prior notice due to currency fluctuations or embassy updates.</div>
+                      </div>
+                    </div>
+                    <div class="pdis-item">
+                      <div class="pdis-item-icon">➕</div>
+                      <div>
+                        <div class="pdis-item-title">Optional Services</div>
+                        <div class="pdis-item-text">Additional charges for optional Value Added Services (VAS) may apply depending on your selections.</div>
+                      </div>
+                    </div>
+                    <div class="pdis-item">
+                      <div class="pdis-item-icon">✅</div>
+                      <div>
+                        <div class="pdis-item-title">Confirmation</div>
+                        <div class="pdis-item-text">Your appointment is not finalized or confirmed until the online payment is successfully settled.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-                <label class="pax-disclaimer-check">
-                  <input type="checkbox" id="paxDisclaimerAgree">
-                  <span>I understand and acknowledge this pricing disclaimer.</span>
-                </label>
-
-                <div class="pax-disclaimer-error" id="paxDisclaimerHelper">
-                  You must acknowledge the pricing disclaimer before proceeding.
+                <div class="pdis-modal-foot">
+                  <label class="pdis-ack-label" id="pdisAckLabel">
+                    <input type="checkbox" id="pdisAckCheck">
+                    <span class="pdis-ack-box"></span>
+                    <span class="pdis-ack-text">I have read and acknowledge this pricing disclaimer.</span>
+                  </label>
+                  <button type="button" class="pdis-confirm-btn" id="pdisConfirmBtn" disabled>
+                    Confirm &amp; Continue
+                  </button>
                 </div>
               </div>
             </div>
@@ -2529,64 +3354,96 @@
             </div>
           </div>
 
-          <!-- CONSENT / TERMS -->
-          <div class="consent-wrap" id="consentBox">
+          <!-- CONSENT / TERMS — popup style matching Step 2 disclaimer -->
+          <div id="consentBox">
 
-            <div class="consent-head" id="consentHead">
-              <div class="consent-title">
-                ✅ Consent & Declaration <span class="consent-req">*</span>
+            <!-- Hidden checkbox keeps existing submit validation intact -->
+            <input type="checkbox" id="consentAgree" style="display:none;" aria-hidden="true">
+
+            <div class="cons-trigger-wrap">
+              <div class="cons-field-label">Terms &amp; Agreement<span class="req">*</span></div>
+              <div class="cons-trigger-label">
+                <span class="cons-trigger-badge">&#9888; Required</span>
+                You must read and agree to the Terms &amp; Agreement before submitting.
               </div>
-
-              <div class="consent-toggle">
-                <span id="consentArrow">▸</span>
-                <span>View terms</span>
+              <div class="cons-trigger-row">
+                <button type="button" class="cons-open-btn" id="consentOpenBtn">
+                  <span class="cons-open-icon">&#128203;</span>
+                  Read &amp; Agree to Terms
+                </button>
+                <div class="cons-status" id="consentStatus">
+                  <span class="cons-status-dot"></span>
+                  <span class="cons-status-text">Not yet agreed</span>
+                </div>
+              </div>
+              <div class="cons-helper" id="consentErr">
+                &#9888; You must agree to the Terms &amp; Agreement before submitting.
               </div>
             </div>
+          </div>
 
-            <div class="consent-body" id="consentBody">
-              <div class="consent-text">
-
-                <div class="terms-title">
-                  <span class="terms-badge">Required</span>
-                  <div class="terms-h">Terms & Agreement</div>
+          <!-- Terms & Agreement Modal -->
+          <div class="cons-overlay" id="consentModal" role="dialog" aria-modal="true" aria-labelledby="consModalTitle">
+            <div class="cons-modal">
+              <div class="cons-modal-head">
+                <div class="cons-modal-head-left">
+                  <div class="cons-modal-icon">&#128203;</div>
+                  <div>
+                    <div class="cons-modal-title" id="consModalTitle">Terms &amp; Agreement</div>
+                    <div class="cons-modal-sub">Please read carefully before submitting.</div>
+                  </div>
                 </div>
+                <span class="cons-required-chip">Required</span>
+              </div>
 
-                <div class="terms-box">
-                  <p>
-                    By proceeding, I certify that <b>all information I provided is true, accurate, and complete</b>
-                    to the best of my knowledge. I understand that incomplete, inaccurate, or inconsistent information
-                    may result in deferment, rescheduling, or non-processing of my appointment.
-                  </p>
+              <div class="cons-modal-body">
+                <p class="cons-lead">
+                  By proceeding, you certify that all information is <strong>true, accurate, and complete</strong>. Please review the following terms:
+                </p>
 
-                  <p>
-                    I acknowledge that my personal data may be collected, used, shared, and processed by the
-                    <b>Provincial Government of Bataan</b> and <b>VFS Global</b> solely for appointment scheduling
-                    and coordination, in accordance with applicable data privacy laws and regulations.
-                  </p>
-
-                  <p>
-                    I understand that appointment availability depends on VFS capacity and that changes may occur.
-                    I agree to follow the instructions provided and to bring required documents on the appointment date.
-                  </p>
-
-                  <p>
-                    If I am booking on behalf of other applicants, I confirm that I have authorization to provide
-                    their information for this purpose.
-                  </p>
+                <div class="cons-items">
+                  <div class="cons-item">
+                    <div class="cons-item-icon">&#9989;</div>
+                    <div>
+                      <div class="cons-item-title">Accuracy of Information</div>
+                      <div class="cons-item-text">I certify that all information I provided is true, accurate, and complete to the best of my knowledge. Incomplete or inaccurate information may result in deferment, rescheduling, or non-processing of my appointment.</div>
+                    </div>
+                  </div>
+                  <div class="cons-item">
+                    <div class="cons-item-icon">&#128274;</div>
+                    <div>
+                      <div class="cons-item-title">Data Privacy</div>
+                      <div class="cons-item-text">I acknowledge that my personal data may be collected, used, shared, and processed by the <b>Provincial Government of Bataan</b> and <b>VFS Global</b> solely for appointment scheduling and coordination, in accordance with applicable data privacy laws.</div>
+                    </div>
+                  </div>
+                  <div class="cons-item">
+                    <div class="cons-item-icon">&#128197;</div>
+                    <div>
+                      <div class="cons-item-title">Appointment Availability</div>
+                      <div class="cons-item-text">I understand that appointment availability depends on VFS capacity and that changes may occur. I agree to follow the instructions provided and to bring required documents on the appointment date.</div>
+                    </div>
+                  </div>
+                  <div class="cons-item">
+                    <div class="cons-item-icon">&#128101;</div>
+                    <div>
+                      <div class="cons-item-title">Booking on Behalf of Others</div>
+                      <div class="cons-item-text">If I am booking on behalf of other applicants, I confirm that I have authorization to provide their information for this purpose.</div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <label class="consent-check">
-                <input type="checkbox" id="consentAgree" />
-                <div>
-                  <span>I have read and agree to the Terms & Agreement.</span>
-                  <small>This is required to submit your appointment.</small>
-                </div>
-              </label>
-
-              <div class="consent-error" id="consentErr">Consent is required before submitting.</div>
+              <div class="cons-modal-foot">
+                <label class="cons-ack-label" id="consAckLabel">
+                  <input type="checkbox" id="consAckCheck">
+                  <span class="cons-ack-box"></span>
+                  <span class="cons-ack-text">I have read and agree to the Terms &amp; Agreement.</span>
+                </label>
+                <button type="button" class="cons-confirm-btn" id="consConfirmBtn" disabled>
+                  Confirm &amp; Continue
+                </button>
+              </div>
             </div>
-
           </div>
 
           <div class="buttons">
@@ -2680,6 +3537,9 @@
               }
             }
             else if (el.type === "checkbox"){
+              if (el.id === "paxDisclaimerAgree") return; // never save — must re-acknowledge each session
+              if (el.id === "consentAgree") return;       // never save — must re-agree each session
+              if (el.id === "confirmCheck") return;       // never save — must re-confirm each session
               if (!data[el.name]) data[el.name] = [];
               if (el.checked){
                 data[el.name].push(el.value);
@@ -2715,8 +3575,11 @@
                 }
               }
 
-              // Restore checkbox groups
+              // Restore checkbox groups — never restore session-specific acknowledgements
               else if (el.type === "checkbox" && Array.isArray(data[el.name])){
+                if (el.id === "paxDisclaimerAgree") return;
+                if (el.id === "consentAgree") return;
+                if (el.id === "confirmCheck") return;
                 el.checked = data[el.name].includes(el.value);
                 el.dispatchEvent(new Event("change"));
               }
@@ -2806,15 +3669,15 @@
     function scrollToFirstErrorInStep(stepEl){
       if (!stepEl) return;
 
-      // 1) invalid inputs/selects/textareas
+      // 1) invalid inputs/selects/textareas/divs (covers #paxDisclaimerBox.invalid too)
       let target = stepEl.querySelector(".invalid");
 
-      // 2) invalid radio/check groups (you add class "invalid" to group containers)
+      // 2) invalid radio/check groups
       if (!target) target = stepEl.querySelector(".radio-group.invalid, .check-group.invalid, .consent-wrap.invalid");
 
       // 3) visible helper messages (fallback)
       if (!target){
-        const helpers = Array.from(stepEl.querySelectorAll(".helper, .consent-error"))
+        const helpers = Array.from(stepEl.querySelectorAll(".helper, .pdis-helper, .consent-error"))
           .filter(h => getComputedStyle(h).display !== "none");
         if (helpers.length) return scrollToHelper(helpers[0]);
       }
@@ -2874,14 +3737,12 @@
   }
 
   function hidePaxDisclaimer(){
-    const box = document.getElementById("paxDisclaimerBox");
+    // Disclaimer is permanently visible — only reset its state
     resetPaxDisclaimer();
-    if (box) box.style.display = "none";
   }
 
   function showPaxDisclaimer(){
-    const box = document.getElementById("paxDisclaimerBox");
-    if (box) box.style.display = "block";
+    // Disclaimer is permanently visible — nothing to do
   }
 
     /* =========================================================
@@ -2976,7 +3837,6 @@
     function showPriceLoading(){
       priceTextEl.textContent = "Loading… please wait";
       priceNoteEl.textContent = "";
-      hidePaxDisclaimer();
     }
 
     /* =========================================================
@@ -3491,7 +4351,6 @@
         priceNoteEl.textContent = "";
         SELECTED_PRICE_ROW = null;
         serviceWrap.style.display = "none";
-        hidePaxDisclaimer();
         return;
       }
 
@@ -3500,7 +4359,6 @@
         priceNoteEl.textContent = "";
         SELECTED_PRICE_ROW = null;
         serviceWrap.style.display = "none";
-        hidePaxDisclaimer();
         return;
       }
 
@@ -3509,7 +4367,6 @@
         priceNoteEl.textContent = "";
         SELECTED_PRICE_ROW = null;
         serviceWrap.style.display = "none";
-        hidePaxDisclaimer();
         return;
       }
 
@@ -3526,13 +4383,10 @@
         priceNoteEl.textContent = "";
         SELECTED_PRICE_ROW = null;
         return;
-        hidePaxDisclaimer();
       }
 
       SELECTED_PRICE_ROW = row;
 
-      showPaxDisclaimer();   // show only when valid
-      resetPaxDisclaimer();  // user must check again
 
       const currency = row.currency || "PHP";
       const unitPrice = toNum(row.price, 0);
@@ -3990,7 +4844,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
         processingTextEl.textContent = "";
       } else {
         windowTextEl.textContent =
-          `Appointments must be scheduled at least ${win.procDays} WORKING DAYS before travel. Available dates depend on VFS availability.`;
+          `Appointments must be scheduled at least ${win.procDays} WORKING DAYS before your intended departure.`;
 
         // ✅ make sure we compute nearest from AVAIL_MAP if server nearest is blank
         ensureNearestFallback();
@@ -4203,7 +5057,9 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
 
             // show nearest overall IF it exists
             if (NEAREST_ANY_AVAILABLE_ISO){
-              html += `<br><br><b>Nearest available overall:</b> ${fmtLong(isoToDate(NEAREST_ANY_AVAILABLE_ISO))}`;
+              html += `<br><br><b>Nearest available overall:</b> ${fmtLong(isoToDate(NEAREST_ANY_AVAILABLE_ISO))}`+
+              `<span style="color:#64748b;font-size:12px;"><br>This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
+            emptyBox.style.display = "flex";;
             }
 
             emptyText.innerHTML = html;
@@ -4223,7 +5079,8 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
             emptyText.innerHTML =
               `We found available appointment slots, but none fall within your allowed travel window.<br>` +
               `Please go back to Step 2 and choose a <b>later Intended Travel Date</b> to unlock more available dates.<br>` +
-              `<br><b>Nearest available overall:</b> ${fmtLong(isoToDate(NEAREST_ANY_AVAILABLE_ISO))}`;
+              `<br><b>Nearest available overall:</b> ${fmtLong(isoToDate(NEAREST_ANY_AVAILABLE_ISO))}<br>`+
+              `<span style="color:#64748b;font-size:12px;">This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
             emptyBox.style.display = "flex";
             return;
           }
@@ -4232,7 +5089,9 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
           if (emptyTitle) emptyTitle.textContent = "No available appointment dates";
           emptyText.innerHTML =
             `Your travel date is within the allowed processing window, but we currently have <b>no available appointment slots</b>.<br>` +
-            `Please check the <b>1BOSSCO Facebook page</b> for updates when we reopen new appointment dates.`;
+            `Please check the <b>1BOSSCO Facebook page</b> for updates when we reopen new appointment dates.<br>`+
+            `This is the soonest available slot currently offered by VFS Global for your selected location.`;
+
           emptyBox.style.display = "flex";
         }
 
@@ -4255,7 +5114,6 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       STEP 2 EVENTS
     ========================================================= */
     countryTypeEl.addEventListener("change", () => {
-      hidePaxDisclaimer();
       const countryName = countryTypeEl.value;
       SELECTED_COUNTRY_ID = COUNTRY_NAME_TO_ID[countryName] || "";
       SELECTED_PROC_DAYS = COUNTRY_ID_TO_PROC[SELECTED_COUNTRY_ID] || 0;
@@ -4309,6 +5167,11 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
     clearInvalid(entryTypeEl, document.getElementById("entryTypeHelper"));
     clearInvalid(otherVisaEl, document.getElementById("otherVisaHelper"));
     clearInvalid(serviceSelect, document.getElementById("serviceHelper"));
+    // clear disclaimer
+    const _pdBox = document.getElementById("paxDisclaimerBox");
+    const _pdHelper = document.getElementById("paxDisclaimerHelper");
+    if (_pdBox) _pdBox.classList.remove("invalid");
+    if (_pdHelper) _pdHelper.style.display = "none";
 
     appTypeGroup && appTypeGroup.classList.remove("invalid");
     appFormDoneGroup && appFormDoneGroup.classList.remove("invalid");
@@ -4362,27 +5225,20 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       /* ================================
         PRICING DISCLAIMER VALIDATION
       ================================ */
-
       const paxDisclaimerAgree = document.getElementById("paxDisclaimerAgree");
       const paxDisclaimerBox = document.getElementById("paxDisclaimerBox");
       const paxDisclaimerHelper = document.getElementById("paxDisclaimerHelper");
 
-      const disclaimerVisible = paxDisclaimerBox && paxDisclaimerBox.style.display !== "none";
-
-      if (disclaimerVisible && (!paxDisclaimerAgree || !paxDisclaimerAgree.checked)){
+      if (!paxDisclaimerAgree || !paxDisclaimerAgree.checked) {
         ok = false;
-
         if (paxDisclaimerBox) paxDisclaimerBox.classList.add("invalid");
         if (paxDisclaimerHelper) paxDisclaimerHelper.style.display = "block";
       }
 
-
-      // ⬇⬇ THIS IS YOUR EXISTING BLOCK ⬇⬇
+      // Final gate — always scroll to first error and show notice
       if (!ok){
-        if (noticeBox.style.display === "none") {
-          showNotice("Please complete all required fields in Step 2.", false);
-          scrollToFirstErrorInStep(document.getElementById("step2"));
-        }
+        showNotice("Please complete all required fields in Step 2.", false);
+        scrollToFirstErrorInStep(document.getElementById("step2"));
         return;
       }
 
@@ -4655,11 +5511,13 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
     }
 
     box.innerHTML =
-      `Appointments must be scheduled at least <b>${countryName}</b> ` +
-      `<b>${procDays} WORKING DAYS</b> before travel. ` +
-      `Available dates depend on VFS availability. ` +
-      `<br><b>Tip:</b> Please check this reminder before choosing your Intended Travel Date.`;
-  }
+    `Appointments for the selected country must be scheduled at least <b>${countryName}</b> ` +
+    `<b>${procDays} WORKING DAYS</b> before your intended departure. <br><br>` +
+    `Available appointment dates depend on VFS availability. Please note that available slots are subject to VFS Global’s capacity.<br><br>` +
+    `<span style="color:#dc2626; font-weight:900;">
+      Tip: Before selecting your VFS appointment, please verify that your intended travel date allows for the required ${procDays}-working-day lead time.
+    </span>`;
+    }
 
     /* =========================================================
       FINAL SUBMIT
@@ -4692,20 +5550,13 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       }
 
       const consentAgree = document.getElementById("consentAgree");
-      const consentBox = document.getElementById("consentBox");
-      const consentBody = document.getElementById("consentBody");
-      const consentArrow = document.getElementById("consentArrow");
-      const consentErr = document.getElementById("consentErr");
+      const consentBox  = document.getElementById("consentBox");
+      const consentErr  = document.getElementById("consentErr");
 
       if (!consentAgree || !consentAgree.checked){
-        showNotice("Please agree to the Consent and Declaration.", false);
+        showNotice("Please agree to the Terms & Agreement before submitting.", false);
         if (consentBox) consentBox.classList.add("invalid");
         if (consentErr) consentErr.style.display = "block";
-
-        if (consentBody && !consentBody.classList.contains("open")){
-          consentBody.classList.add("open");
-          if (consentArrow) consentArrow.textContent = "▾";
-        }
         scrollToEl(document.getElementById("consentBox"));
         return;
       }
@@ -4833,25 +5684,81 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
     if (submitBtn) submitBtn.disabled = !ok;
   }
 
+    /* =========================================================
+       TERMS & AGREEMENT POPUP (Step 4)
+    ========================================================= */
     (function setupConsentUI(){
-      const head = document.getElementById("consentHead");
-      const body = document.getElementById("consentBody");
-      const arrow = document.getElementById("consentArrow");
-      const consentBox = document.getElementById("consentBox");
-      const consentAgree = document.getElementById("consentAgree");
-      const consentErr = document.getElementById("consentErr");
+      const modal      = document.getElementById("consentModal");
+      const openBtn    = document.getElementById("consentOpenBtn");
+      const ackCheck   = document.getElementById("consAckCheck");
+      const confirmBtn = document.getElementById("consConfirmBtn");
+      const hiddenCb   = document.getElementById("consentAgree");
+      const statusEl   = document.getElementById("consentStatus");
+      const statusText = statusEl ? statusEl.querySelector(".cons-status-text") : null;
 
-      if (head && body && arrow){
-        head.addEventListener("click", () => {
-          const isOpen = body.classList.toggle("open");
-          arrow.textContent = isOpen ? "▾" : "▸";
+      function openModal(){
+        if (modal) modal.classList.add("open");
+        setTimeout(() => {
+          if (modal){
+            const m = modal.querySelector(".cons-modal");
+            if (m) m.scrollIntoView({ behavior:"smooth", block:"center" });
+          }
+        }, 50);
+      }
+      function closeModal(){
+        if (modal) modal.classList.remove("open");
+      }
+
+      if (openBtn) openBtn.addEventListener("click", openModal);
+
+      if (ackCheck){
+        ackCheck.addEventListener("change", () => {
+          if (confirmBtn) confirmBtn.disabled = !ackCheck.checked;
         });
       }
 
-      if (consentAgree){
-        consentAgree.addEventListener("change", () => {
-          if (consentBox) consentBox.classList.remove("invalid");
-          if (consentErr) consentErr.style.display = "none";
+      if (confirmBtn){
+        confirmBtn.addEventListener("click", () => {
+          if (!ackCheck || !ackCheck.checked) return;
+          // Sync to hidden checkbox
+          if (hiddenCb){
+            hiddenCb.checked = true;
+            hiddenCb.dispatchEvent(new Event("change", { bubbles:true }));
+          }
+          // Update status
+          if (statusEl) statusEl.classList.add("done");
+          if (statusText) statusText.textContent = "Agreed ✓";
+          if (openBtn){
+            openBtn.style.background = "#16a34a";
+            openBtn.style.boxShadow = "0 10px 22px rgba(22,163,74,.28)";
+            openBtn.innerHTML = '<span class="cons-open-icon">✓</span> Terms Agreed';
+          }
+          // Clear error
+          const box = document.getElementById("consentBox");
+          const err = document.getElementById("consentErr");
+          if (box) box.classList.remove("invalid");
+          if (err) err.style.display = "none";
+          updateSubmitEnabled();
+          closeModal();
+        });
+      }
+
+      if (modal){
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) closeModal();
+        });
+      }
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal && modal.classList.contains("open")) closeModal();
+      });
+
+      // consentAgree hidden checkbox drives submit button
+      if (hiddenCb){
+        hiddenCb.addEventListener("change", () => {
+          const box = document.getElementById("consentBox");
+          const err = document.getElementById("consentErr");
+          if (box) box.classList.remove("invalid");
+          if (err) err.style.display = "none";
           updateSubmitEnabled();
         });
       }
@@ -4862,11 +5769,6 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
           updateSubmitEnabled();
         });
       }
-      // ✅ Open consent by default so users see it immediately
-        if (body && !body.classList.contains("open")){
-          body.classList.add("open");
-          if (arrow) arrow.textContent = "▾";
-        }
       updateSubmitEnabled();
     })();
 
@@ -4897,6 +5799,74 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       const overlay = document.getElementById("successOverlay");
       if (overlay) overlay.style.display = "flex";
     }
+
+    /* =========================================================
+       PRICING DISCLAIMER POPUP
+    ========================================================= */
+    (function setupDisclaimerModal(){
+      const modal       = document.getElementById("paxDisclaimerModal");
+      const openBtn     = document.getElementById("paxDisclaimerOpenBtn");
+      const ackCheck    = document.getElementById("pdisAckCheck");
+      const confirmBtn  = document.getElementById("pdisConfirmBtn");
+      const hiddenCb    = document.getElementById("paxDisclaimerAgree");
+      const statusEl    = document.getElementById("paxDisclaimerStatus");
+      const statusText  = statusEl ? statusEl.querySelector(".pdis-status-text") : null;
+
+      function openModal(){
+        if (modal) modal.classList.add("open");
+        /* No body scroll lock — background stays scrollable */
+        /* Scroll the modal into the center of the viewport */
+        setTimeout(() => {
+          if (modal){
+            const m = modal.querySelector(".pdis-modal");
+            if (m) m.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }, 50);
+      }
+      function closeModal(){
+        if (modal) modal.classList.remove("open");
+        /* restore — no-op */
+      }
+
+      if (openBtn) openBtn.addEventListener("click", openModal);
+
+      if (ackCheck){
+        ackCheck.addEventListener("change", () => {
+          if (confirmBtn) confirmBtn.disabled = !ackCheck.checked;
+        });
+      }
+
+      if (confirmBtn){
+        confirmBtn.addEventListener("click", () => {
+          if (!ackCheck || !ackCheck.checked) return;
+          if (hiddenCb){
+            hiddenCb.checked = true;
+            hiddenCb.dispatchEvent(new Event("change", { bubbles: true }));
+          }
+          if (statusEl) statusEl.classList.add("done");
+          if (statusText) statusText.textContent = "Acknowledged ✓";
+          if (openBtn){
+            openBtn.style.background = "#16a34a";
+            openBtn.style.boxShadow = "0 10px 22px rgba(22,163,74,.28)";
+            openBtn.innerHTML = '<span class="pdis-open-icon">✓</span> Disclaimer Acknowledged';
+          }
+          const helper = document.getElementById("paxDisclaimerHelper");
+          const box    = document.getElementById("paxDisclaimerBox");
+          if (helper) helper.style.display = "none";
+          if (box)    box.classList.remove("invalid");
+          closeModal();
+        });
+      }
+
+      if (modal){
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) closeModal();
+        });
+      }
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal && modal.classList.contains("open")) closeModal();
+      });
+    })();
 
     const paxDisclaimerAgree = document.getElementById("paxDisclaimerAgree");
     if (paxDisclaimerAgree){
@@ -4943,19 +5913,36 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
         <div><b>Country:</b> ${country || "-"}</div>
         <div><b>Appointment:</b> ${slotDate ? `${slotDate} (${slotSes || "-"})` : "-"}</div>
 
-        <div style="margin:12px 0 10px; height:1px; background:#e2e8f0;"></div>
+        <div style="margin:14px 0 12px; height:1px; background:#e2e8f0;"></div>
 
-        <div style="font-size:12.5px; line-height:1.6; color:#334155;">
+        <div style="font-size:13px; font-weight:900; color:#0b2a5a; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+          <span style="font-size:16px;">📬</span> Check Your Inbox
+        </div>
 
-          <div style="display:flex; align-items:flex-start; gap:8px;">
-            <span style="font-size:14px;">📧</span>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:12.5px; line-height:1.6; color:#334155;">
+
+          <div style="display:flex; align-items:flex-start; gap:10px; padding:11px 13px; border-radius:14px; background:rgba(231,240,255,.55); border:1px solid rgba(29,102,194,.14);">
+            <span style="font-size:15px; flex-shrink:0; margin-top:1px;">📧</span>
             <div>
-              <b>Please check your email</b> for your official appointment confirmation and complete details.
+              <div style="font-weight:900; color:#0b2a5a; margin-bottom:2px;">Appointment Request Received</div>
+              You will receive a notification email acknowledging that your appointment request has been submitted. This message includes your <b>full appointment summary</b> and details on the next steps.
             </div>
           </div>
 
-          <div style="margin-top:8px;">
-            <b>Important:</b> You will receive a separate email from <b>VFS</b> containing instructions and updates regarding your <b>payment online for visa processing</b> prior to your scheduled appointment date.
+          <div style="display:flex; align-items:flex-start; gap:10px; padding:11px 13px; border-radius:14px; background:rgba(254,243,199,.55); border:1px solid rgba(251,191,36,.30);">
+            <span style="font-size:15px; flex-shrink:0; margin-top:1px;">⚡</span>
+            <div>
+              <div style="font-weight:900; color:#92400e; margin-bottom:2px;">Action Required – Online Payment</div>
+              A separate email will be sent by <b>VFS Global</b> with a secure link and instructions to settle your visa processing fees online.
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:flex-start; gap:10px; padding:11px 13px; border-radius:14px; background:rgba(254,226,226,.45); border:1px solid rgba(220,38,38,.18);">
+            <span style="font-size:15px; flex-shrink:0; margin-top:1px;">⚠️</span>
+            <div>
+              <div style="font-weight:900; color:#b91c1c; margin-bottom:2px;">Important</div>
+              Your appointment is <b>only confirmed once your online payment is completed</b>. Please ensure this is settled prior to your scheduled date to avoid cancellation.
+            </div>
           </div>
 
         </div>
@@ -4996,6 +5983,46 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
         // ✅ Restore saved form after short delay (wait for countries to load)
     setTimeout(() => {
       restoreFormFromStorage();
+
+      // Always reset disclaimer on every page load — must re-acknowledge each session
+      const _cb = document.getElementById("paxDisclaimerAgree");
+      const _btn = document.getElementById("paxDisclaimerOpenBtn");
+      const _status = document.getElementById("paxDisclaimerStatus");
+      const _statusText = _status ? _status.querySelector(".pdis-status-text") : null;
+      const _ackCheck = document.getElementById("pdisAckCheck");
+
+      if (_cb) _cb.checked = false;
+      if (_ackCheck) _ackCheck.checked = false;
+      if (_btn){
+        _btn.style.background = "";
+        _btn.style.boxShadow = "";
+        _btn.innerHTML = '<span class="pdis-open-icon">&#128203;</span> Read &amp; Acknowledge Disclaimer';
+      }
+      if (_status) _status.classList.remove("done");
+      if (_statusText) _statusText.textContent = "Not yet acknowledged";
+      const _confirmBtn = document.getElementById("pdisConfirmBtn");
+      if (_confirmBtn) _confirmBtn.disabled = true;
+
+      // Always reset Terms & Agreement on every page load
+      const _cCb = document.getElementById("consentAgree");
+      const _cBtn = document.getElementById("consentOpenBtn");
+      const _cStatus = document.getElementById("consentStatus");
+      const _cStatusText = _cStatus ? _cStatus.querySelector(".cons-status-text") : null;
+      const _cAckCheck = document.getElementById("consAckCheck");
+      const _cConfirmBtn = document.getElementById("consConfirmBtn");
+      const _confirmCheck = document.getElementById("confirmCheck");
+
+      if (_cCb) _cCb.checked = false;
+      if (_cAckCheck) _cAckCheck.checked = false;
+      if (_confirmCheck) _confirmCheck.checked = false;
+      if (_cBtn){
+        _cBtn.style.background = "";
+        _cBtn.style.boxShadow = "";
+        _cBtn.innerHTML = '<span class="cons-open-icon">&#128203;</span> Read &amp; Agree to Terms';
+      }
+      if (_cStatus) _cStatus.classList.remove("done");
+      if (_cStatusText) _cStatusText.textContent = "Not yet agreed";
+      if (_cConfirmBtn) _cConfirmBtn.disabled = true;
     }, 500);
   </script>
 </body>
