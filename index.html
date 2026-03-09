@@ -1496,9 +1496,15 @@
               color: #fff !important;
             }
 
+            /* 🔴 0 slots */
+            #calDays .slot-btn.slot-zero:not(.selected){
+              background: linear-gradient(135deg, #dc2626, #ef4444);
+            }
+
             /* Keep colored pills visible even if disabled */
             #calDays .slot-btn.slot-ok:disabled,
-            #calDays .slot-btn.slot-zero:disabled{
+            #calDays .slot-btn.slot-zero:disabled,
+            #calDays .slot-btn.slot-insufficient:disabled{
               opacity: 1;
               cursor: not-allowed;
             }
@@ -1511,6 +1517,25 @@
             }
             #calDays .slot-btn.selected .rem{
               color:#fff !important;
+            }
+
+            /* ⚫ Insufficient — placed AFTER .selected so it overrides the blue */
+            #calDays .slot-btn.slot-insufficient,
+            #calDays .slot-btn.slot-insufficient:not(.selected),
+            #calDays .slot-btn.slot-insufficient.selected,
+            #calDays .slot-btn.slot-insufficient:disabled,
+            #calDays .slot-btn.slot-insufficient:hover{
+              background: linear-gradient(135deg, #94a3b8, #cbd5e1) !important;
+              border-color: transparent !important;
+              color: #fff !important;
+              font-weight: 900;
+              box-shadow: 0 6px 14px rgba(2,22,55,.06) !important;
+              opacity: 1 !important;
+              cursor: not-allowed !important;
+            }
+            #calDays .slot-btn.slot-insufficient .rem,
+            #calDays .slot-btn.slot-insufficient.selected .rem{
+              color: #fff !important;
             }
       
 
@@ -5078,6 +5103,32 @@ function prefetchNextMonth(){
       return (Number.isFinite(val) && val >= 1) ? val : 1;
     }
 
+    /**
+     * ✅ Clears the currently selected appointment slot if it no longer has
+     * enough remaining capacity for the chosen pax count.
+     * Called whenever pax changes so stale selections don't silently persist.
+     */
+    function clearSlotIfInsufficientForPax(){
+      const selDate = appointmentDateEl ? appointmentDateEl.value : "";
+      const selSes  = appointmentSessionEl ? appointmentSessionEl.value : "";
+      if (!selDate || !selSes) return;
+
+      const rem = getRemainingFromAvail(selDate, selSes);
+      const pax = getSelectedPax();
+
+      // rem === null  → date not in availability map (no data)
+      // rem < pax     → covers rem === 0 (fully booked) AND 0 < rem < pax (insufficient)
+      if (rem === null || rem < pax) {
+        if (appointmentDateEl)   appointmentDateEl.value   = "";
+        if (appointmentSessionEl) appointmentSessionEl.value = "";
+        if (selectedTextEl)       selectedTextEl.textContent = "—";
+        // Also hide any stale processing text set by the slot click
+        if (typeof processingTextEl !== "undefined" && processingTextEl) {
+          processingTextEl.textContent = "";
+        }
+      }
+    }
+
     function hasAnySlotsOnISO(iso, pax){
   const row = AVAIL_MAP[iso];
   if (!row || !row.is_open) return false;
@@ -5136,6 +5187,18 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
       if (!calDaysEl || !calTitleEl) return;
 
       const selectedPax = getSelectedPax();   // ← PAX-AWARE: read current pax selection
+
+      // ✅ Revalidate NEAREST_AVAILABLE_ISO against current pax.
+      // The server sets this without knowing pax, so when pax increases we must
+      // re-check: if neither AM nor PM on that date has enough slots, clear it
+      // so ensureNearestFallback() recomputes a pax-aware nearest date.
+      if (NEAREST_AVAILABLE_ISO) {
+        const nAmRem = getRemainingFromAvail(NEAREST_AVAILABLE_ISO, "AM") || 0;
+        const nPmRem = getRemainingFromAvail(NEAREST_AVAILABLE_ISO, "PM") || 0;
+        if (Math.max(nAmRem, nPmRem) < selectedPax) {
+          NEAREST_AVAILABLE_ISO = "";   // force recompute by ensureNearestFallback
+        }
+      }
 
       const win = computeAllowedWindow();
       const maxAllowed = win ? win.latestByProcessing : null;
@@ -5254,22 +5317,25 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
       const amLabel = (amRem === null) ? "-" : `${amRem}`;
       const pmLabel = (pmRem === null) ? "-" : `${pmRem}`;
 
+     // ✅ PAX-AWARE: rem-ok only when remaining slots meet or exceed selected pax
      const amCountClass =
       (amRem === 0) ? "rem-zero" :
-      (amRem !== null && amRem > 0) ? "rem-ok" : "";
+      (amRem !== null && amRem >= selectedPax) ? "rem-ok" : "";
 
      const pmCountClass =
       (pmRem === 0) ? "rem-zero" :
-      (pmRem !== null && pmRem > 0) ? "rem-ok" : "";
+      (pmRem !== null && pmRem >= selectedPax) ? "rem-ok" : "";
 
       // ✅ pill state class for button background
       const amBtnClass =
         (amRem === 0) ? "slot-zero" :
-        (amRem !== null && amRem > 0) ? "slot-ok" : "";
+        (amRem !== null && amRem > 0 && amRem < selectedPax) ? "slot-insufficient" :
+        (amRem !== null && amRem >= selectedPax) ? "slot-ok" : "";
 
       const pmBtnClass =
         (pmRem === 0) ? "slot-zero" :
-        (pmRem !== null && pmRem > 0) ? "slot-ok" : "";
+        (pmRem !== null && pmRem > 0 && pmRem < selectedPax) ? "slot-insufficient" :
+        (pmRem !== null && pmRem >= selectedPax) ? "slot-ok" : "";
 
       const holidayName = HOLIDAY_MAP[iso] || "";
 
@@ -5291,9 +5357,34 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
       calDaysEl.appendChild(cell);
         }
 
+      /* ✅ Force gray inline — beats all CSS (including any stale .selected blue) */
+      calDaysEl.querySelectorAll(".slot-btn.slot-insufficient").forEach(function(btn){
+        btn.style.cssText = "background:linear-gradient(135deg,#94a3b8,#cbd5e1)!important;border-color:transparent!important;color:#fff!important;opacity:1!important;cursor:not-allowed!important;pointer-events:none!important;";
+        var rem = btn.querySelector(".rem");
+        if(rem) rem.style.color="#fff";
+      });
+
+      // ✅ Re-apply .selected highlight to the previously-chosen slot — but ONLY
+      // if that slot still has enough capacity for the current pax. If it became
+      // insufficient, clearSlotIfInsufficientForPax() (called after renderCalendar)
+      // will wipe appointmentDateEl so the stale selection doesn't persist.
+      (function reapplySelectedHighlight(){
+        const savedDate = appointmentDateEl ? appointmentDateEl.value : "";
+        const savedSes  = appointmentSessionEl ? appointmentSessionEl.value : "";
+        if (!savedDate || !savedSes) return;
+        const savedBtn = calDaysEl.querySelector(
+          `.slot-btn[data-date="${savedDate}"][data-session="${savedSes}"]`
+        );
+        // Only re-select if the button is genuinely available (not disabled/insufficient)
+        if (savedBtn && !savedBtn.disabled && savedBtn.classList.contains("slot-ok")) {
+          savedBtn.classList.add("selected");
+        }
+      })();
+
       // slot click handlers
       calDaysEl.querySelectorAll(".slot-btn").forEach(btn => {
         btn.addEventListener("click", () => {
+          if(btn.classList.contains("slot-insufficient")) return;
           calDaysEl.querySelectorAll(".slot-btn.selected")
             .forEach(b => b.classList.remove("selected"));
           btn.classList.add("selected");
@@ -5381,10 +5472,29 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
             return;
           }
 
-          // ✅ If there IS a slot within allowed window → no overlay
+          // ✅ If there IS a slot within allowed window (for current pax) → no overlay
           if (NEAREST_AVAILABLE_ISO){
             emptyBox.style.display = "none";
             return;
+          }
+
+          // ✅ If there are slots overall (ignoring pax) but none sufficient for current pax
+          //    → show a pax-specific "increase party size" message instead of the generic FB message
+          const curPax = getSelectedPax();
+          if (curPax > 1) {
+            const nearestForOnePax = computeNearestFromLoadedAvail(maxAllowed, 1);
+            if (nearestForOnePax) {
+              if (emptyTitle) emptyTitle.textContent = "No slots available for your party size";
+              emptyText.innerHTML =
+                `There are currently <b>no appointment slots with enough capacity</b> for <b>${curPax} pax</b> within your allowed travel window.<br>` +
+                `Slots exist, but none have enough remaining seats for your group.<br>` +
+                `<br>You can:<br>` +
+                `<b>①</b> Reduce your pax count if some passengers can book separately.<br>` +
+                `<b>②</b> Check the <b>1BOSSCO Facebook page</b> for updates on new high-capacity slots.<br>` +
+                `<span style="color:#94a3b8;font-size:12px;font-weight:500;">Availability shown is based on remaining seats offered by VFS Global for your selected location.</span>`;
+              emptyBox.style.display = "flex";
+              return;
+            }
           }
 
           // ✅ If there are slots overall but none within window → still "too early"
@@ -5461,6 +5571,18 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
       renderAdditionalPaxFields(paxVal);
       // ✅ Re-render calendar so dates are greyed out based on new pax count
       renderCalendar();
+      // ✅ Clear previously-selected slot if it no longer has enough capacity for new pax
+      clearSlotIfInsufficientForPax();
+    });
+
+    // ✅ Also listen for "change" — some browsers fire this (not "input") when
+    //    the user clicks the number-input spinner arrows.
+    paxCountEl.addEventListener("change", () => {
+      let paxVal = toNum(paxCountEl.value, 0);
+      if (paxVal > 50) { paxCountEl.value = 50; paxVal = 50; }
+      renderCalendar();
+      // ✅ Same stale-selection guard for the spinner path
+      clearSlotIfInsufficientForPax();
     });
 
     /* =========================================================
