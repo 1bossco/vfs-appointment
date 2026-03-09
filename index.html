@@ -5187,7 +5187,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
           if (appt && procDays > 0) {
             const end = addWorkingDaysStartNext(appt, procDays);
             processingTextEl.textContent =
-               `Your selected (${fmtLong(isoToDate(dateISO)) || dateISO} ${session}) • Processing starts next day — ${procDays} working days — ends on: ${fmtLong(end)}`;
+               `Your selected (${fmtLong(isoToDate(dateISO)) || dateISO} ${session})`;
           }
           selectedTextEl.textContent = `${fmtLong(isoToDate(dateISO)) || dateISO} (${session})`;
 
@@ -5362,7 +5362,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
         section.innerHTML = `
           <div class="addpax-header">
             <span class="addpax-num">${i}</span>
-            Additional Passenger ${i} Information
+            Travel Companion ${i}
           </div>
           <div class="addpax-body">
             <div class="two-col">
