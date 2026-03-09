@@ -523,101 +523,173 @@
     /* Step 4 review */
     .review-card{
       margin-top: 12px;
-      border: 1.5px solid #e6edf7;
+      border: 1.5px solid #dbe7f6;
       border-radius: 20px;
       background: #fff;
-      overflow:hidden;
-      box-shadow: 0 10px 28px rgba(2,22,55,.08);
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(2,22,55,.07);
     }
     .review-hero{
-      padding: 16px 16px 14px;
-      background:
-        radial-gradient(900px 240px at 10% 0%, rgba(29,102,194,.16), transparent 55%),
-        radial-gradient(900px 240px at 95% 0%, rgba(21,83,163,.14), transparent 55%),
-        linear-gradient(180deg, #f8fbff, #ffffff);
-      border-bottom: 1px solid #eef2f7;
+      padding: 18px 20px 16px;
+      background: linear-gradient(135deg,#0b2a5a 0%,#1553a3 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
     }
     .review-title{
       font-weight: 900;
-      font-size: 16px;
-      color: var(--text);
-      margin-bottom: 4px;
+      font-size: 15px;
+      color: #fff;
+      margin-bottom: 2px;
     }
     .review-sub{
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 700;
+      font-size: 11px;
+      color: rgba(255,255,255,.72);
+      font-weight: 600;
     }
-    .review-body{ padding: 14px 14px 6px; }
-    .review-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+    .review-hero-slot{
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 999px;
+      padding: 5px 13px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #e0ecff;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
+    .review-body{ padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+    /* ── single full-width grid removed — now stacked sections ── */
+    .review-grid{ display: flex; flex-direction: column; gap: 10px; }
     .review-section{
       border: 1px solid #eef2f7;
-      border-radius: 18px;
-      padding: 12px;
-      background: linear-gradient(180deg,#ffffff,#fbfdff);
+      border-radius: 14px;
+      background: #fafcff;
+      overflow: hidden;
     }
     .review-section-title{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom: 10px;
-      gap: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: linear-gradient(180deg,#f0f6ff,#f8fbff);
+      border-bottom: 1px solid #eef2f7;
+      gap: 8px;
     }
     .review-section-title .left{
       font-weight: 900;
-      font-size: 12px;
-      display:flex;
-      align-items:center;
-      gap: 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: #0b2a5a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .icon-pill{
-      width: 28px;
-      height: 28px;
-      border-radius: 12px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background: rgba(231,240,255,.90);
-      font-size: 13px;
+      width: 26px;
+      height: 26px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e7f0ff;
+      font-size: 12px;
+      flex-shrink: 0;
     }
     .badge2{
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 900;
-      padding: 6px 10px;
+      padding: 4px 9px;
       border-radius: 999px;
-      border: 1px solid var(--border2);
-      background: #f8fbff;
+      border: 1px solid #dbe7f6;
+      background: #fff;
       color: #334155;
-      white-space:nowrap;
+      white-space: nowrap;
     }
+    .review-rows{ padding: 4px 14px 8px; }
     .review-row{
-      display:grid;
-      grid-template-columns: 140px 1fr;
-      gap: 10px;
-      padding: 10px 0;
-      border-top: 1px dashed #eef2f7;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 9px 0;
+      border-bottom: 1px dashed #eef2f7;
     }
-    .review-row:first-of-type{ border-top: none; padding-top: 0; }
+    .review-row:last-child{ border-bottom: none; }
     .review-k{
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 900;
+      font-size: 11.5px;
+      color: #64748b;
+      font-weight: 700;
+      flex-shrink: 0;
+      min-width: 110px;
     }
     .review-v{
-      font-size: 13px;
-      font-weight: 900;
-      color: var(--text);
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #0b1f33;
       text-align: right;
       word-break: break-word;
     }
-    /* ===========================
-   STEP 4: Make confirm box LONG + mobile responsive
-   (paste at END of <style>)
-   =========================== */
+    .review-v.highlight{ color: #dc2626; }
+    /* companion numbered pill */
+    .r-comp-row{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px dashed #eef2f7;
+    }
+    .r-comp-row:last-child{ border-bottom: none; }
+    .r-comp-label{
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-shrink: 0;
+    }
+    .r-comp-num{
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: #1553a3;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .r-comp-key{
+      font-size: 11.5px;
+      color: #64748b;
+      font-weight: 700;
+    }
+    .r-comp-val{
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #0b1f33;
+      text-align: right;
+      word-break: break-word;
+    }
+    /* ── two-col layout on wide screens ── */
+    @media(min-width:640px){
+      .review-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .review-section.full-width{ grid-column: 1 / -1; }
+    }
+    /* Review card: additional pax summary — legacy kept for compat */
+    .r-addpax-block{ margin-top: 14px; border-top: 1px dashed #eef2f7; padding-top: 14px; }
+    .r-addpax-title{
+      font-size: 11px; font-weight: 900; color: #64748b;
+      text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px;
+    }
+    .r-addpax-row{
+      display: grid; grid-template-columns: 140px 1fr;
+      gap: 8px; padding: 7px 0; border-top: 1px dashed #eef2f7;
+    }
+    .r-addpax-row:first-of-type{ border-top: none; }
 
     .review-footer{
       display: flex;
@@ -2518,6 +2590,70 @@
         .cons-modal-body{ padding: 14px; }
         .cons-modal-head, .cons-modal-foot{ padding-left:14px; padding-right:14px; }
       }
+
+    /* =========================================================
+       ADDITIONAL PASSENGERS (dynamic, PAX > 1)
+    ========================================================= */
+    .addpax-section{
+      margin-top: 18px;
+      border: 1.5px solid rgba(29,102,194,.22);
+      border-radius: 18px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 8px 22px rgba(2,22,55,.07);
+    }
+    .addpax-header{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: linear-gradient(180deg, #f0f7ff, #ffffff);
+      border-bottom: 1px solid rgba(29,102,194,.14);
+      font-weight: 900;
+      font-size: 13px;
+      color: #0b2a5a;
+    }
+    .addpax-header .addpax-num{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: var(--blue-900);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+    .addpax-body{
+      padding: 6px 16px 16px;
+    }
+    .addpax-body .two-col{
+      margin-top: 6px;
+    }
+    /* Review card: additional pax summary */
+    .r-addpax-block{
+      margin-top: 14px;
+      border-top: 1px dashed #eef2f7;
+      padding-top: 14px;
+    }
+    .r-addpax-title{
+      font-size: 11px;
+      font-weight: 900;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 8px;
+    }
+    .r-addpax-row{
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 8px;
+      padding: 7px 0;
+      border-top: 1px dashed #eef2f7;
+    }
+    .r-addpax-row:first-of-type{ border-top: none; }
   </style>
 </head>
 <!-- redeploy -->
@@ -2750,8 +2886,11 @@
             </div>
 
             <label>Number of Pax<span class="req">*</span></label>
-            <input id="paxCount" type="number" inputmode="numeric" min="1" step="1" required placeholder="e.g., 1" />
-            <div class="helper" id="paxHelper">Please enter a valid number of pax (minimum 1).</div>
+            <input id="paxCount" type="number" inputmode="numeric" min="1" max="50" step="1" required placeholder="e.g., 1" />
+            <div class="helper" id="paxHelper">Please enter a valid number of pax (1–50).</div>
+
+            <!-- ✅ Additional Passengers (auto-rendered by JS when pax > 1) -->
+            <div id="additionalPaxContainer"></div>
 
             <!-- Pricing display -->
             <div class="price-box" id="priceBox">
@@ -3126,52 +3265,77 @@
 
           <div class="review-card" id="reviewCard">
             <div class="review-hero">
-              <div class="review-title">Review & Submit</div>
-              <p class="review-sub" id="reviewSub">Please check your details before confirming.</p>
+              <div>
+                <div class="review-title">Review &amp; Submit</div>
+                <p class="review-sub" id="reviewSub">Please check your details before confirming.</p>
+              </div>
+              <div class="review-hero-slot" id="r_heroSlot" style="display:none;">📅&nbsp;<span id="r_heroSlotText"></span></div>
             </div>
 
             <div class="review-body">
               <div class="review-grid">
+
+                <!-- ── Applicant ── -->
                 <div class="review-section">
                   <div class="review-section-title">
                     <div class="left"><div class="icon-pill">👤</div>Applicant</div>
                     <div class="badge2">Personal</div>
                   </div>
-
-                  <div class="review-row"><div class="review-k">Full Name</div><div class="review-v" id="r_fullname">-</div></div>
-                  <div class="review-row"><div class="review-k">Email</div><div class="review-v" id="r_email">-</div></div>
-                  <div class="review-row"><div class="review-k">Mobile</div><div class="review-v" id="r_mobile">-</div></div>
-                  <div class="review-row"><div class="review-k">Passport Pickup</div><div class="review-v" id="r_pickupdelivery">-</div></div>
-                  <div class="review-row" id="r_deliveryBlock" style="display:none;flex-direction:column;gap:4px;">
-                    <div style="display:grid;grid-template-columns:140px 1fr;gap:10px;padding:4px 0;">
-                      <div class="review-k">Recipient</div><div class="review-v" id="r_deliveryRecipient">-</div>
-                    </div>
-                    <div style="display:grid;grid-template-columns:140px 1fr;gap:10px;padding:4px 0;">
-                      <div class="review-k">Delivery Address</div><div class="review-v" id="r_deliveryAddress">-</div>
-                    </div>
-                    <div style="display:grid;grid-template-columns:140px 1fr;gap:10px;padding:4px 0;">
-                      <div class="review-k">Delivery Mobile</div><div class="review-v" id="r_deliveryMobile">-</div>
-                    </div>
+                  <div class="review-rows">
+                    <div class="review-row"><div class="review-k">Full Name</div><div class="review-v" id="r_fullname">-</div></div>
+                    <div class="review-row"><div class="review-k">Email</div><div class="review-v" id="r_email">-</div></div>
+                    <div class="review-row"><div class="review-k">Mobile</div><div class="review-v" id="r_mobile">-</div></div>
+                    <div class="review-row"><div class="review-k">Municipality</div><div class="review-v" id="r_muni">-</div></div>
+                    <div class="review-row"><div class="review-k">Resident</div><div class="review-v" id="r_resident">-</div></div>
+                    <div class="review-row"><div class="review-k">OFW</div><div class="review-v" id="r_ofw">-</div></div>
                   </div>
                 </div>
 
+                <!-- ── Application ── -->
                 <div class="review-section">
                   <div class="review-section-title">
                     <div class="left"><div class="icon-pill">🧾</div>Application</div>
                     <div class="badge2">Details</div>
                   </div>
-                  <div class="review-row"><div class="review-k">Country / Mission</div><div class="review-v" id="r_country">-</div></div>
-                  <div class="review-row"><div class="review-k">Pax</div><div class="review-v" id="r_pax">-</div></div>
-                  <div class="review-row"><div class="review-k">Pricing</div><div class="review-v" id="r_price">-</div></div>
-                  <div class="review-row"><div class="review-k">Note</div><div class="review-v" id="r_priceNote">-</div></div>
-                  <div class="review-row"><div class="review-k">Intended Travel Date</div><div class="review-v" id="r_traveldate">-</div></div>
-                  <div class="review-row"><div class="review-k">Appointment Slot</div><div class="review-v" id="r_slot">-</div></div>
-                  <div class="review-row"><div class="review-k">Visa Type</div><div class="review-v" id="r_visa">-</div></div>
-                  <div class="review-row"><div class="review-k">Application Type</div><div class="review-v" id="r_apptype">-</div></div>
-                  <div class="review-row"><div class="review-k">First-time Visa</div><div class="review-v" id="r_firsttime">-</div></div>
-                  <div class="review-row"><div class="review-k">Form Done</div><div class="review-v" id="r_formdone">-</div></div>
+                  <div class="review-rows">
+                    <div class="review-row"><div class="review-k">Country / Mission</div><div class="review-v" id="r_country">-</div></div>
+                    <div class="review-row"><div class="review-k">Pax</div><div class="review-v" id="r_pax">-</div></div>
+                    <div class="review-row"><div class="review-k">Pricing</div><div class="review-v highlight" id="r_price">-</div></div>
+                    <div class="review-row" id="r_noteRow" style="display:none;"><div class="review-k">Note</div><div class="review-v" id="r_priceNote">-</div></div>
+                    <div class="review-row"><div class="review-k">Travel Date</div><div class="review-v" id="r_traveldate">-</div></div>
+                    <div class="review-row"><div class="review-k">Appointment</div><div class="review-v" id="r_slot">-</div></div>
+                    <div class="review-row"><div class="review-k">Visa Type</div><div class="review-v" id="r_visa">-</div></div>
+                    <div class="review-row"><div class="review-k">Entry Type</div><div class="review-v" id="r_entrytype">-</div></div>
+                    <div class="review-row"><div class="review-k">App. Type</div><div class="review-v" id="r_apptype">-</div></div>
+                    <div class="review-row"><div class="review-k">First-time Visa</div><div class="review-v" id="r_firsttime">-</div></div>
+                    <div class="review-row"><div class="review-k">Form Done</div><div class="review-v" id="r_formdone">-</div></div>
+                  </div>
                 </div>
-              </div>
+
+                <!-- ── Travel Companions (hidden until pax > 1) ── -->
+                <div class="review-section full-width" id="r_additionalPaxSection" style="display:none;">
+                  <div class="review-section-title">
+                    <div class="left"><div class="icon-pill">👥</div>Travel Companions / Applicants</div>
+                    <div class="badge2" id="r_compCount">—</div>
+                  </div>
+                  <div class="review-rows" id="r_additionalPaxList"></div>
+                </div>
+
+                <!-- ── Passport Pickup ── -->
+                <div class="review-section full-width">
+                  <div class="review-section-title">
+                    <div class="left"><div class="icon-pill">📦</div>Passport Pickup</div>
+                    <div class="badge2" id="r_pickupBadge">—</div>
+                  </div>
+                  <div class="review-rows">
+                    <div class="review-row"><div class="review-k">Method</div><div class="review-v" id="r_pickupdelivery">-</div></div>
+                    <div class="review-row" id="r_deliveryBlock" style="display:none;"><div class="review-k">Recipient</div><div class="review-v" id="r_deliveryRecipient">-</div></div>
+                    <div class="review-row" id="r_deliveryAddrRow" style="display:none;"><div class="review-k">Address</div><div class="review-v" id="r_deliveryAddress">-</div></div>
+                    <div class="review-row" id="r_deliveryMobRow" style="display:none;"><div class="review-k">Mobile</div><div class="review-v" id="r_deliveryMobile">-</div></div>
+                  </div>
+                </div>
+
+              </div><!-- /.review-grid -->
 
               <div class="review-footer">
                 <div class="review-confirm">
@@ -3387,6 +3551,19 @@
         data._appointmentDate = appointmentDateEl.value;
         data._appointmentSession = appointmentSessionEl.value;
 
+        // ✅ Save travel companion fields (dynamic, captured separately)
+        const companions = [];
+        const paxVal = toNum(paxCountEl.value, 0);
+        for (let i = 1; i <= paxVal - 1; i++) {
+          companions.push({
+            surname:    (document.getElementById(`addpax_${i}_surname`)?.value || ""),
+            givenName:  (document.getElementById(`addpax_${i}_givenName`)?.value || ""),
+            middleName: (document.getElementById(`addpax_${i}_middleName`)?.value || ""),
+            suffix:     (document.getElementById(`addpax_${i}_suffix`)?.value || ""),
+          });
+        }
+        data._companions = companions;
+
         localStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(data));
       }
 
@@ -3431,6 +3608,23 @@
           }
           if (data._appointmentSession){
             appointmentSessionEl.value = data._appointmentSession;
+          }
+
+          // ✅ Restore travel companions — render fields first, then fill values
+          if (Array.isArray(data._companions) && data._companions.length > 0) {
+            const savedPax = toNum(paxCountEl.value, 0);
+            renderAdditionalPaxFields(savedPax);
+            data._companions.forEach((c, i) => {
+              const idx = i + 1;
+              const s = document.getElementById(`addpax_${idx}_surname`);
+              const g = document.getElementById(`addpax_${idx}_givenName`);
+              const m = document.getElementById(`addpax_${idx}_middleName`);
+              const sf = document.getElementById(`addpax_${idx}_suffix`);
+              if (s) s.value = c.surname || "";
+              if (g) g.value = c.givenName || "";
+              if (m) m.value = c.middleName || "";
+              if (sf) sf.value = c.suffix || "";
+            });
           }
 
         } catch(err){
@@ -5134,10 +5328,138 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
     });
 
     paxCountEl.addEventListener("input", () => {
+      // Cap at 50
+      let paxVal = toNum(paxCountEl.value, 0);
+      if (paxVal > 50) { paxCountEl.value = 50; paxVal = 50; }
       updatePriceBoxFromSheet();
       clearInvalid(paxCountEl, document.getElementById("paxHelper"));
       hideNotice();
+      // ✅ Render additional passenger fields
+      renderAdditionalPaxFields(paxVal);
     });
+
+    /* =========================================================
+      ADDITIONAL PAX FIELDS — Dynamically rendered when pax > 1
+    ========================================================= */
+    function renderAdditionalPaxFields(pax) {
+      const container = document.getElementById("additionalPaxContainer");
+      if (!container) return;
+
+      const count = Number.isFinite(pax) && pax > 1 ? pax - 1 : 0;
+
+      // Preserve existing values before rebuilding
+      const existing = {};
+      container.querySelectorAll("input, select").forEach(el => {
+        if (el.id) existing[el.id] = el.value;
+      });
+
+      container.innerHTML = "";
+
+      for (let i = 1; i <= count; i++) {
+        const idPfx = `addpax_${i}`;
+        const section = document.createElement("div");
+        section.className = "addpax-section";
+        section.innerHTML = `
+          <div class="addpax-header">
+            <span class="addpax-num">${i}</span>
+            Additional Passenger ${i} Information
+          </div>
+          <div class="addpax-body">
+            <div class="two-col">
+              <div class="field">
+                <label>Surname (as in passport)<span class="req">*</span></label>
+                <input id="${idPfx}_surname" type="text" placeholder="e.g., Dela Cruz" autocomplete="off" />
+                <div class="helper" id="${idPfx}_surnameHelper">Surname is required.</div>
+              </div>
+              <div class="field">
+                <label>First Name (as in passport)<span class="req">*</span></label>
+                <input id="${idPfx}_givenName" type="text" placeholder="e.g., Juan" autocomplete="off" />
+                <div class="helper" id="${idPfx}_givenNameHelper">First name is required.</div>
+              </div>
+              <div class="field">
+                <label>Middle Name (as in passport)<span class="req">*</span></label>
+                <input id="${idPfx}_middleName" type="text" placeholder="e.g., Santos (or N/A)" autocomplete="off" />
+                <div class="helper" id="${idPfx}_middleNameHelper">Middle name is required (enter N/A if none).</div>
+              </div>
+              <div class="field">
+                <label>Suffix <span style="color:var(--muted);font-weight:600;">(Optional)</span></label>
+                <select id="${idPfx}_suffix">
+                  <option value="">None</option>
+                  <option value="Jr.">Jr.</option>
+                  <option value="Sr.">Sr.</option>
+                  <option value="II">II</option>
+                  <option value="III">III</option>
+                  <option value="IV">IV</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        `;
+        container.appendChild(section);
+
+        // Restore previously entered values if re-rendering
+        ["surname","givenName","middleName","suffix"].forEach(field => {
+          const key = `${idPfx}_${field}`;
+          const el = document.getElementById(key);
+          if (el && existing[key] !== undefined) el.value = existing[key];
+        });
+
+        // Attach clear-on-input for required fields
+        ["surname","givenName","middleName"].forEach(field => {
+          const inputEl  = document.getElementById(`${idPfx}_${field}`);
+          const helperEl = document.getElementById(`${idPfx}_${field}Helper`);
+          if (!inputEl) return;
+          inputEl.addEventListener("input", () => {
+            if (inputEl.value.trim()) {
+              clearInvalid(inputEl, helperEl);
+              hideNotice();
+            }
+          });
+        });
+      }
+    }
+
+    /* =========================================================
+      COLLECT ADDITIONAL PAX DATA (for validation + submit)
+    ========================================================= */
+    function getAdditionalPaxData() {
+      const pax = toNum(paxCountEl.value, 0);
+      const count = pax > 1 ? pax - 1 : 0;
+      const result = [];
+      for (let i = 1; i <= count; i++) {
+        const idPfx = `addpax_${i}`;
+        result.push({
+          surname:    (document.getElementById(`${idPfx}_surname`)?.value  || "").trim(),
+          givenName:  (document.getElementById(`${idPfx}_givenName`)?.value || "").trim(),
+          middleName: (document.getElementById(`${idPfx}_middleName`)?.value || "").trim(),
+          suffix:     (document.getElementById(`${idPfx}_suffix`)?.value   || "").trim(),
+        });
+      }
+      return result;
+    }
+
+    /* Validate additional pax — returns true if all ok, false + marks errors if not */
+    function validateAdditionalPax() {
+      const pax = toNum(paxCountEl.value, 0);
+      const count = pax > 1 ? pax - 1 : 0;
+      let ok = true;
+
+      for (let i = 1; i <= count; i++) {
+        const idPfx = `addpax_${i}`;
+        ["surname","givenName","middleName"].forEach(field => {
+          const inputEl  = document.getElementById(`${idPfx}_${field}`);
+          const helperEl = document.getElementById(`${idPfx}_${field}Helper`);
+          if (!inputEl) return;
+          if (!inputEl.value.trim()) {
+            ok = false;
+            markInvalid(inputEl, helperEl);
+          } else {
+            clearInvalid(inputEl, helperEl);
+          }
+        });
+      }
+      return ok;
+    }
 
     serviceSelect.addEventListener("change", () => {
       updatePriceBoxFromSheet();
@@ -5185,7 +5507,10 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
     const pax = toNum(paxCountEl.value, 0);
 
     if (!countryTypeEl.value) { ok = false; markInvalid(countryTypeEl, document.getElementById("countryHelper")); }
-    if (!paxCountEl.value || !Number.isFinite(pax) || pax < 1) { ok = false; markInvalid(paxCountEl, document.getElementById("paxHelper")); }
+    if (!paxCountEl.value || !Number.isFinite(pax) || pax < 1 || pax > 50) { ok = false; markInvalid(paxCountEl, document.getElementById("paxHelper")); }
+
+    // ✅ Validate additional passengers
+    if (!validateAdditionalPax()) { ok = false; }
 
     if (!SELECTED_PRICE_ROW) {
       ok = false;
@@ -5496,13 +5821,78 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       document.getElementById("r_email").textContent = email || "-";
       document.getElementById("r_mobile").textContent = mobile || "-";
 
+      // ✅ Populate new Applicant fields
+      const muniOrAddr = (() => {
+        const resVal = (document.querySelector('input[name="resident"]:checked') || {}).value || "";
+        if (resVal === "No") {
+          return (document.getElementById("outsideAddress")?.value.trim()) || "-";
+        }
+        return (document.getElementById("municipality")?.value.trim()) || "-";
+      })();
+      const residentVal = (document.querySelector('input[name="resident"]:checked') || {}).value || "-";
+      const ofwVal      = (document.querySelector('input[name="ofw"]:checked') || {}).value || "-";
+      const r_muni = document.getElementById("r_muni");
+      const r_res  = document.getElementById("r_resident");
+      const r_ofw  = document.getElementById("r_ofw");
+      if (r_muni) r_muni.textContent = muniOrAddr;
+      if (r_res)  r_res.textContent  = residentVal;
+      if (r_ofw)  r_ofw.textContent  = ofwVal;
+
+      // ✅ Hero slot badge
+      const heroSlot = document.getElementById("r_heroSlot");
+      const heroSlotText = document.getElementById("r_heroSlotText");
+      if (heroSlot && heroSlotText) {
+        if (apptSlotDate) {
+          heroSlotText.textContent = `${fmtLong(isoToDate(apptSlotDate)) || apptSlotDate} (${apptSlotSession || "-"})`;
+          heroSlot.style.display = "block";
+        } else {
+          heroSlot.style.display = "none";
+        }
+      }
+
+      // ✅ Travel Companions in review — new pill-row format
+      const addPaxData    = getAdditionalPaxData();
+      const addPaxSection = document.getElementById("r_additionalPaxSection");
+      const addPaxList    = document.getElementById("r_additionalPaxList");
+      const compCountEl   = document.getElementById("r_compCount");
+      if (addPaxSection && addPaxList) {
+        if (addPaxData.length > 0) {
+          addPaxSection.style.display = "block";
+          if (compCountEl) compCountEl.textContent = `${addPaxData.length} companion${addPaxData.length > 1 ? "s" : ""}`;
+          addPaxList.innerHTML = addPaxData.map((p, idx) => {
+            const surname = (p.surname || "").trim();
+            const rest = [p.givenName, p.middleName, p.suffix]
+              .filter(v => v && v.toUpperCase() !== "N/A" && v.toUpperCase() !== "NONE" && v.trim() !== "")
+              .join(" ").replace(/\s+/g," ").trim();
+            const name = surname ? (rest ? `${surname}, ${rest}` : surname) : (rest || "-");
+            return `<div class="r-comp-row">
+              <div class="r-comp-label">
+                <span class="r-comp-num">${idx + 1}</span>
+                <span class="r-comp-key">Travel Companion ${idx + 1}</span>
+              </div>
+              <div class="r-comp-val">${name}</div>
+            </div>`;
+          }).join("");
+        } else {
+          addPaxSection.style.display = "none";
+          addPaxList.innerHTML = "";
+        }
+      }
+
       // Pickup / Delivery review rows
-      const pickupVal = (document.querySelector('input[name="pickupDelivery"]:checked') || {}).value || "";
-      const r_pickup  = document.getElementById("r_pickupdelivery");
-      const r_delBlock = document.getElementById("r_deliveryBlock");
-      if (r_pickup) r_pickup.textContent = pickupVal === "Delivery" ? "Delivery to my address" : (pickupVal === "Pick-up" ? "Pick-up (Parqal Mall, Manila)" : "-");
-      if (r_delBlock) r_delBlock.style.display = pickupVal === "Delivery" ? "flex" : "none";
-      if (pickupVal === "Delivery") {
+      const pickupVal   = (document.querySelector('input[name="pickupDelivery"]:checked') || {}).value || "";
+      const r_pickup    = document.getElementById("r_pickupdelivery");
+      const r_delBlock  = document.getElementById("r_deliveryBlock");
+      const r_delAddr   = document.getElementById("r_deliveryAddrRow");
+      const r_delMob    = document.getElementById("r_deliveryMobRow");
+      const r_pickBadge = document.getElementById("r_pickupBadge");
+      const isDelivery  = pickupVal === "Delivery";
+      if (r_pickup)    r_pickup.textContent = isDelivery ? "Delivery to my address" : (pickupVal === "Pick-up" ? "Pick-up (Parqal Mall, Manila)" : "-");
+      if (r_pickBadge) r_pickBadge.textContent = pickupVal || "—";
+      if (r_delBlock)  r_delBlock.style.display  = isDelivery ? "flex" : "none";
+      if (r_delAddr)   r_delAddr.style.display   = isDelivery ? "flex" : "none";
+      if (r_delMob)    r_delMob.style.display    = isDelivery ? "flex" : "none";
+      if (isDelivery) {
         const rn = document.getElementById("r_deliveryRecipient");
         const ra = document.getElementById("r_deliveryAddress");
         const rm = document.getElementById("r_deliveryMobile");
@@ -5515,15 +5905,20 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       document.getElementById("r_pax").textContent = pax ? String(pax) : "-";
       document.getElementById("r_price").innerHTML = pricingLine || "-";
 
-      // ✅ PUT IT RIGHT HERE
-      const noteEl = document.getElementById("priceNote");
+      // Note row — show only if there is a note
+      const noteEl      = document.getElementById("priceNote");
       const reviewNoteE2 = document.getElementById("r_priceNote");
+      const r_noteRow   = document.getElementById("r_noteRow");
+      const noteText    = noteEl && noteEl.textContent.trim() ? noteEl.textContent.trim() : "";
+      if (reviewNoteE2) reviewNoteE2.textContent = noteText || "-";
+      if (r_noteRow)    r_noteRow.style.display   = noteText ? "flex" : "none";
 
-      reviewNoteE2.textContent = noteEl && noteEl.textContent.trim()
-        ? noteEl.textContent
-        : "-";
       document.getElementById("r_traveldate").textContent = travelDate ? (fmtLong(isoToDate(travelDate)) || travelDate) : "-";
       document.getElementById("r_slot").textContent = apptSlotDate ? `${fmtLong(isoToDate(apptSlotDate)) || apptSlotDate} (${apptSlotSession || "-"})` : "-";
+
+      // Entry type — new field
+      const r_entry = document.getElementById("r_entrytype");
+      if (r_entry) r_entry.textContent = entryType || "-";
 
       document.getElementById("r_visa").textContent = visaTypeApplied || "-";
       document.getElementById("r_apptype").textContent = appType || "-";
@@ -5695,7 +6090,10 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
         appointmentDate: appointmentDateEl.value || "",
         appointmentSession: appointmentSessionEl.value || "",
         source: [...document.querySelectorAll('input[name="source"]:checked')].map(x => x.value),
-        source_other: (sourceOtherCheckEl && sourceOtherCheckEl.checked) ? (sourceOtherTextEl.value.trim()) : ""
+        source_other: (sourceOtherCheckEl && sourceOtherCheckEl.checked) ? (sourceOtherTextEl.value.trim()) : "",
+
+        // ✅ Additional passengers (pax > 1)
+        additionalPassengers: JSON.stringify(getAdditionalPaxData())
       };
 
       submitBtn.disabled = true;
