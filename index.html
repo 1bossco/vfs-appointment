@@ -19,11 +19,9 @@
     ========================================================= */
 
     :root{
-    
       --bg1:#eef4ff;
       --bg2:#f8fbff;
-
-      --card: rgba(255,255,255,.88);
+      --card: rgba(255,255,255,.92);
       --text:#0b1f33;
       --muted:#64748b;
 
@@ -36,15 +34,17 @@
 
       --green-600:#16a34a;
       --red-600:#dc2626;
+      --orange-600:#ea580c;
+      --orange-100:#fff7ed;
 
       --border:#dbe7f6;
       --border2:#e6edf7;
 
-      --shadow: 0 30px 70px rgba(2,22,55,.18);
-      --shadowSoft: 0 14px 34px rgba(2,22,55,.12);
+      --shadow: 0 24px 56px rgba(2,22,55,.14);
+      --shadowSoft: 0 12px 28px rgba(2,22,55,.10);
 
-      --radius: 26px;
-      --radius2: 18px;
+      --radius: 24px;
+      --radius2: 16px;
     }
 
     *{ box-sizing:border-box; margin:0; padding:0; }
@@ -65,12 +65,12 @@
     .wrap{ width:100%; max-width:1040px; margin:0 auto; }
     .card{
       background: var(--card);
-      backdrop-filter: blur(16px) saturate(160%);
-      -webkit-backdrop-filter: blur(16px) saturate(160%);
-      border: 1px solid rgba(255,255,255,.65);
+      backdrop-filter: blur(14px) saturate(150%);
+      -webkit-backdrop-filter: blur(14px) saturate(150%);
+      border: 1px solid rgba(219,231,246,.80);
       box-shadow: var(--shadow);
       border-radius: var(--radius);
-      padding: 18px;
+      padding: 20px;
       overflow:hidden;
     }
 
@@ -80,12 +80,12 @@
         justify-content:space-between;
         gap:14px;
 
-        padding: 16px 18px;              /* ✅ bigger header on desktop */
-        border-radius: 999px;
-        background: rgba(255,255,255,.75);
-        border: 1px solid rgba(255,255,255,.8);
-        box-shadow: 0 14px 28px rgba(2,22,55,.12);
-        margin-bottom: 14px;
+        padding: 14px 18px;
+        border-radius: 20px;
+        background: rgba(255,255,255,.82);
+        border: 1px solid rgba(219,231,246,.9);
+        box-shadow: 0 8px 22px rgba(2,22,55,.09);
+        margin-bottom: 16px;
       }
 
       .brandSide{
@@ -117,15 +117,16 @@
       }
 
       .brandTitle{
-      font-weight: 950;
-      font-size: 22px;   /* desktop bigger */
-      letter-spacing: .2px;
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: .1px;
+      color: #0b2a5a;
     }
 
     .brandSub{
-      margin-top: 4px;
-      font-weight: 800;
-      font-size: 13px;
+      margin-top: 3px;
+      font-weight: 600;
+      font-size: 12px;
       color: var(--muted);
     }
 
@@ -150,20 +151,21 @@
     }
     .step{
       background: #ffffff;
-      border: 1px solid var(--border2);
-      color: #5f6c84;
-      font-weight: 900;
+      border: 1.5px solid #dbe7f6;
+      color: #64748b;
+      font-weight: 700;
       font-size: 12px;
-      padding: 10px 14px;
+      padding: 9px 16px;
       border-radius: 999px;
-      box-shadow: 0 6px 14px rgba(2,22,55,.06);
+      box-shadow: 0 3px 8px rgba(2,22,55,.04);
       user-select:none;
+      transition: .15s ease;
     }
     .step.active{
       background: var(--blue-900);
       border-color: var(--blue-900);
       color: #fff;
-      box-shadow: 0 16px 26px rgba(15,61,119,.25);
+      box-shadow: 0 10px 22px rgba(11,42,90,.20);
     }
 
     /* Notice box */
@@ -172,12 +174,12 @@
       margin: 12px 0;
       padding: 12px 14px;
       border-radius: 16px;
-      border: 1px solid var(--border2);
-      background:#f8fbff;
-      color: var(--text);
+      border: 1.5px solid rgba(234,88,12,.28);
+      background: rgba(255,247,237,.95);
+      color: #9a3412;
       font-weight: 700;
       font-size: 13px;
-      box-shadow: 0 10px 20px rgba(2,22,55,.06);
+      box-shadow: 0 8px 18px rgba(234,88,12,.07);
     }
 
     /* Form steps */
@@ -188,40 +190,46 @@
     label{
       display:block;
       font-size: 12px;
-      font-weight: 900;
-      color: #1b2b44;
+      font-weight: 800;
+      color: #1e3a5f;
       margin-top: 14px;
-      letter-spacing: .02em;
+      letter-spacing: .01em;
     }
     .req{ color: var(--red-600); margin-left: 4px; }
     .helper{
       display:none;
       margin-top: 6px;
-      color: #b91c1c;
-      font-weight: 800;
+      color: #dc2626;
+      font-weight: 700;
       font-size: 12px;
     }
     input, select, textarea{
       width:100%;
-      margin-top: 8px;
-      padding: 12px 14px;
-      border-radius: 16px;
-      border: 1.5px solid var(--border);
-      background: rgba(255,255,255,.90);
+      margin-top: 7px;
+      padding: 11px 14px;
+      border-radius: 14px;
+      border: 1.5px solid #dce8f6;
+      background: #ffffff;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 500;
       color: var(--text);
-      transition: .15s ease;
+      transition: border-color .15s ease, box-shadow .15s ease;
+      font-family: inherit;
     }
     input:focus, select:focus, textarea:focus{
       outline:none;
-      border-color: rgba(29,102,194,.60);
-      box-shadow: 0 0 0 4px rgba(29,102,194,.14);
+      border-color: rgba(29,102,194,.55);
+      box-shadow: 0 0 0 3px rgba(29,102,194,.12);
       background:#fff;
     }
+    input::placeholder, textarea::placeholder{
+      color: #a0aec0;
+      font-weight: 400;
+    }
     .invalid{
-      border-color: var(--red-600) !important;
-      background: #fff8f8 !important;
+      border-color: #dc2626 !important;
+      background: #fff5f5 !important;
+      box-shadow: 0 0 0 3px rgba(220,38,38,.08) !important;
     }
 
     .two-col{
@@ -258,36 +266,37 @@
       display:flex;
       align-items:center;
       gap: 10px;
-      padding: 12px 12px;
-      border: 1.5px solid var(--border2);
-      border-radius: 18px;
+      padding: 11px 14px;
+      border: 1.5px solid #e6edf7;
+      border-radius: 14px;
       background:#fff;
       cursor:pointer;
       user-select:none;
-      transition:.12s ease;
+      transition: border-color .12s ease, background .12s ease;
       font-size: 13px;
-      font-weight: 800;
+      font-weight: 600;
       color: var(--text);
-      box-shadow: 0 8px 14px rgba(2,22,55,.05);
+      box-shadow: 0 2px 8px rgba(2,22,55,.04);
     }
     .radio-option:hover{
-      border-color: rgba(29,102,194,.45);
-      background: rgba(231,240,255,.55);
+      border-color: rgba(29,102,194,.40);
+      background: rgba(231,240,255,.45);
     }
     .radio-option input[type="radio"]{
-      width: 18px; height: 18px;
+      width: 17px; height: 17px;
       accent-color: var(--blue-600);
       flex: 0 0 auto;
     }
     .radio-option.selected{
-      border-color: rgba(29,102,194,.65);
-      background: rgba(231,240,255,.85);
+      border-color: rgba(29,102,194,.60);
+      background: rgba(231,240,255,.80);
+      font-weight: 700;
     }
     .radio-group.invalid{
-      border:1px solid var(--red-600);
+      border:1.5px solid #dc2626;
       padding: 10px;
-      border-radius: 18px;
-      background: rgba(239,68,68,.06);
+      border-radius: 14px;
+      background: rgba(220,38,38,.04);
     }
 
     /* Checkbox cards */
@@ -301,57 +310,58 @@
       display:flex;
       align-items:center;
       gap: 10px;
-      padding: 12px 12px;
-      border: 1.5px solid var(--border2);
-      border-radius: 18px;
+      padding: 11px 14px;
+      border: 1.5px solid #e6edf7;
+      border-radius: 14px;
       background:#fff;
       cursor:pointer;
       user-select:none;
-      transition:.12s ease;
+      transition: border-color .12s ease, background .12s ease;
       font-size: 13px;
-      font-weight: 800;
+      font-weight: 600;
       color: var(--text);
-      box-shadow: 0 8px 14px rgba(2,22,55,.05);
+      box-shadow: 0 2px 8px rgba(2,22,55,.04);
     }
     .check-option:hover{
-      border-color: rgba(29,102,194,.45);
-      background: rgba(231,240,255,.55);
+      border-color: rgba(29,102,194,.40);
+      background: rgba(231,240,255,.45);
     }
     .check-option input[type="checkbox"]{
-      width: 18px; height: 18px;
+      width: 17px; height: 17px;
       accent-color: var(--blue-600);
       flex:0 0 auto;
     }
     .check-option.selected{
-      border-color: rgba(29,102,194,.65);
-      background: rgba(231,240,255,.85);
+      border-color: rgba(29,102,194,.60);
+      background: rgba(231,240,255,.80);
+      font-weight: 700;
     }
     .check-group.invalid{
-      border:1px solid var(--red-600);
+      border:1.5px solid #dc2626;
       padding: 10px;
-      border-radius: 18px;
-      background: rgba(239,68,68,.06);
+      border-radius: 14px;
+      background: rgba(220,38,38,.04);
     }
 
     /* Price box */
     .price-box{
-      margin-top: 14px;
-      padding: 14px 14px;
-      border-radius: 18px;
-      background: rgba(231,240,255,.70);
-      border: 1px solid rgba(29,102,194,.18);
-      box-shadow: 0 10px 22px rgba(2,22,55,.06);
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(231,240,255,.60);
+      border: 1.5px solid rgba(29,102,194,.16);
+      box-shadow: 0 4px 14px rgba(2,22,55,.05);
       font-size: 14px;
-      line-height: 1.5;
+      line-height: 1.6;
     }
-    .price-box strong{ font-weight: 900; }
+    .price-box strong{ font-weight: 800; }
     .price-muted{
-      margin-top: 8px;
+      margin-top: 6px;
       color: var(--muted);
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 600;
     }
-    .total-red{ color: var(--red-600); font-weight: 900; }
+    .total-red{ color: #ea580c; font-weight: 800; }
 
     /* Calendar */
     .calendar-wrap{
@@ -513,11 +523,11 @@
     /* Step 4 review */
     .review-card{
       margin-top: 12px;
-      border: 1px solid var(--border2);
-      border-radius: 24px;
+      border: 1.5px solid #e6edf7;
+      border-radius: 20px;
       background: #fff;
       overflow:hidden;
-      box-shadow: 0 18px 44px rgba(2,22,55,.10);
+      box-shadow: 0 10px 28px rgba(2,22,55,.08);
     }
     .review-hero{
       padding: 16px 16px 14px;
@@ -692,112 +702,41 @@
       font-weight: 800;
     }
 
-    /* Consent collapse */
-    .consent-wrap{
-      margin-top: 14px;
-      border-radius: 18px;
-      background: rgba(231,240,255,.75);
-      border: 1px solid rgba(29,102,194,.22);
-      overflow:hidden;
-      box-shadow: 0 10px 22px rgba(2,22,55,.06);
-    }
-    .consent-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding: 14px 16px;
-      cursor:pointer;
-      user-select:none;
-      gap: 12px;
-    }
-    .consent-title{
-      font-weight: 900;
-      color: var(--text);
-      display:flex;
-      align-items:center;
-      gap: 10px;
-    }
-    .consent-req{ color: var(--red-600); font-weight: 900; }
-    .consent-toggle{
-      font-size: 12px;
-      color:#475569;
-      font-weight: 800;
-      display:flex;
-      align-items:center;
-      gap: 8px;
-      white-space:nowrap;
-    }
-    .consent-body{
-      padding: 0 16px 16px;
-      display:none;
-    }
-    .consent-body.open{ display:block; }
-    .consent-text{
-      background:#fff;
-      border: 1px solid var(--border2);
-      border-radius: 16px;
-      padding: 14px;
-      font-size: 13px;
-      font-weight: 650;
-      line-height: 1.55;
-      color: var(--text);
-    }
-    .consent-text p{ margin: 0 0 12px; }
-    .consent-check{
-      margin-top: 12px;
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      font-size: 13px;
-      color: var(--text);
-      font-weight: 900;
-    }
-    .consent-check input{
-      width: 18px;
-      height: 18px;
-      accent-color: var(--blue-600);
-    }
-    .consent-error{
-      margin-top: 10px;
-      font-size: 12px;
-      color: #b91c1c;
-      font-weight: 900;
-      display:none;
-    }
-    .consent-wrap.invalid{
-      border-color:#fecaca;
-      background:#fef2f2;
-    }
+    /* Consent styles defined below */
 
     /* Buttons */
     .buttons{
       display:flex;
-      gap: 12px;
-      margin-top: 18px;
+      gap: 10px;
+      margin-top: 20px;
       flex-wrap: wrap;
     }
     .btn{
       flex:1;
       min-width: 160px;
-      padding: 12px 14px;
-      border-radius: 18px;
+      padding: 12px 18px;
+      border-radius: 14px;
       border:none;
       cursor:pointer;
-      font-weight: 900;
+      font-weight: 700;
       font-size: 14px;
-      transition: transform .06s ease, filter .12s ease;
+      font-family: inherit;
+      transition: transform .1s ease, box-shadow .15s ease, background .12s ease;
+      letter-spacing: .01em;
     }
     .btn:active{ transform: translateY(1px); }
     .btn.next{
-      background: linear-gradient(135deg, var(--blue-700), var(--blue-600));
+      background: linear-gradient(135deg, #1553a3, #1d66c2);
       color:#fff;
-      box-shadow: 0 16px 30px rgba(29,102,194,.18);
+      box-shadow: 0 10px 24px rgba(21,83,163,.22);
     }
+    .btn.next:hover{ box-shadow: 0 14px 30px rgba(21,83,163,.28); }
     .btn.back{
-      background:#fff;
-      border: 1px solid rgba(29,102,194,.25);
-      color: var(--blue-800);
+      background:#f8fbff;
+      border: 1.5px solid rgba(29,102,194,.22);
+      color: #0f3b7a;
     }
+    .btn.back:hover{ background: #eef4ff; }
     .btn.submit{
       background: linear-gradient(135deg, #15803d, var(--green-600));
       color:#fff;
@@ -872,20 +811,7 @@
       .brandSide{ min-width: 120px; }
       .brandLogo{ height: 42px; }
     }
-    @media (max-width: 720px){
-      body{ padding: 12px; }
-      .card{ padding: 14px; border-radius: 22px; }
-      .two-col{ grid-template-columns: 1fr; gap: 12px; }
-      .brandbar{ border-radius: 20px; flex-direction: column; align-items: stretch; }
-      .brandSide{ justify-content:center; min-width: unset; }
-      .brandCenter{ padding: 6px 0; }
-      .review-grid{ grid-template-columns: 1fr; }
-      .review-row{ grid-template-columns: 1fr; }
-      .review-v{ text-align:left; }
-      .buttons .btn{ min-width: 100%; }
-      .check-group, .radio-group{ grid-template-columns: 1fr; }
-      .cal-day{ min-height: 110px; }
-    }
+     /* duplicate mobile block removed */
 
      @media (max-width: 720px){
       body{ padding: 12px; }
@@ -1243,47 +1169,7 @@
       .consent-toggle{ padding: 7px 10px; }
     }
     
-        /* Agreement checkbox row */
-        .consent-check{
-          margin-top: 12px;
-          padding: 12px 12px;
-          border-radius: 16px;
-          border: 1px solid rgba(29,102,194,.18);
-          background: rgba(231,240,255,.55);
-        }
-
-        .consent-check span{
-          display:block;
-          font-weight: 900;
-        }
-
-        .consent-check small{
-          display:block;
-          margin-top: 4px;
-          font-size: 12px;
-          font-weight: 700;
-          color: #475569;
-        }
-
-        /* Invalid state clearer */
-        .consent-wrap.invalid{
-          border-color: rgba(220,38,38,.35);
-          background: rgba(254,242,242,.9);
-        }
-
-        .consent-error{
-          padding: 10px 12px;
-          border-radius: 14px;
-          background: rgba(220,38,38,.08);
-          border: 1px solid rgba(220,38,38,.20);
-        }
-
-        /* Mobile tuning */
-        @media (max-width: 720px){
-          .terms-box{ max-height: 200px; }
-          .terms-h{ font-size: 13px; }
-          .consent-toggle{ padding: 7px 10px; }
-        }
+        /* duplicate consent-check removed */
 
         /* ===========================
           FIX: CALENDAR MOBILE OVERFLOW
@@ -1642,7 +1528,7 @@
           text-overflow: ellipsis;
         }
 
-        #calDays .cal-day.disabled:not(.holiday){ opacity: .75; }
+        #calDays .cal-day.disabled:not(.holiday){ opacity: 1; } /* past days styled via block below */
 
         /* ✅ BOTH AVAILABLE (AM & PM): strong green */
         #calDays .cal-day.avail-both{
@@ -1668,10 +1554,30 @@
         }
         #calDays .cal-day.full .cal-num{ color:#9f1239 !important; }
 
-        /* Optional: make disabled days a bit “muted” */
-        #calDays .cal-day.disabled{
-          opacity: .75;
+        /* Past dates — gray out completely, override any availability colors */
+        #calDays .cal-day.past{
+          opacity: 1 !important;
+          background: #f1f5f9 !important;
+          border: 1px solid #e2e8f0 !important;
+          box-shadow: none !important;
         }
+        #calDays .cal-day.past .cal-num{
+          color: #94a3b8 !important;
+          text-decoration: line-through;
+        }
+        #calDays .cal-day.past .slot-btn{
+          background: #e9ecef !important;
+          border-color: #dee2e6 !important;
+          color: #adb5bd !important;
+          cursor: not-allowed !important;
+          pointer-events: none !important;
+        }
+        #calDays .cal-day.past .slot-btn .rem{
+          color: #adb5bd !important;
+        }
+
+
+
 
         /* ✅ Step 3 reminder box */
         .step3-reminder{
@@ -1679,23 +1585,23 @@
           margin: 10px 0 14px;
           padding: 12px 14px;
           border-radius: 14px;
-          background: rgba(255,255,255,.9);
-          border: 1px solid rgba(15, 23, 42, .10);
-          box-shadow: 0 10px 22px rgba(2, 6, 23, .06);
+          background: rgba(255,247,237,.95);
+          border: 1.5px solid rgba(234,88,12,.28);
+          box-shadow: 0 8px 18px rgba(234,88,12,.08);
         }
 
         .step3-reminder__title{
-          font-weight: 800;
+          font-weight: 900;
           font-size: 13px;
           letter-spacing: .2px;
-          color: #0b1f33;
+          color: #9a3412;
           margin-bottom: 6px;
         }
 
         .step3-reminder__text{
           font-size: 13px;
           line-height: 1.45;
-          color: #334155;
+          color: #7c2d12;
         }
 
         /* Mobile: slightly tighter */
@@ -1708,63 +1614,7 @@
             PRICING DISCLAIMER (OFFICIAL STYLE)
           =========================== */
 
-          .pax-disclaimer{
-            margin-top: 14px;
-            border-radius: 18px;
-            border: 1px solid rgba(29,102,194,.22);
-            background: linear-gradient(180deg,#f8fbff,#ffffff);
-            box-shadow: 0 14px 28px rgba(2,22,55,.08);
-            overflow:hidden;
-          }
-
-          .pax-disclaimer-head{
-            padding: 12px 14px;
-            font-weight: 900;
-            font-size: 13px;
-            background: rgba(29,102,194,.10);
-            border-bottom: 1px solid rgba(29,102,194,.18);
-            color: #0b2a5a;
-          }
-
-          .pax-disclaimer-body{
-            padding: 14px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #374151;
-            line-height: 1.5;
-          }
-
-          .pax-disclaimer-body p{
-            margin-bottom: 8px;
-          }
-
-          .pax-disclaimer-check{
-            display:flex;
-            align-items:flex-start;
-            gap:10px;
-            margin-top:10px;
-            font-weight: 800;
-            cursor:pointer;
-          }
-
-          .pax-disclaimer-check input{
-            width:18px;
-            height:18px;
-            accent-color: var(--blue-600);
-          }
-
-          .pax-disclaimer-error{
-            margin-top:8px;
-            font-size:12px;
-            font-weight:900;
-            color:#b91c1c;
-            display:none;
-          }
-
-          .pax-disclaimer.invalid{
-            border-color: rgba(220,38,38,.35);
-            background: #fef2f2;
-          }
+          /* pax-disclaimer v1 styles removed - using popup version */
 
           /* ===========================
               SELECTED BOX + LEGEND
@@ -1823,42 +1673,7 @@
                 position: relative; /* required for overlay centering */
               }
 
-              .cal-empty{
-                position:absolute;
-                inset: 44px 14px 14px 14px; /* leave space for day headers */
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                pointer-events:none; /* user can still scroll */
-                z-index: 5;
-              }
-
-              .cal-empty-card{
-                width: min(560px, 92%);
-                background: rgba(255,255,255,.92);
-                border: 1px solid rgba(148,163,184,.45);
-                border-radius: 18px;
-                box-shadow: 0 20px 40px rgba(2,22,55,.10);
-                padding: 16px 18px;
-                backdrop-filter: blur(8px);
-              }
-
-              .cal-empty-title{
-                font-weight: 900;
-                font-size: 14px;
-                color: #0b2a5a;
-                margin-bottom: 6px;
-              }
-
-              .cal-empty-text{
-                font-weight: 700;
-                font-size: 13px;
-                color: #334155;
-                line-height: 1.45;
-              }
-
-              /* optional: make the key line stand out */
-              .cal-empty-text b{ color:#b91c1c; }
+              /* cal-empty styles defined below */
 
               /* ===========================
                 CALENDAR CENTER OVERLAY (MODAL)
@@ -1932,24 +1747,88 @@
 
   
         /* ===========================
-           MOBILE: CALENDAR BOTTOM SCROLLBAR
+           MOBILE: CALENDAR SCROLL INDICATOR (redesigned)
            =========================== */
+
+        /* Hide native scrollbar completely on mobile */
+        .cal-scroll::-webkit-scrollbar{ display: none; }
+        .cal-scroll{ -ms-overflow-style: none; scrollbar-width: none; }
+
         .cal-bottom-scroll{
-          display:none;
-          padding: 10px 14px 14px;
+          display: none;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+          padding: 10px 16px 14px;
           background: #f8fbff;
           border-top: 1px solid #eef2f7;
         }
-        .cal-range{
-          width: 100%;
-          height: 22px;
+
+        /* Swipe hint label */
+        .cal-swipe-hint{
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 11px;
+          font-weight: 700;
+          color: #94a3b8;
+          letter-spacing: .02em;
+          transition: opacity .6s ease;
         }
+        .cal-swipe-hint svg{
+          flex-shrink: 0;
+          opacity: .7;
+        }
+        .cal-swipe-hint.hidden{
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        /* Custom scroll track */
+        .cal-scroll-track{
+          position: relative;
+          width: 100%;
+          height: 6px;
+          background: #e2e8f0;
+          border-radius: 999px;
+          overflow: hidden;
+          cursor: pointer;
+        }
+
+        /* Animated thumb */
+        .cal-scroll-thumb{
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          min-width: 36px;
+          background: linear-gradient(90deg, #1553a3, #1d66c2);
+          border-radius: 999px;
+          transition: left .08s linear, width .15s ease;
+          box-shadow: 0 2px 6px rgba(21,83,163,.30);
+        }
+
+        /* Dot indicators */
+        .cal-scroll-dots{
+          display: flex;
+          align-items: center;
+          gap: 5px;
+        }
+        .cal-dot{
+          width: 6px;
+          height: 6px;
+          border-radius: 999px;
+          background: #cbd5e1;
+          transition: background .2s, width .2s;
+          flex-shrink: 0;
+        }
+        .cal-dot.active{
+          background: #1d66c2;
+          width: 18px;
+        }
+
         @media (max-width: 720px){
-          .cal-bottom-scroll{ display:block; }
-          /* iOS hides scrollbars; keep a subtle hint */
-          .cal-scroll{
-            scrollbar-width: thin;
-          }
+          .cal-bottom-scroll{ display: flex; }
         }
 
         /* ===========================
@@ -2009,137 +1888,7 @@
         PRICING DISCLAIMER (V2 - CLEAN)
       =========================== */
 
-      .pax-disclaimer.v2{
-        margin-top: 14px;
-        border-radius: 20px;
-        background: rgba(255,255,255,.92);
-        border: 1px solid rgba(29,102,194,.18);
-        box-shadow: 0 18px 44px rgba(2,22,55,.10);
-        overflow: hidden;
-      }
-
-      .pax-disclaimer.v2 .pax-disclaimer-head{
-        display:flex;
-        align-items:flex-start;
-        justify-content:space-between;
-        gap: 12px;
-        padding: 14px 16px;
-        background:
-          radial-gradient(900px 240px at 10% 0%, rgba(29,102,194,.14), transparent 55%),
-          linear-gradient(180deg, #f8fbff, #ffffff);
-        border-bottom: 1px solid #eef2f7;
-      }
-
-      .pax-disclaimer.v2 .pax-disclaimer-head__title{
-        font-weight: 950;
-        font-size: 14px;
-        color: #0b2a5a;
-      }
-
-      .pax-disclaimer.v2 .pax-disclaimer-head__desc{
-        margin-top: 3px;
-        font-size: 12px;
-        font-weight: 700;
-        color: #64748b;
-        line-height: 1.35;
-      }
-
-      .pax-disclaimer.v2 .pax-disclaimer-chip{
-        flex: 0 0 auto;
-        padding: 6px 10px;
-        border-radius: 999px;
-        border: 1px solid rgba(29,102,194,.18);
-        background: rgba(231,240,255,.85);
-        color: #16437e;
-        font-weight: 900;
-        font-size: 11px;
-        white-space: nowrap;
-      }
-
-      .pax-disclaimer.v2 .pax-disclaimer-body{
-        padding: 16px;
-      }
-
-      .pax-disclaimer.v2 .pax-disclaimer-lead{
-        margin: 0 0 12px;
-        font-size: 13px;
-        font-weight: 650;
-        color: #334155;
-        line-height: 1.55;
-      }
-
-      .pax-disclaimer.v2 .pax-disclaimer-list{
-        display: grid;
-        gap: 10px;
-      }
-
-      .pax-disclaimer.v2 .pax-disclaimer-item{
-        border: 1px solid #eef2f7;
-        background: linear-gradient(180deg, #ffffff, #fbfdff);
-        border-radius: 16px;
-        padding: 12px 12px;
-      }
-
-      .pax-disclaimer.v2 .pax-disclaimer-item__title{
-        font-weight: 950;
-        font-size: 13px;
-        color: #0f172a;
-      }
-
-      .pax-disclaimer.v2 .pax-disclaimer-item__text{
-        margin-top: 4px;
-        font-size: 13px;
-        font-weight: 650;
-        color: #475569;
-        line-height: 1.55;
-      }
-
-      .pax-disclaimer.v2 .pax-disclaimer-check{
-        margin-top: 14px;
-        display:flex;
-        align-items:flex-start;
-        gap: 10px;
-        padding: 12px 12px;
-        border-radius: 16px;
-        border: 1px solid rgba(29,102,194,.18);
-        background: rgba(231,240,255,.55);
-        font-weight: 900;
-        font-size: 13px;
-        color: #0f172a;
-      }
-
-      .pax-disclaimer.v2 .pax-disclaimer-check input{
-        width: 18px;
-        height: 18px;
-        margin-top: 2px;
-        accent-color: var(--blue-600);
-      }
-
-      .pax-disclaimer.v2 .pax-disclaimer-check small{
-        display:block;
-        margin-top: 4px;
-        font-size: 12px;
-        font-weight: 750;
-        color: #64748b;
-      }
-
-      .pax-disclaimer.v2 .pax-disclaimer-error{
-        margin-top: 10px;
-        padding: 10px 12px;
-        border-radius: 14px;
-        background: rgba(220,38,38,.08);
-        border: 1px solid rgba(220,38,38,.18);
-        font-size: 12px;
-        color: #b91c1c;
-        font-weight: 900;
-        display:none;
-      }
-
-      /* Mobile polish */
-      @media (max-width: 720px){
-        .pax-disclaimer.v2 .pax-disclaimer-body{ padding: 14px; }
-        .pax-disclaimer.v2 .pax-disclaimer-item{ padding: 11px 11px; }
-      }
+      /* pax-disclaimer v2 CSS removed - using popup version only */
 
       /* =========================================================
          PRICING DISCLAIMER — POPUP REDESIGN
@@ -2470,8 +2219,8 @@
       .pdis-helper{
         display: none;
         margin-top: 8px;
-        color: #b91c1c;
-        font-weight: 800;
+        color: #dc2626;
+        font-weight: 700;
         font-size: 12px;
       }
 
@@ -2784,9 +2533,6 @@
         <div class="brandCenter">
           <div class="brandTitle">VFS · Appointment</div>
         </div>
-        <div class="brandSide" style="justify-content:flex-end;">
-          <img src="assets/vfs-logo.jpg" alt="VFS" class="brandLogo" onerror="this.style.display='none'">
-        </div>
       </div>
 
       <!-- STEP PILLS -->
@@ -2809,7 +2555,7 @@
 
           <div class="success-details" id="successDetails"></div>
 
-          <button type="button" class="btn next" id="successOkBtn" style="margin-top:14px;">Done</button>
+          <button type="button" class="btn next" id="successOkBtn" style="margin-top:14px; max-width:200px; margin-left:auto; margin-right:auto; display:block;">Done</button>
           <div class="success-note">You can now close this page.</div>
         </div>
       </div>
@@ -2957,7 +2703,7 @@
             </div>
 
             <div class="field full" id="addressWrap" style="display:none;">
-              <label>Province<span class="req">* Applicants are encouraged to arrange their visa appointment in their province of residence</span></label>
+              <label>Province<span class="req">* Applicants are encouraged to book an appointment at the nearest VFS center within their region.</span></label>
               <select id="outsideProvince">
                 <option value="" disabled selected>Select your province</option>
                 <option>Aurora</option>
@@ -3212,7 +2958,8 @@
                   <div class="cal-empty-card">
                     <div class="cal-empty-title">All appointments are currently taken</div>
                     <div class="cal-empty-text" id="calEmptyText">
-                      Earliest available appointment date: (no slots found up to allowed limit)<br>
+                      Earliest available appointment date: <b style="color:#ea580c;">(no slots found up to allowed limit)</b><br>
+                      <span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VFS Global for your selected location.</span><br>
                       Please pick another Intended Travel Date in Step 2.
                     </div>
                   </div>
@@ -3220,9 +2967,32 @@
             </div>
 
             
-            <!-- Mobile horizontal scroll bar (calendar) -->
+            <!-- Mobile scroll indicator (calendar) -->
             <div class="cal-bottom-scroll" id="calBottomScroll" aria-hidden="true">
-              <input type="range" class="cal-range" id="calHRange" min="0" max="0" value="0" />
+              <!-- Swipe hint - fades after first interaction -->
+              <div class="cal-swipe-hint" id="calSwipeHint">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10M9 5l4 3-4 3" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Swipe to see all dates
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="transform:scaleX(-1)">
+                  <path d="M3 8h10M9 5l4 3-4 3" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <!-- Progress track -->
+              <div class="cal-scroll-track" id="calScrollTrack">
+                <div class="cal-scroll-thumb" id="calScrollThumb"></div>
+              </div>
+              <!-- Dot indicators (Sun–Sat = 7 columns) -->
+              <div class="cal-scroll-dots" id="calScrollDots">
+                <div class="cal-dot active" data-index="0"></div>
+                <div class="cal-dot" data-index="1"></div>
+                <div class="cal-dot" data-index="2"></div>
+                <div class="cal-dot" data-index="3"></div>
+                <div class="cal-dot" data-index="4"></div>
+                <div class="cal-dot" data-index="5"></div>
+                <div class="cal-dot" data-index="6"></div>
+              </div>
             </div>
 
             <div class="helper" id="slotHelper" style="display:none; margin:12px;">
@@ -3246,6 +3016,57 @@
 
             <input type="hidden" id="appointmentDate" />
             <input type="hidden" id="appointmentSession" />
+          </div>
+
+          <div class="field full" style="margin-top:16px;">
+            <label>How would you like to receive your documents?<span class="req">*</span></label>
+            <div class="radio-group" data-group="pickupDelivery" id="pickupDeliveryGroup">
+              <label class="radio-option">
+                <input type="radio" name="pickupDelivery" value="Pick-up" required />
+                🏢 Pick-up <span style="display:block;font-size:11px;font-weight:700;color:var(--muted);margin-top:2px;">Parqal Mall, Manila</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="pickupDelivery" value="Delivery" />
+                📦 Delivery to my address
+              </label>
+            </div>
+            <div class="helper" id="pickupDeliveryHelper">Please select how you would like to receive your documents.</div>
+          </div>
+
+          <!-- Show ONLY if Delivery is chosen -->
+          <div class="field full" id="deliveryWrap" style="display:none;">
+            <div style="
+              padding: 16px 18px 18px;
+              border-radius: 18px;
+              background: rgba(254,243,199,.45);
+              border: 1.5px solid rgba(251,191,36,.50);
+              box-shadow: 0 8px 20px rgba(2,22,55,.06);
+            ">
+              <div style="
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-weight: 900;
+                font-size: 13px;
+                color: #92400e;
+                margin-bottom: 16px;
+              ">
+                <span style="font-size:16px;">📦</span>
+                If Delivery — Please provide the following:
+              </div>
+
+              <label>Authorized Recipient Name<span class="req">*</span></label>
+              <input id="deliveryRecipientName" type="text" placeholder="Full name of the person receiving the documents" />
+              <div class="helper" id="deliveryRecipientNameHelper">Authorized recipient name is required for delivery.</div>
+
+              <label style="margin-top:14px;">Complete Shipping Address<span class="req">*</span></label>
+              <textarea id="deliveryAddress" rows="3" placeholder="House/Unit No., Street, Barangay, City/Municipality, Province, ZIP Code"></textarea>
+              <div class="helper" id="deliveryAddressHelper">Complete shipping address is required for delivery.</div>
+
+              <label style="margin-top:14px;">Active Mobile Number (for delivery coordination)<span class="req">*</span></label>
+              <input id="deliveryMobile" type="tel" inputmode="numeric" maxlength="13" placeholder="e.g., 09XXXXXXXXX" autocomplete="tel" />
+              <div class="helper" id="deliveryMobileHelper">Active mobile number is required for delivery.</div>
+            </div>
           </div>
 
           <div class="field full" style="margin-top:16px;">
@@ -3320,6 +3141,18 @@
                   <div class="review-row"><div class="review-k">Full Name</div><div class="review-v" id="r_fullname">-</div></div>
                   <div class="review-row"><div class="review-k">Email</div><div class="review-v" id="r_email">-</div></div>
                   <div class="review-row"><div class="review-k">Mobile</div><div class="review-v" id="r_mobile">-</div></div>
+                  <div class="review-row"><div class="review-k">Passport Pickup</div><div class="review-v" id="r_pickupdelivery">-</div></div>
+                  <div class="review-row" id="r_deliveryBlock" style="display:none;flex-direction:column;gap:4px;">
+                    <div style="display:grid;grid-template-columns:140px 1fr;gap:10px;padding:4px 0;">
+                      <div class="review-k">Recipient</div><div class="review-v" id="r_deliveryRecipient">-</div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:140px 1fr;gap:10px;padding:4px 0;">
+                      <div class="review-k">Delivery Address</div><div class="review-v" id="r_deliveryAddress">-</div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:140px 1fr;gap:10px;padding:4px 0;">
+                      <div class="review-k">Delivery Mobile</div><div class="review-v" id="r_deliveryMobile">-</div>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="review-section">
@@ -4026,9 +3859,104 @@
     }
     setupRadioCards('[data-group="resident"]', "residentGroup", "residentHelper");
     setupRadioCards('[data-group="ofw"]', "ofwGroup", "ofwHelper");
+    setupRadioCards('[data-group="pickupDelivery"]', "pickupDeliveryGroup", "pickupDeliveryHelper");
     setupRadioCards('[data-group="appType"]', "appTypeGroup", "appTypeHelper");
     setupRadioCards('[data-group="appFormDone"]', "appFormDoneGroup", "appFormDoneHelper");
     setupRadioCards('[data-group="firstTimeVisa"]', "firstTimeVisaGroup", "firstTimeVisaHelper");
+
+    /* =========================================================
+      PICKUP / DELIVERY TOGGLE
+    ========================================================= */
+    function toggleDeliveryFields() {
+      const checked = document.querySelector('input[name="pickupDelivery"]:checked');
+      const val = checked ? checked.value : "";
+      const wrap = document.getElementById("deliveryWrap");
+      const recipientEl = document.getElementById("deliveryRecipientName");
+      const addressEl   = document.getElementById("deliveryAddress");
+      const delivMobEl  = document.getElementById("deliveryMobile");
+
+      if (!wrap) return;
+
+      if (val === "Delivery") {
+        wrap.style.display = "block";
+        if (recipientEl) recipientEl.required = true;
+        if (addressEl)   addressEl.required   = true;
+        if (delivMobEl)  delivMobEl.required  = true;
+      } else {
+        wrap.style.display = "none";
+        if (recipientEl) { recipientEl.required = false; recipientEl.value = ""; clearInvalid(recipientEl, document.getElementById("deliveryRecipientNameHelper")); }
+        if (addressEl)   { addressEl.required   = false; addressEl.value   = ""; clearInvalid(addressEl,   document.getElementById("deliveryAddressHelper")); }
+        if (delivMobEl)  { delivMobEl.required  = false; delivMobEl.value  = ""; clearInvalid(delivMobEl,  document.getElementById("deliveryMobileHelper")); }
+      }
+    }
+
+    document.querySelectorAll('input[name="pickupDelivery"]').forEach(r => {
+      r.addEventListener("change", () => { toggleDeliveryFields(); hideNotice(); });
+    });
+
+    toggleDeliveryFields(); // run once on load
+
+    /* =========================================================
+      DELIVERY MOBILE VALIDATION (PH format: 09XXXXXXXXX, 11 digits)
+    ========================================================= */
+    (function setupDeliveryMobileValidation(){
+      const delivMobEl = document.getElementById("deliveryMobile");
+      if (!delivMobEl) return;
+
+      delivMobEl.setAttribute("inputmode", "numeric");
+      delivMobEl.setAttribute("maxlength", "13");
+      delivMobEl.setAttribute("placeholder", "e.g., 09XXXXXXXXX");
+
+      delivMobEl.addEventListener("keydown", (e) => {
+        if (e.ctrlKey || e.metaKey) return;
+        const allowed = ["Backspace","Delete","ArrowLeft","ArrowRight","Tab","Home","End"];
+        if (allowed.includes(e.key)) return;
+        if (!/^[0-9]$/.test(e.key)) e.preventDefault();
+      });
+
+      delivMobEl.addEventListener("input", () => {
+        const helper = document.getElementById("deliveryMobileHelper");
+        let digits = delivMobEl.value.replace(/\D/g, "").slice(0, 11);
+        delivMobEl.value = formatPHMobile(digits);
+
+        if (digits.length === 0){
+          clearInvalid(delivMobEl, helper);
+          if (helper) helper.style.display = "none";
+          return;
+        }
+        if (!digits.startsWith("09")){
+          markInvalid(delivMobEl, helper);
+          if (helper){ helper.textContent = "Mobile number must start with 09 and be 11 digits."; helper.style.display = "block"; }
+          return;
+        }
+        if (digits.length < 11){
+          markInvalid(delivMobEl, helper);
+          if (helper){ helper.textContent = "Mobile number must be exactly 11 digits (e.g., 09XXXXXXXXX)."; helper.style.display = "block"; }
+          return;
+        }
+        clearInvalid(delivMobEl, helper);
+        if (helper) helper.style.display = "none";
+      });
+
+      delivMobEl.addEventListener("paste", (e) => {
+        e.preventDefault();
+        const pasted = (e.clipboardData || window.clipboardData).getData("text");
+        let digits = String(pasted).replace(/\D/g, "").slice(0, 11);
+        if (!digits.startsWith("09")){
+          if (digits.startsWith("9")) digits = "0" + digits;
+          if (!digits.startsWith("09")) digits = "09";
+        }
+        delivMobEl.value = formatPHMobile(digits);
+        const helper = document.getElementById("deliveryMobileHelper");
+        if (digits.length !== 11 || !digits.startsWith("09")){
+          markInvalid(delivMobEl, helper);
+          if (helper){ helper.textContent = "Mobile number must start with 09 and be exactly 11 digits."; helper.style.display = "block"; }
+        } else {
+          clearInvalid(delivMobEl, helper);
+          if (helper) helper.style.display = "none";
+        }
+      });
+    })();
 
     function toggleResidentFields(){
       const resident = document.querySelector('input[name="resident"]:checked');
@@ -4437,53 +4365,112 @@
     const calNextBtn = document.getElementById("calNext");
     const calScrollEl = document.querySelector(".cal-scroll");
     const calBottomScrollEl = document.getElementById("calBottomScroll");
-    const calHRangeEl = document.getElementById("calHRange");
 
-    function syncCalHScroll(){
-      if (!calScrollEl || !calHRangeEl) return;
-      const max = Math.max(0, calScrollEl.scrollWidth - calScrollEl.clientWidth);
-      calHRangeEl.max = String(max);
-      calHRangeEl.value = String(Math.min(max, calScrollEl.scrollLeft));
-      // Hide the slider if there's nothing to scroll
+    /* ── New scroll indicator elements ── */
+    const calScrollTrackEl = document.getElementById("calScrollTrack");
+    const calScrollThumbEl = document.getElementById("calScrollThumb");
+    const calScrollDotsEl  = document.getElementById("calScrollDots");
+    const calSwipeHintEl   = document.getElementById("calSwipeHint");
+    let calSwipeHintHidden = false;
+
+    function syncCalScrollIndicator(){
+      if (!calScrollEl) return;
+      const scrollLeft = calScrollEl.scrollLeft;
+      const scrollWidth = calScrollEl.scrollWidth;
+      const clientWidth = calScrollEl.clientWidth;
+      const maxScroll = Math.max(1, scrollWidth - clientWidth);
+      const isMobile = window.matchMedia("(max-width: 720px)").matches;
+
+      // Show/hide the whole indicator bar
       if (calBottomScrollEl){
-        const isMobile = window.matchMedia("(max-width: 720px)").matches;
-        calBottomScrollEl.style.display = (isMobile && max > 0) ? "block" : "none";
+        calBottomScrollEl.style.display = (isMobile && maxScroll > 10) ? "flex" : "none";
       }
+      if (maxScroll <= 10) return;
+
+      /* ── Thumb position & width ── */
+      if (calScrollTrackEl && calScrollThumbEl){
+        const trackW = calScrollTrackEl.clientWidth;
+        const thumbW = Math.max(36, Math.round((clientWidth / scrollWidth) * trackW));
+        const thumbLeft = Math.round((scrollLeft / maxScroll) * (trackW - thumbW));
+        calScrollThumbEl.style.width = thumbW + "px";
+        calScrollThumbEl.style.left  = thumbLeft + "px";
+      }
+
+      /* ── Dot indicators (7 columns = scroll snaps every 1/7 of scroll width roughly) ── */
+      if (calScrollDotsEl){
+        const dots = calScrollDotsEl.querySelectorAll(".cal-dot");
+        const total = dots.length; // 7
+        // Which column group is most visible?
+        // Each "page" is approx clientWidth wide
+        const pages = Math.max(1, Math.round(scrollWidth / clientWidth));
+        const activePage = Math.min(total - 1, Math.round((scrollLeft / maxScroll) * (total - 1)));
+        dots.forEach((dot, i) => dot.classList.toggle("active", i === activePage));
+      }
+
+      /* ── Hide swipe hint after first user scroll ── */
+      if (!calSwipeHintHidden && scrollLeft > 10 && calSwipeHintEl){
+        calSwipeHintHidden = true;
+        calSwipeHintEl.classList.add("hidden");
+      }
+    }
+
+    /* Reset swipe hint when calendar re-renders */
+    function resetCalSwipeHint(){
+      calSwipeHintHidden = false;
+      if (calSwipeHintEl) calSwipeHintEl.classList.remove("hidden");
+      if (calScrollEl) calScrollEl.dataset.userScrolled = "0";
     }
 
     function centerCalendarOnMobile(){
       if (!calScrollEl) return;
       const isMobile = window.matchMedia("(max-width: 720px)").matches;
       if (!isMobile) return;
-
       const max = calScrollEl.scrollWidth - calScrollEl.clientWidth;
       if (max <= 0) return;
-
-      // Only auto-center if the user hasn't manually scrolled yet
       if (calScrollEl.dataset.userScrolled === "1") return;
-
       calScrollEl.scrollLeft = Math.floor(max / 2);
-      syncCalHScroll();
+      syncCalScrollIndicator();
     }
 
-    // Hook scroll + slider
+    /* Allow tapping the track to jump scroll position */
+    if (calScrollTrackEl && calScrollEl){
+      calScrollTrackEl.addEventListener("click", (e) => {
+        const rect = calScrollTrackEl.getBoundingClientRect();
+        const ratio = (e.clientX - rect.left) / rect.width;
+        const maxScroll = calScrollEl.scrollWidth - calScrollEl.clientWidth;
+        calScrollEl.scrollLeft = ratio * maxScroll;
+        calScrollEl.dataset.userScrolled = "1";
+        syncCalScrollIndicator();
+      });
+    }
+
+    /* Allow clicking dots to jump to that section */
+    if (calScrollDotsEl && calScrollEl){
+      calScrollDotsEl.querySelectorAll(".cal-dot").forEach((dot, i) => {
+        dot.addEventListener("click", () => {
+          const dots = calScrollDotsEl.querySelectorAll(".cal-dot");
+          const total = dots.length;
+          const maxScroll = calScrollEl.scrollWidth - calScrollEl.clientWidth;
+          calScrollEl.scrollLeft = (i / (total - 1)) * maxScroll;
+          calScrollEl.dataset.userScrolled = "1";
+          syncCalScrollIndicator();
+        });
+      });
+    }
+
+    // Hook scroll
     if (calScrollEl){
       calScrollEl.addEventListener("scroll", () => {
         calScrollEl.dataset.userScrolled = "1";
-        syncCalHScroll();
+        syncCalScrollIndicator();
       }, { passive: true });
     }
-    if (calHRangeEl && calScrollEl){
-      calHRangeEl.addEventListener("input", (e) => {
-        calScrollEl.dataset.userScrolled = "1";
-        calScrollEl.scrollLeft = Number(e.target.value || 0);
-        syncCalHScroll();
-      });
-    }
     window.addEventListener("resize", () => {
-      // Don't reset userScrolled; just keep UI correct
-      syncCalHScroll();
+      syncCalScrollIndicator();
     });
+
+    /* Keep legacy reference for any code that calls syncCalHScroll */
+    function syncCalHScroll(){ syncCalScrollIndicator(); }
 
 
     const windowTextEl = document.getElementById("windowText");
@@ -4843,8 +4830,8 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
         windowTextEl.textContent = "Select your Country + Intended Travel Date in Step 2.";
         processingTextEl.textContent = "";
       } else {
-        windowTextEl.textContent =
-          `Appointments must be scheduled at least ${win.procDays} WORKING DAYS before your intended departure.`;
+        windowTextEl.innerHTML =
+          `Appointments must be scheduled at least <b style="color:#ea580c;font-weight:800;">${win.procDays} WORKING DAYS</b> before your intended departure.`;
 
         // ✅ make sure we compute nearest from AVAIL_MAP if server nearest is blank
         ensureNearestFallback();
@@ -4852,12 +4839,12 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
         if (nearestTextEl) {
         if (NEAREST_AVAILABLE_ISO) {
           nearestTextEl.innerHTML =
-            `Earliest available appointment date: ${fmtLong(isoToDate(NEAREST_AVAILABLE_ISO))}<br>` +
-            `This is the soonest available slot currently offered by VFS Global for your selected location.`;
+            `Earliest available appointment date: <b style="color:#ea580c;font-weight:800;">${fmtLong(isoToDate(NEAREST_AVAILABLE_ISO))}</b><br>` +
+            `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
         } else {
           nearestTextEl.innerHTML =
-            `Earliest available appointment date: (no slots found up to allowed limit)<br>` +
-            `This is the soonest available slot currently offered by VFS Global for your selected location.`;
+            `Earliest available appointment date: <b style="color:#ea580c;font-weight:800;">(no slots found up to allowed limit)</b><br>` +
+            `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
         }
       }
 
@@ -4896,7 +4883,8 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
         let disabledDay = false;
 
         // past date
-        if (d < today) disabledDay = true;
+        const isPast = d < today;
+        if (isPast) disabledDay = true;
 
        // must have window
       if (!win) disabledDay = true;
@@ -4931,6 +4919,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
 
       // base class
       cell.className = "cal-day" + (disabledDay ? " disabled" : "");
+      if (isPast) cell.classList.add("past");
       if (outOfWindow) cell.classList.add("out-window");
       if (isHol) cell.classList.add("holiday");
 
@@ -5012,12 +5001,17 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
           hideNotice();
           updateCalendarOverlay(win);
               requestAnimationFrame(() => {
-        syncCalHScroll();
+        syncCalScrollIndicator();
         centerCalendarOnMobile();
       });
     });
       });
       updateCalendarOverlay(win);
+      // Update scroll indicator after days are rendered
+      requestAnimationFrame(() => {
+        syncCalScrollIndicator();
+        centerCalendarOnMobile();
+      });
     }
 
       function getSelectedCountryProcDays() {
@@ -5054,13 +5048,14 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
             if (emptyTitle) emptyTitle.textContent = "Intended Travel Date is too early";
 
             let html =
-              `Your selected travel date does not leave enough time for <b>${win.procDays} working days</b> processing.<br>` +
-              `Please go back to Step 2 and choose a <b>later Intended Travel Date</b> to see available appointment slots.`;
+              `Your selected travel date does not leave enough time for <b style="color:#ea580c;font-weight:800;">${win.procDays} working days</b> processing.<br>` +
+              `Please go back to Step 2 and choose a <b style="color:#ea580c;font-weight:800;">later Intended Travel Date</b> to see available appointment slots. `+
+              `Appointments must be scheduled at least <b style="color:#ea580c;font-weight:800;">${win.procDays} WORKING DAYS</b> before your intended departure.`;
 
             // show nearest overall IF it exists
             if (NEAREST_ANY_AVAILABLE_ISO){
-              html += `<br><br><b>Earliest available overall:</b> ${fmtLong(isoToDate(NEAREST_ANY_AVAILABLE_ISO))}`+
-              `<span style="color:#64748b;font-size:12px;"><br>This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
+              html += `<br><br><b>Earliest available overall:</b> <b style="color:#ea580c;font-weight:800;">${fmtLong(isoToDate(NEAREST_ANY_AVAILABLE_ISO))}</b>`+
+              `<span style="color:#94a3b8;font-size:12px;font-weight:500;"><br>This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
             emptyBox.style.display = "flex";;
             }
 
@@ -5080,9 +5075,10 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
             if (emptyTitle) emptyTitle.textContent = "Intended Travel Date is too early";
             emptyText.innerHTML =
               `We found available appointment slots, but none fall within your allowed travel window.<br>` +
-              `Please go back to Step 2 and choose a <b>later Intended Travel Date</b> to unlock more available dates.<br>` +
-              `<br><b>Earliest available overall:</b> ${fmtLong(isoToDate(NEAREST_ANY_AVAILABLE_ISO))}<br>`+
-              `<span style="color:#64748b;font-size:12px;">This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
+              `Please go back to Step 2 and choose a <b style="color:#ea580c;font-weight:800;">later Intended Travel Date</b> to unlock more available dates. ` +
+              `Appointments must be scheduled at least <b style="color:#ea580c;font-weight:800;">${win.procDays} WORKING DAYS</b> before your intended departure.<br>` +
+              `<br><b>Earliest available overall:</b> <b style="color:#ea580c;font-weight:800;">${fmtLong(isoToDate(NEAREST_ANY_AVAILABLE_ISO))}</b><br>`+
+              `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
             emptyBox.style.display = "flex";
             return;
           }
@@ -5092,7 +5088,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
           emptyText.innerHTML =
             `Your travel date is within the allowed processing window, but we currently have <b>no available appointment slots</b>.<br>` +
             `Please check the <b>1BOSSCO Facebook page</b> for updates when we reopen new appointment dates.<br>`+
-            `This is the soonest available slot currently offered by VFS Global for your selected location.`;
+            `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
 
           emptyBox.style.display = "flex";
         }
@@ -5101,6 +5097,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       calPrevBtn.addEventListener("click", () => {
         calCursor = new Date(calCursor.getFullYear(), calCursor.getMonth()-1, 1);
         if (calScrollEl){ calScrollEl.dataset.userScrolled = "0"; }
+        resetCalSwipeHint();
         calendarEnsureAvailabilityThenRender();
       });
     }
@@ -5108,6 +5105,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       calNextBtn.addEventListener("click", () => {
         calCursor = new Date(calCursor.getFullYear(), calCursor.getMonth()+1, 1);
         if (calScrollEl){ calScrollEl.dataset.userScrolled = "0"; }
+        resetCalSwipeHint();
         calendarEnsureAvailabilityThenRender();
       });
     }
@@ -5355,6 +5353,60 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
 
       const selectedSources = [...document.querySelectorAll('input[name="source"]:checked')].map(x => x.value);
 
+      // ── Pickup / Delivery validation ──────────────────────────────────────
+      const pickupDeliveryChecked = document.querySelector('input[name="pickupDelivery"]:checked');
+      const pickupDeliveryGroupEl = document.getElementById("pickupDeliveryGroup");
+      const pickupDeliveryHelperEl = document.getElementById("pickupDeliveryHelper");
+
+      if (!pickupDeliveryChecked) {
+        if (pickupDeliveryGroupEl) pickupDeliveryGroupEl.classList.add("invalid");
+        if (pickupDeliveryHelperEl) pickupDeliveryHelperEl.style.display = "block";
+        showNotice("Please indicate if you will pick up or want delivery of your passport.", false);
+        scrollToEl(pickupDeliveryGroupEl);
+        return;
+      }
+      if (pickupDeliveryGroupEl) pickupDeliveryGroupEl.classList.remove("invalid");
+      if (pickupDeliveryHelperEl) pickupDeliveryHelperEl.style.display = "none";
+
+      if (pickupDeliveryChecked.value === "Delivery") {
+        const recipientEl = document.getElementById("deliveryRecipientName");
+        const addressEl   = document.getElementById("deliveryAddress");
+        const delivMobEl  = document.getElementById("deliveryMobile");
+        let delivOk = true;
+
+        [
+          [recipientEl, "deliveryRecipientNameHelper"],
+          [addressEl,   "deliveryAddressHelper"]
+        ].forEach(([el, hId]) => {
+          if (!el || !el.value.trim()) {
+            delivOk = false;
+            markInvalid(el, document.getElementById(hId));
+          } else {
+            clearInvalid(el, document.getElementById(hId));
+          }
+        });
+
+        // Special PH mobile validation for delivery
+        if (delivMobEl) {
+          const delivDigits = (delivMobEl.value || "").replace(/\D/g, "");
+          if (!delivDigits || delivDigits.length !== 11 || !delivDigits.startsWith("09")) {
+            delivOk = false;
+            const h = document.getElementById("deliveryMobileHelper");
+            markInvalid(delivMobEl, h);
+            if (h){ h.textContent = "Please enter a valid 11-digit PH mobile number starting with 09."; h.style.display = "block"; }
+          } else {
+            clearInvalid(delivMobEl, document.getElementById("deliveryMobileHelper"));
+          }
+        }
+
+        if (!delivOk) {
+          showNotice("Please complete all delivery details.", false);
+          scrollToEl(document.getElementById("deliveryWrap"));
+          return;
+        }
+      }
+      // ─────────────────────────────────────────────────────────────────────
+
       let sourceOk = true;
 
       if (sourceGroupEl) sourceGroupEl.classList.remove("invalid");
@@ -5444,6 +5496,21 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       document.getElementById("r_email").textContent = email || "-";
       document.getElementById("r_mobile").textContent = mobile || "-";
 
+      // Pickup / Delivery review rows
+      const pickupVal = (document.querySelector('input[name="pickupDelivery"]:checked') || {}).value || "";
+      const r_pickup  = document.getElementById("r_pickupdelivery");
+      const r_delBlock = document.getElementById("r_deliveryBlock");
+      if (r_pickup) r_pickup.textContent = pickupVal === "Delivery" ? "Delivery to my address" : (pickupVal === "Pick-up" ? "Pick-up (Parqal Mall, Manila)" : "-");
+      if (r_delBlock) r_delBlock.style.display = pickupVal === "Delivery" ? "flex" : "none";
+      if (pickupVal === "Delivery") {
+        const rn = document.getElementById("r_deliveryRecipient");
+        const ra = document.getElementById("r_deliveryAddress");
+        const rm = document.getElementById("r_deliveryMobile");
+        if (rn) rn.textContent = (document.getElementById("deliveryRecipientName")?.value.trim()) || "-";
+        if (ra) ra.textContent = (document.getElementById("deliveryAddress")?.value.trim()) || "-";
+        if (rm) rm.textContent = (document.getElementById("deliveryMobile")?.value.trim()) || "-";
+      }
+
       document.getElementById("r_country").textContent = countryName || "-";
       document.getElementById("r_pax").textContent = pax ? String(pax) : "-";
       document.getElementById("r_price").innerHTML = pricingLine || "-";
@@ -5514,10 +5581,10 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
 
     box.innerHTML =
     `Appointments for the selected country must be scheduled at least <b>${countryName}</b> ` +
-    `<b>${procDays} WORKING DAYS</b> before your intended departure. <br><br>` +
+    `<b style="color:#ea580c;font-weight:800;">${procDays} WORKING DAYS</b> before your intended departure. <br><br>` +
     `Available appointment dates depend on VFS availability. Please note that available slots are subject to VFS Global’s capacity.<br><br>` +
-    `<span style="color:#dc2626; font-weight:900;">
-      Tip: Before selecting your VFS appointment, please verify that your intended travel date allows for the required ${procDays}-working-day lead time.
+    `<span style="color:#9a3412; font-weight:700;">
+      Tip: Before selecting your VFS appointment, please verify that your intended travel date allows for the required <b style="color:#ea580c;">${procDays}</b>-working-day lead time.
     </span>`;
     }
 
@@ -5585,6 +5652,10 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       const muniOrAddress = (residentVal === "Yes") ? muniYes : provNo;
 
 
+      const pickupDeliveryRadio = document.querySelector('input[name="pickupDelivery"]:checked');
+      const pickupDeliveryVal   = pickupDeliveryRadio ? pickupDeliveryRadio.value : "";
+      const isDelivery          = pickupDeliveryVal === "Delivery";
+
       const data = {
         email: document.getElementById("email").value.trim(),
         mobile: document.getElementById("mobile").value.trim(),
@@ -5596,6 +5667,11 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
         resident: residentVal,
         ofw: ofwVal,
         resident_address: (residentVal === "No") ? provNo : "",
+
+        pickup_or_delivery: pickupDeliveryVal,
+        delivery_recipient_name: isDelivery ? (document.getElementById("deliveryRecipientName")?.value.trim() || "") : "",
+        delivery_address:        isDelivery ? (document.getElementById("deliveryAddress")?.value.trim() || "")        : "",
+        delivery_mobile:         isDelivery ? (document.getElementById("deliveryMobile")?.value.trim() || "")         : "",
 
         country_name: countryName,
         country_id: countryId,
@@ -5981,6 +6057,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
     loadCountriesIntoUser();
     updatePriceBoxFromSheet();
     calendarEnsureAvailabilityThenRender();
+    setTimeout(syncCalScrollIndicator, 600);
 
         // ✅ Restore saved form after short delay (wait for countries to load)
     setTimeout(() => {
