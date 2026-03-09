@@ -74,61 +74,119 @@
       overflow:hidden;
     }
 
+      /* ── BRANDBAR ── */
       .brandbar{
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:14px;
-
-        padding: 14px 18px;
-        border-radius: 20px;
-        background: rgba(255,255,255,.82);
-        border: 1px solid rgba(219,231,246,.9);
-        box-shadow: 0 8px 22px rgba(2,22,55,.09);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        padding: 0;
+        border-radius: 22px;
+        background: linear-gradient(135deg, #08224a 0%, #0f3b7a 45%, #1d66c2 100%);
+        border: 1px solid rgba(255,255,255,.10);
+        box-shadow:
+          0 16px 40px rgba(2,22,55,.22),
+          0 2px 0 rgba(255,255,255,.06) inset;
         margin-bottom: 16px;
+        overflow: hidden;
+        min-height: 84px;
       }
 
+      /* Subtle grid-dot watermark */
+      .brandbar::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          radial-gradient(circle, rgba(255,255,255,.07) 1px, transparent 1px);
+        background-size: 22px 22px;
+        pointer-events: none;
+      }
+
+      /* Soft glow orb top-left */
+      .brandbar::after {
+        content: "";
+        position: absolute;
+        top: -40px;
+        left: -40px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(29,102,194,.45) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      /* Logo pill — left-anchored, centered vertically */
       .brandSide{
-        flex: 0 0 auto;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-      }
-
-      .brandCenter{
-        flex: 1 1 auto;
-        text-align:center;
-        line-height:1.1;
-        padding: 0 10px;
-        min-width: 0;
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
       }
 
       .brandLogo{
-        height: 58px;     /* ✅ bigger logos on desktop */
+        height: 54px;
         width: auto;
-        max-width: 190px;
+        max-width: 170px;
         object-fit: contain;
+        background: #fff;
+        padding: 7px 11px;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,.22);
+        box-shadow:
+          0 4px 14px rgba(0,0,0,.25),
+          0 1px 0 rgba(255,255,255,.9) inset;
+      }
 
-        background:#fff;
-        padding: 8px 12px;
-        border:1px solid rgba(0,70,140,.12);
-        box-shadow: 0 6px 14px rgba(0,35,70,0.12);
-        border-radius: 16px;
+      /* Center text block */
+      .brandCenter{
+        flex: 1 1 auto;
+        text-align: center;
+        line-height: 1.15;
+        padding: 20px 80px; /* space for logo on both sides */
+        min-width: 0;
+        z-index: 2;
       }
 
       .brandTitle{
-      font-weight: 800;
-      font-size: 20px;
-      letter-spacing: .1px;
-      color: #0b2a5a;
-    }
+        font-weight: 900;
+        font-size: 22px;
+        letter-spacing: .3px;
+        color: #ffffff;
+        text-shadow: 0 2px 12px rgba(0,0,0,.25);
+      }
 
-    .brandSub{
-      margin-top: 3px;
-      font-weight: 600;
-      font-size: 12px;
-      color: var(--muted);
-    }
+      .brandSub{
+        margin-top: 4px;
+        font-weight: 600;
+        font-size: 11.5px;
+        color: rgba(200,220,255,.75);
+        letter-spacing: .4px;
+        text-transform: uppercase;
+      }
+
+      /* Accent pill badge top-right */
+      .brandAccent{
+        position: absolute;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255,255,255,.10);
+        border: 1px solid rgba(255,255,255,.18);
+        border-radius: 999px;
+        padding: 6px 14px;
+        font-size: 11px;
+        font-weight: 800;
+        color: rgba(200,225,255,.90);
+        letter-spacing: .5px;
+        white-space: nowrap;
+        z-index: 2;
+        backdrop-filter: blur(4px);
+      }
 
     .badge{
       background: #eef4ff;
@@ -880,8 +938,7 @@
 
     /* ===== Mobile responsiveness ===== */
     @media (max-width: 900px){
-      .brandSide{ min-width: 120px; }
-      .brandLogo{ height: 42px; }
+      .brandLogo{ height: 44px; }
     }
      /* duplicate mobile block removed */
 
@@ -892,21 +949,27 @@
 
       /* ✅ keep logos left/right on mobile (DO NOT stack) */
       .brandbar{
-        flex-direction: row;         /* important */
-        padding: 10px 12px;
-        border-radius: 20px;
-        gap: 10px;
+        border-radius: 18px;
+        min-height: 68px;
       }
 
       .brandLogo{
-        height: 38px;               /* smaller on mobile */
-        max-width: 120px;
-        padding: 6px 8px;
-        border-radius: 12px;
+        height: 40px;
+        max-width: 110px;
+        padding: 5px 8px;
+        border-radius: 11px;
+      }
+
+      .brandSide{ left: 12px; }
+
+      .brandCenter{
+        padding: 14px 60px;
       }
 
       .brandTitle{ font-size: 16px; }
-      .brandSub{ font-size: 11px; margin-top: 2px; }
+      .brandSub{ font-size: 10px; }
+
+      .brandAccent{ display: none; }
 
       .review-grid{ grid-template-columns: 1fr; }
       .review-row{ grid-template-columns: 1fr; }
@@ -914,6 +977,51 @@
       .buttons .btn{ min-width: 100%; }
       .check-group, .radio-group{ grid-template-columns: 1fr; }
       .cal-day{ min-height: 110px; }
+    }
+
+    /* ===== Extra small screens – stack header vertically ===== */
+    @media (max-width: 480px){
+      .brandbar{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: unset;
+        padding: 14px 16px;
+        gap: 10px;
+        border-radius: 16px;
+      }
+
+      /* Reset absolute positioning so logo flows in the column */
+      .brandSide{
+        position: static;
+        transform: none;
+        left: unset;
+        top: unset;
+      }
+
+      .brandLogo{
+        height: 38px;
+        max-width: 120px;
+        padding: 5px 10px;
+        border-radius: 10px;
+      }
+
+      .brandCenter{
+        padding: 0;
+        text-align: center;
+      }
+
+      .brandTitle{
+        font-size: 15px;
+        letter-spacing: .2px;
+      }
+
+      .brandSub{
+        font-size: 9.5px;
+        margin-top: 3px;
+      }
+
+      .brandAccent{ display: none; }
     }
 
     /* ===========================
@@ -2668,7 +2776,9 @@
         </div>
         <div class="brandCenter">
           <div class="brandTitle">VFS · Appointment</div>
+          <div class="brandSub">Visa Application Scheduling System</div>
         </div>
+        <div class="brandAccent">🗓 Online Booking</div>
       </div>
 
       <!-- STEP PILLS -->
@@ -4961,16 +5071,24 @@ function prefetchNextMonth(){
       return Math.max(0, (row.capacity_pm || 0) - (row.booked_pm || 0));
     }
 
-    function hasAnySlotsOnISO(iso){
+    /* ── Returns the currently selected PAX count (min 1) ── */
+    function getSelectedPax() {
+      const el = document.getElementById("paxCount");
+      const val = el ? parseInt(el.value, 10) : 1;
+      return (Number.isFinite(val) && val >= 1) ? val : 1;
+    }
+
+    function hasAnySlotsOnISO(iso, pax){
   const row = AVAIL_MAP[iso];
   if (!row || !row.is_open) return false;
-
+  // pax defaults to 1 when not supplied (backwards-compatible)
+  const needed = (Number.isFinite(pax) && pax >= 1) ? pax : 1;
   const amRem = Math.max(0, (row.capacity_am || 0) - (row.booked_am || 0));
   const pmRem = Math.max(0, (row.capacity_pm || 0) - (row.booked_pm || 0));
-  return (amRem > 0) || (pmRem > 0);
+  return (amRem >= needed) || (pmRem >= needed);
 }
 
-function computeNearestFromLoadedAvail(maxAllowedDate){
+function computeNearestFromLoadedAvail(maxAllowedDate, pax){
   // Search from TODAY up to maxAllowedDate using current AVAIL_MAP
   const today = new Date();
   today.setHours(0,0,0,0);
@@ -4987,7 +5105,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
     const iso = fmtISO(d);
 
     // must be an allowed business day (blocks weekends)
-    if (isBusinessDay(d) && hasAnySlotsOnISO(iso)){
+    if (isBusinessDay(d) && hasAnySlotsOnISO(iso, pax)){
       return iso;
     }
 
@@ -5009,12 +5127,15 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
         if (NEAREST_AVAILABLE_ISO) return;
 
         const maxAllowed = win.latestByProcessing;
-        const localNearest = computeNearestFromLoadedAvail(maxAllowed);
+        const pax = getSelectedPax();
+        const localNearest = computeNearestFromLoadedAvail(maxAllowed, pax);
         if (localNearest) NEAREST_AVAILABLE_ISO = localNearest;
       }
 
     function renderCalendar(){
       if (!calDaysEl || !calTitleEl) return;
+
+      const selectedPax = getSelectedPax();   // ← PAX-AWARE: read current pax selection
 
       const win = computeAllowedWindow();
       const maxAllowed = win ? win.latestByProcessing : null;
@@ -5104,12 +5225,13 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       const outOfWindow = !!(win && maxAllowed && d.getTime() > maxAllowed.getTime() && isOpen);
       if (outOfWindow) disabledDay = true;
 
-      const amOk = (amRem !== null && amRem > 0);
-      const pmOk = (pmRem !== null && pmRem > 0);
+      const amOk = (amRem !== null && amRem >= selectedPax);
+      const pmOk = (pmRem !== null && pmRem >= selectedPax);
 
       const hasAny  = amOk || pmOk;
       const hasBoth = amOk && pmOk;
-      const isFull  = (amRem === 0 && pmRem === 0); // open but no slots
+      // "full" means open with availability data but no session has enough slots for pax
+      const isFull  = isOpen && !hasAny && (amRem !== null || pmRem !== null);
 
       // base class
       cell.className = "cal-day" + (disabledDay ? " disabled" : "");
@@ -5125,8 +5247,9 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       }
 
       // button disabling
-      const amDisabled = disabledDay || amRem === null || amRem <= 0;
-      const pmDisabled = disabledDay || pmRem === null || pmRem <= 0;
+      // Disable button when there are fewer slots than the selected PAX count
+      const amDisabled = disabledDay || amRem === null || amRem < selectedPax;
+      const pmDisabled = disabledDay || pmRem === null || pmRem < selectedPax;
 
       const amLabel = (amRem === null) ? "-" : `${amRem}`;
       const pmLabel = (pmRem === null) ? "-" : `${pmRem}`;
@@ -5336,6 +5459,8 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       hideNotice();
       // ✅ Render additional passenger fields
       renderAdditionalPaxFields(paxVal);
+      // ✅ Re-render calendar so dates are greyed out based on new pax count
+      renderCalendar();
     });
 
     /* =========================================================
@@ -5350,7 +5475,11 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       // Preserve existing values before rebuilding
       const existing = {};
       container.querySelectorAll("input, select").forEach(el => {
-        if (el.id) existing[el.id] = el.value;
+        if (el.id) {
+          existing[el.id] = el.value;
+          // Also preserve checkbox checked state
+          if (el.type === "checkbox") existing[el.id] = el.checked;
+        }
       });
 
       container.innerHTML = "";
@@ -5378,8 +5507,12 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
               </div>
               <div class="field">
                 <label>Middle Name (as in passport)<span class="req">*</span></label>
-                <input id="${idPfx}_middleName" type="text" placeholder="e.g., Santos (or N/A)" autocomplete="off" />
-                <div class="helper" id="${idPfx}_middleNameHelper">Middle name is required (enter N/A if none).</div>
+                <input id="${idPfx}_middleName" type="text" placeholder="e.g., Santos" autocomplete="off" />
+                <div class="helper" id="${idPfx}_middleNameHelper">Middle name is required.</div>
+                <label class="no-middle">
+                  <input type="checkbox" id="${idPfx}_noMiddle" />
+                  I don't have a middle name
+                </label>
               </div>
               <div class="field">
                 <label>Suffix <span style="color:var(--muted);font-weight:600;">(Optional)</span></label>
@@ -5403,6 +5536,39 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
           const el = document.getElementById(key);
           if (el && existing[key] !== undefined) el.value = existing[key];
         });
+
+        // Restore "no middle name" checkbox state and apply its effect
+        const noMiddleCb   = document.getElementById(`${idPfx}_noMiddle`);
+        const middleInput  = document.getElementById(`${idPfx}_middleName`);
+        const middleHelper = document.getElementById(`${idPfx}_middleNameHelper`);
+        const noMiddleWasChecked = existing[`${idPfx}_noMiddle`] === true;
+
+        function applyNoMiddle(checked) {
+          if (!middleInput) return;
+          if (checked) {
+            middleInput.value    = "N/A";
+            middleInput.disabled = true;
+            middleInput.required = false;
+            middleInput.classList.add("middle-disabled");
+            clearInvalid(middleInput, middleHelper);
+          } else {
+            middleInput.disabled = false;
+            middleInput.required = true;
+            if (middleInput.value === "N/A") middleInput.value = "";
+            middleInput.classList.remove("middle-disabled");
+          }
+        }
+
+        if (noMiddleCb) {
+          if (noMiddleWasChecked) {
+            noMiddleCb.checked = true;
+            applyNoMiddle(true);
+          }
+          noMiddleCb.addEventListener("change", () => {
+            applyNoMiddle(noMiddleCb.checked);
+            hideNotice();
+          });
+        }
 
         // Attach clear-on-input for required fields
         ["surname","givenName","middleName"].forEach(field => {
@@ -5447,6 +5613,11 @@ function computeNearestFromLoadedAvail(maxAllowedDate){
       for (let i = 1; i <= count; i++) {
         const idPfx = `addpax_${i}`;
         ["surname","givenName","middleName"].forEach(field => {
+          // Skip middleName validation when "I don't have a middle name" is checked
+          if (field === "middleName") {
+            const noMiddleCb = document.getElementById(`${idPfx}_noMiddle`);
+            if (noMiddleCb && noMiddleCb.checked) return;
+          }
           const inputEl  = document.getElementById(`${idPfx}_${field}`);
           const helperEl = document.getElementById(`${idPfx}_${field}Helper`);
           if (!inputEl) return;
