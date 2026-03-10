@@ -1901,27 +1901,61 @@
 
               /* modal card */
               .cal-empty-card{
-                width: min(620px, 92%);
-                background: rgba(255,255,255,.95);
-                border: 1px solid rgba(148,163,184,.55);
-                border-radius: 20px;
-                box-shadow: 0 26px 70px rgba(2,22,55,.20);
-                padding: 18px 18px;
+                width: min(540px, 94%);
+                background: #ffffff;
+                border: 1px solid #e2ecfa;
+                border-radius: 22px;
+                box-shadow: 0 32px 80px rgba(2,22,55,.18);
+                overflow: hidden;
               }
-
+              .cal-empty-card::before{
+                content: "";
+                display: block;
+                height: 4px;
+                background: linear-gradient(90deg, #0b2a5a, #1d66c2);
+              }
+              .cal-empty-inner{
+                padding: 22px 22px 20px;
+              }
               .cal-empty-title{
-                font-weight: 950;
-                font-size: 16px;
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                font-weight: 900;
+                font-size: 15px;
                 color: #0b2a5a;
-                margin-bottom: 8px;
+                margin-bottom: 12px;
               }
-
+              .cal-empty-title-icon{
+                width: 30px; height: 30px;
+                border-radius: 10px;
+                background: #eef4ff;
+                display: flex; align-items: center; justify-content: center;
+                font-size: 15px; flex-shrink: 0;
+              }
               .cal-empty-text{
-                font-weight: 750;
-                font-size: 13.5px;
-                color: #334155;
-                line-height: 1.5;
+                font-size: 13px;
+                color: #475569;
+                line-height: 1.6;
+                font-weight: 500;
               }
+              .cal-empty-lead{
+                font-size: 13px; color: #475569;
+                line-height: 1.6; font-weight: 500;
+                margin-bottom: 14px;
+              }
+              .cal-empty-reasons{ display: flex; flex-direction: column; gap: 10px; }
+              .cal-empty-reason{
+                display: flex; gap: 12px; align-items: flex-start;
+                padding: 12px 14px; border-radius: 14px; border: 1px solid;
+              }
+              .cal-empty-reason.reason-blue{ background: #f0f6ff; border-color: #c7dcf8; }
+              .cal-empty-reason.reason-orange{ background: #fff7ed; border-color: #fed7aa; }
+              .cal-empty-reason-icon{ font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+              .cal-empty-reason-title{ font-size: 12px; font-weight: 900; margin-bottom: 3px; }
+              .reason-blue .cal-empty-reason-title{ color: #1553a3; }
+              .reason-orange .cal-empty-reason-title{ color: #c2410c; }
+              .cal-empty-reason-body{ font-size: 12.5px; font-weight: 500; color: #475569; line-height: 1.55; }
 
               /* Make the overlay block clicks (true modal) */
               .cal-empty{ pointer-events: auto; }
@@ -2800,8 +2834,8 @@
           <img src="assets/1bossco-logo.png" alt="1BOSSCO" class="brandLogo" onerror="this.style.display='none'">
         </div>
         <div class="brandCenter">
-          <div class="brandTitle">VFS · Appointment</div>
-          <div class="brandSub">Visa Application Scheduling System</div>
+          <div class="brandTitle">VAYD · Appointment</div>
+          <div class="brandSub">Visa at Your Doorstep Application Scheduling System</div>
         </div>
         <div class="brandAccent">🗓 Online Booking</div>
       </div>
@@ -2821,8 +2855,8 @@
       <div class="success-overlay" id="successOverlay" style="display:none;">
         <div class="success-card">
           <div class="success-icon">✅</div>
-          <div class="success-title">Appointment Completed</div>
-          <div class="success-sub">Your appointment was saved successfully.</div>
+          <div class="success-title">Application Request Submitted</div>
+          <div class="success-sub">VAYD Global will send you a link to pay your processing fee</div>
 
           <div class="success-details" id="successDetails"></div>
 
@@ -2836,7 +2870,7 @@
         <div class="submit-card">
           <div class="submit-hero">
             <div class="submit-title">Saving your appointment…</div>
-            <div class="submit-sub">Please don’t close or refresh this page while we confirm your slot.</div>
+            <div class="submit-sub">Please don’t close or refresh this page while we submit your request.</div>
           </div>
 
           <div class="flight-lane" aria-hidden="true">
@@ -2974,7 +3008,7 @@
             </div>
 
             <div class="field full" id="addressWrap" style="display:none;">
-              <label>Province<span class="req">* Applicants are encouraged to book an appointment at the nearest VFS center within their region.</span></label>
+              <label>Province<span class="req">* Applicants are encouraged to book an appointment at the nearest VAYD center within their region.</span></label>
               <select id="outsideProvince">
                 <option value="" disabled selected>Select your province</option>
                 <option>Aurora</option>
@@ -3086,7 +3120,7 @@
                       <div class="pdis-item-icon">📧</div>
                       <div>
                         <div class="pdis-item-title">Online Payment Process</div>
-                        <div class="pdis-item-text">You will receive a separate email from VFS Global containing a secure link to settle your fees online.</div>
+                        <div class="pdis-item-text">You will receive a separate email from VAYD Global containing a secure link to settle your fees online.</div>
                       </div>
                     </div>
                     <div class="pdis-item">
@@ -3230,11 +3264,16 @@
               <!-- Center message (shows only when no slots) -->
                 <div class="cal-empty" id="calEmptyBox" style="display:none;">
                   <div class="cal-empty-card">
-                    <div class="cal-empty-title">All appointments are currently taken</div>
-                    <div class="cal-empty-text" id="calEmptyText">
-                      Earliest available appointment date: <b style="color:#ea580c;">(no slots found up to allowed limit)</b><br>
-                      <span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VFS Global for your selected location.</span><br>
-                      Please pick another Intended Travel Date in Step 2.
+                    <div class="cal-empty-inner">
+                      <div class="cal-empty-title">
+                        <div class="cal-empty-title-icon">&#128197;</div>
+                        <span id="calEmptyTitle">All appointments are currently taken</span>
+                      </div>
+                      <div class="cal-empty-text" id="calEmptyText">
+                        Earliest available appointment date: <b style="color:#ea580c;">(no slots found up to allowed limit)</b><br>
+                        <span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VAYD Global for your selected location.</span><br>
+                        Please pick another Intended Travel Date in Step 2.
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -3345,7 +3384,7 @@
 
           <div class="field full" style="margin-top:16px;">
             <label>
-              Source (where did you find out about VFS Global @ the Bunker?) Click all that apply.
+              Source (where did you find out about VAYD Global @ the Bunker?) Click all that apply.
               <span class="req">*</span>
             </label>
 
@@ -3545,14 +3584,14 @@
                     <div class="cons-item-icon">&#128274;</div>
                     <div>
                       <div class="cons-item-title">Data Privacy</div>
-                      <div class="cons-item-text">I acknowledge that my personal data may be collected, used, shared, and processed by the <b>Provincial Government of Bataan</b> and <b>VFS Global</b> solely for appointment scheduling and coordination, in accordance with applicable data privacy laws.</div>
+                      <div class="cons-item-text">I acknowledge that my personal data may be collected, used, shared, and processed by the <b>Provincial Government of Bataan</b> and <b>VAYD Global</b> solely for appointment scheduling and coordination, in accordance with applicable data privacy laws.</div>
                     </div>
                   </div>
                   <div class="cons-item">
                     <div class="cons-item-icon">&#128197;</div>
                     <div>
                       <div class="cons-item-title">Appointment Availability</div>
-                      <div class="cons-item-text">I understand that appointment availability depends on VFS capacity and that changes may occur. I agree to follow the instructions provided and to bring required documents on the appointment date.</div>
+                      <div class="cons-item-text">I understand that appointment availability depends on VAYD capacity and that changes may occur. I agree to follow the instructions provided and to bring required documents on the appointment date.</div>
                     </div>
                   </div>
                   <div class="cons-item">
@@ -3672,6 +3711,11 @@
               if (el.id === "paxDisclaimerAgree") return; // never save — must re-acknowledge each session
               if (el.id === "consentAgree") return;       // never save — must re-agree each session
               if (el.id === "confirmCheck") return;       // never save — must re-confirm each session
+              // Save nameless checkboxes (e.g. noMiddleCheck) by their ID to avoid shared-bucket collision
+              if (!el.name) {
+                if (el.id) data[el.id] = el.checked;
+                return;
+              }
               if (!data[el.name]) data[el.name] = [];
               if (el.checked){
                 data[el.name].push(el.value);
@@ -3721,6 +3765,16 @@
               }
 
               // Restore checkbox groups — never restore session-specific acknowledgements
+              else if (el.type === "checkbox" && !el.name && el.id && data[el.id] !== undefined){
+                // Nameless checkboxes saved by ID (e.g. noMiddleCheck)
+                if (el.id === "paxDisclaimerAgree") return;
+                if (el.id === "consentAgree") return;
+                if (el.id === "confirmCheck") return;
+                el.checked = data[el.id] === true;
+                el.dispatchEvent(new Event("change"));
+              }
+
+              // Restore named checkbox groups
               else if (el.type === "checkbox" && Array.isArray(data[el.name])){
                 if (el.id === "paxDisclaimerAgree") return;
                 if (el.id === "consentAgree") return;
@@ -5218,11 +5272,11 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
         if (NEAREST_AVAILABLE_ISO) {
           nearestTextEl.innerHTML =
             `Earliest available appointment date: <b style="color:#ea580c;font-weight:800;">${fmtLong(isoToDate(NEAREST_AVAILABLE_ISO))}</b><br>` +
-            `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
+            `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VAYD Global for your selected location.</span>`;
         } else {
           nearestTextEl.innerHTML =
             `Earliest available appointment date: <b style="color:#ea580c;font-weight:800;">(no slots found up to allowed limit)</b><br>` +
-            `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
+            `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VAYD Global for your selected location.</span>`;
         }
       }
 
@@ -5436,7 +5490,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
         function updateCalendarOverlay(win){
           const emptyBox  = document.getElementById("calEmptyBox");
           const emptyText = document.getElementById("calEmptyText");
-          const emptyTitle = emptyBox ? emptyBox.querySelector(".cal-empty-title") : null;
+          const emptyTitle = document.getElementById("calEmptyTitle");
           if (!emptyBox || !emptyText) return;
 
           // default hide
@@ -5463,7 +5517,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
             // show nearest overall IF it exists
             if (NEAREST_ANY_AVAILABLE_ISO){
               html += `<br><br><b>Earliest available overall:</b> <b style="color:#ea580c;font-weight:800;">${fmtLong(isoToDate(NEAREST_ANY_AVAILABLE_ISO))}</b>`+
-              `<span style="color:#94a3b8;font-size:12px;font-weight:500;"><br>This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
+              `<span style="color:#94a3b8;font-size:12px;font-weight:500;"><br>This is the soonest available slot currently offered by VAYD Global for your selected location.</span>`;
             emptyBox.style.display = "flex";;
             }
 
@@ -5484,14 +5538,25 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
           if (curPax > 1) {
             const nearestForOnePax = computeNearestFromLoadedAvail(maxAllowed, 1);
             if (nearestForOnePax) {
-              if (emptyTitle) emptyTitle.textContent = "No slots available for your party size";
+              if (emptyTitle) emptyTitle.textContent = "Appointment Slot Unavailable";
               emptyText.innerHTML =
-                `There are currently <b>no appointment slots with enough capacity</b> for <b>${curPax} pax</b> within your allowed travel window.<br>` +
-                `Slots exist, but none have enough remaining seats for your group.<br>` +
-                `<br>You can:<br>` +
-                `<b>①</b> Reduce your pax count if some passengers can book separately.<br>` +
-                `<b>②</b> Check the <b>1BOSSCO Facebook page</b> for updates on new high-capacity slots.<br>` +
-                `<span style="color:#94a3b8;font-size:12px;font-weight:500;">Availability shown is based on remaining seats offered by VFS Global for your selected location.</span>`;
+                `<p class="cal-empty-lead">We are unable to proceed with your appointment request at this time. This may be due to one of the following reasons:</p>` +
+                `<div class="cal-empty-reasons">` +
+                  `<div class="cal-empty-reason reason-blue">` +
+                    `<div class="cal-empty-reason-icon">&#128197;</div>` +
+                    `<div>` +
+                      `<div class="cal-empty-reason-title">Processing Time Constraint</div>` +
+                      `<div class="cal-empty-reason-body">Your intended travel date may be too close. Please ensure your travel date is beyond the minimum required processing days. You may need to select a later travel date to proceed.</div>` +
+                    `</div>` +
+                  `</div>` +
+                  `<div class="cal-empty-reason reason-orange">` +
+                    `<div class="cal-empty-reason-icon">&#128101;</div>` +
+                    `<div>` +
+                      `<div class="cal-empty-reason-title">Group Size vs. Capacity</div>` +
+                      `<div class="cal-empty-reason-body">The number of pax in your group exceeds the remaining slots available for your selected date/time slot. Try reducing your pax count or booking separate individual appointments.</div>` +
+                    `</div>` +
+                  `</div>` +
+                `</div>`;
               emptyBox.style.display = "flex";
               return;
             }
@@ -5505,7 +5570,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
               `Please go back to Step 2 and choose a <b style="color:#ea580c;font-weight:800;">later Intended Travel Date</b> to unlock more available dates. ` +
               `Appointments must be scheduled at least <b style="color:#ea580c;font-weight:800;">${win.procDays} WORKING DAYS</b> before your intended departure.<br>` +
               `<br><b>Earliest available overall:</b> <b style="color:#ea580c;font-weight:800;">${fmtLong(isoToDate(NEAREST_ANY_AVAILABLE_ISO))}</b><br>`+
-              `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
+              `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VAYD Global for your selected location.</span>`;
             emptyBox.style.display = "flex";
             return;
           }
@@ -5515,7 +5580,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
           emptyText.innerHTML =
             `Your travel date is within the allowed processing window, but we currently have <b>no available appointment slots</b>.<br>` +
             `Please check the <b>1BOSSCO Facebook page</b> for updates when we reopen new appointment dates.<br>`+
-            `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
+            `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VAYD Global for your selected location.</span>`;
 
           emptyBox.style.display = "flex";
         }
@@ -6081,14 +6146,14 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
 
       let fullName = `${surname}, ${given}`;
 
-      // Add suffix immediately after firstname
-      if (suffix) {
-        fullName += ` ${suffix}`;
-      }
-
-      // Add middle name last (ignore N/A)
+      // Add middle name before suffix (ignore N/A)
       if (middle && middle.toUpperCase() !== "N/A") {
         fullName += ` ${middle}`;
+      }
+
+      // Add suffix last
+      if (suffix) {
+        fullName += ` ${suffix}`;
       }
 
       fullName = fullName.replace(/\s+/g, " ").trim();
@@ -6180,7 +6245,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
       const r_delMob    = document.getElementById("r_deliveryMobRow");
       const r_pickBadge = document.getElementById("r_pickupBadge");
       const isDelivery  = pickupVal === "Delivery";
-      if (r_pickup)    r_pickup.textContent = isDelivery ? "Delivery to my address" : (pickupVal === "Pick-up" ? "Pick-up (Parqal Mall, Manila)" : "-");
+      if (r_pickup)    r_pickup.textContent = isDelivery ? "Deliver to my address" : (pickupVal === "Pick-up" ? "Pick-up (Parqal Mall, Manila)" : "-");
       if (r_pickBadge) r_pickBadge.textContent = pickupVal || "—";
       if (r_delBlock)  r_delBlock.style.display  = isDelivery ? "flex" : "none";
       if (r_delAddr)   r_delAddr.style.display   = isDelivery ? "flex" : "none";
@@ -6268,11 +6333,11 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
     }
 
     box.innerHTML =
-    `Appointments for the selected country must be scheduled at least <b>${countryName}</b> ` +
+    `Appointments for the selected country must be scheduled at least` +
     `<b style="color:#ea580c;font-weight:800;">${procDays} WORKING DAYS</b> before your intended departure. <br><br>` +
-    `Available appointment dates depend on VFS availability. Please note that available slots are subject to VFS Global’s capacity.<br><br>` +
+    `Available appointment dates depend on VAYD availability. Please note that available slots are subject to VAYD Global’s capacity.<br><br>` +
     `<span style="color:#9a3412; font-weight:700;">
-      Tip: Before selecting your VFS appointment, please verify that your intended travel date allows for the required <b style="color:#ea580c;">${procDays}</b>-working-day lead time.
+      Tip: Before selecting your VAYD appointment, please verify that your intended travel date allows for the required <b style="color:#ea580c;">${procDays}</b>-working-day lead time.
     </span>`;
     }
 
@@ -6702,7 +6767,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
             <span style="font-size:15px; flex-shrink:0; margin-top:1px;">⚡</span>
             <div>
               <div style="font-weight:900; color:#92400e; margin-bottom:2px;">Action Required – Online Payment</div>
-              A separate email will be sent by <b>VFS Global</b> with a secure link and instructions to settle your visa processing fees online.
+              A separate email will be sent by <b>VAYD Global</b> with a secure link and instructions to settle your visa processing fees online.
             </div>
           </div>
 
