@@ -3331,41 +3331,46 @@
             <input type="hidden" id="appointmentSession" />
           </div>
 
-          <div class="field full" style="margin-top:16px;">
-            <label>How would you like to receive your documents?<span class="req">*</span></label>
-            <div class="radio-group" data-group="pickupDelivery" id="pickupDeliveryGroup">
-              <label class="radio-option">
-                <input type="radio" name="pickupDelivery" value="Pick-up" required />
-                🏢 Pick-up <span style="display:block;font-size:11px;font-weight:700;color:var(--muted);margin-top:2px;">Parqal Mall, Manila</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="pickupDelivery" value="Delivery" />
-                📦 Deliver to my address
-              </label>
-            </div>
-            <div class="helper" id="pickupDeliveryHelper">Please select how you would like to receive your documents.</div>
-          </div>
+          <!-- Hidden field: delivery is now always the default -->
+          <input type="hidden" name="pickupDelivery" id="pickupDeliveryHidden" value="Delivery" />
 
-          <!-- Show ONLY if Delivery is chosen -->
-          <div class="field full" id="deliveryWrap" style="display:none;">
+          <!-- ── Data Privacy / Delivery Mode Reminder ── -->
+          <div class="field full" style="margin-top:16px;">
             <div style="
-              padding: 16px 18px 18px;
+              padding: 18px 20px 20px;
               border-radius: 18px;
-              background: rgba(254,243,199,.45);
-              border: 1.5px solid rgba(251,191,36,.50);
-              box-shadow: 0 8px 20px rgba(2,22,55,.06);
+              background: linear-gradient(135deg, rgba(239,246,255,.90), rgba(219,234,255,.70));
+              border: 2px solid rgba(29,102,194,.30);
+              box-shadow: 0 8px 24px rgba(2,22,55,.09);
             ">
               <div style="
                 display: flex;
                 align-items: center;
-                gap: 8px;
+                gap: 10px;
                 font-weight: 900;
+                font-size: 13.5px;
+                color: #0b2a5a;
+                margin-bottom: 14px;
+                padding-bottom: 12px;
+                border-bottom: 1.5px solid rgba(29,102,194,.18);
+              ">
+                <span style="font-size:20px;">📦</span>
+                Mode of Return — Door-to-Door Delivery
+              </div>
+
+              <div style="
                 font-size: 13px;
-                color: #92400e;
+                font-weight: 600;
+                color: #1e3a5f;
+                line-height: 1.75;
                 margin-bottom: 16px;
               ">
-                <span style="font-size:16px;">📦</span>
-                If Delivery — Please provide the following:
+                <strong>Please be advised</strong> that the default Mode of Return for all processed documents and
+                certifications is via <strong>door-to-door delivery to your registered address</strong>.
+                To ensure successful coordination with our logistics partners, please provide the following
+                information accurately:<br><br>
+                By providing the information below, you consent to the sharing of these specific details with
+                our authorized couriers in compliance with the <strong>Data Privacy Act of 2012</strong>.
               </div>
 
               <label>Authorized Recipient Name<span class="req">*</span></label>
@@ -3495,17 +3500,17 @@
                   <div class="review-rows" id="r_additionalPaxList"></div>
                 </div>
 
-                <!-- ── Passport Pickup ── -->
+                <!-- ── Document Delivery (always door-to-door) ── -->
                 <div class="review-section full-width">
                   <div class="review-section-title">
-                    <div class="left"><div class="icon-pill">📦</div>Passport Pickup</div>
-                    <div class="badge2" id="r_pickupBadge">—</div>
+                    <div class="left"><div class="icon-pill">📦</div>Document Delivery</div>
+                    <div class="badge2" id="r_pickupBadge">Door-to-Door</div>
                   </div>
                   <div class="review-rows">
-                    <div class="review-row"><div class="review-k">Method</div><div class="review-v" id="r_pickupdelivery">-</div></div>
-                    <div class="review-row" id="r_deliveryBlock" style="display:none;"><div class="review-k">Recipient</div><div class="review-v" id="r_deliveryRecipient">-</div></div>
-                    <div class="review-row" id="r_deliveryAddrRow" style="display:none;"><div class="review-k">Address</div><div class="review-v" id="r_deliveryAddress">-</div></div>
-                    <div class="review-row" id="r_deliveryMobRow" style="display:none;"><div class="review-k">Mobile</div><div class="review-v" id="r_deliveryMobile">-</div></div>
+                    <div class="review-row"><div class="review-k">Method</div><div class="review-v" id="r_pickupdelivery">Deliver to my address</div></div>
+                    <div class="review-row" id="r_deliveryBlock"><div class="review-k">Recipient</div><div class="review-v" id="r_deliveryRecipient">-</div></div>
+                    <div class="review-row" id="r_deliveryAddrRow"><div class="review-k">Address</div><div class="review-v" id="r_deliveryAddress">-</div></div>
+                    <div class="review-row" id="r_deliveryMobRow"><div class="review-k">Mobile</div><div class="review-v" id="r_deliveryMobile">-</div></div>
                   </div>
                 </div>
 
@@ -4242,42 +4247,9 @@
     }
     setupRadioCards('[data-group="resident"]', "residentGroup", "residentHelper");
     setupRadioCards('[data-group="ofw"]', "ofwGroup", "ofwHelper");
-    setupRadioCards('[data-group="pickupDelivery"]', "pickupDeliveryGroup", "pickupDeliveryHelper");
     setupRadioCards('[data-group="appType"]', "appTypeGroup", "appTypeHelper");
     setupRadioCards('[data-group="appFormDone"]', "appFormDoneGroup", "appFormDoneHelper");
     setupRadioCards('[data-group="firstTimeVisa"]', "firstTimeVisaGroup", "firstTimeVisaHelper");
-
-    /* =========================================================
-      PICKUP / DELIVERY TOGGLE
-    ========================================================= */
-    function toggleDeliveryFields() {
-      const checked = document.querySelector('input[name="pickupDelivery"]:checked');
-      const val = checked ? checked.value : "";
-      const wrap = document.getElementById("deliveryWrap");
-      const recipientEl = document.getElementById("deliveryRecipientName");
-      const addressEl   = document.getElementById("deliveryAddress");
-      const delivMobEl  = document.getElementById("deliveryMobile");
-
-      if (!wrap) return;
-
-      if (val === "Delivery") {
-        wrap.style.display = "block";
-        if (recipientEl) recipientEl.required = true;
-        if (addressEl)   addressEl.required   = true;
-        if (delivMobEl)  delivMobEl.required  = true;
-      } else {
-        wrap.style.display = "none";
-        if (recipientEl) { recipientEl.required = false; recipientEl.value = ""; clearInvalid(recipientEl, document.getElementById("deliveryRecipientNameHelper")); }
-        if (addressEl)   { addressEl.required   = false; addressEl.value   = ""; clearInvalid(addressEl,   document.getElementById("deliveryAddressHelper")); }
-        if (delivMobEl)  { delivMobEl.required  = false; delivMobEl.value  = ""; clearInvalid(delivMobEl,  document.getElementById("deliveryMobileHelper")); }
-      }
-    }
-
-    document.querySelectorAll('input[name="pickupDelivery"]').forEach(r => {
-      r.addEventListener("change", () => { toggleDeliveryFields(); hideNotice(); });
-    });
-
-    toggleDeliveryFields(); // run once on load
 
     /* =========================================================
       DELIVERY MOBILE VALIDATION (PH format: 09XXXXXXXXX, 11 digits)
@@ -6036,22 +6008,8 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
 
       const selectedSources = [...document.querySelectorAll('input[name="source"]:checked')].map(x => x.value);
 
-      // ── Pickup / Delivery validation ──────────────────────────────────────
-      const pickupDeliveryChecked = document.querySelector('input[name="pickupDelivery"]:checked');
-      const pickupDeliveryGroupEl = document.getElementById("pickupDeliveryGroup");
-      const pickupDeliveryHelperEl = document.getElementById("pickupDeliveryHelper");
-
-      if (!pickupDeliveryChecked) {
-        if (pickupDeliveryGroupEl) pickupDeliveryGroupEl.classList.add("invalid");
-        if (pickupDeliveryHelperEl) pickupDeliveryHelperEl.style.display = "block";
-        showNotice("Please indicate if you will pick up or want delivery of your passport.", false);
-        scrollToEl(pickupDeliveryGroupEl);
-        return;
-      }
-      if (pickupDeliveryGroupEl) pickupDeliveryGroupEl.classList.remove("invalid");
-      if (pickupDeliveryHelperEl) pickupDeliveryHelperEl.style.display = "none";
-
-      if (pickupDeliveryChecked.value === "Delivery") {
+      // ── Delivery validation (always required — door-to-door is the only mode) ──
+      {
         const recipientEl = document.getElementById("deliveryRecipientName");
         const addressEl   = document.getElementById("deliveryAddress");
         const delivMobEl  = document.getElementById("deliveryMobile");
@@ -6069,7 +6027,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
           }
         });
 
-        // Special PH mobile validation for delivery
+        // PH mobile validation
         if (delivMobEl) {
           const delivDigits = (delivMobEl.value || "").replace(/\D/g, "");
           if (!delivDigits || delivDigits.length !== 11 || !delivDigits.startsWith("09")) {
@@ -6083,12 +6041,12 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
         }
 
         if (!delivOk) {
-          showNotice("Please complete all delivery details.", false);
-          scrollToEl(document.getElementById("deliveryWrap"));
+          showNotice("Please complete all delivery details before proceeding.", false);
+          scrollToEl(recipientEl || addressEl);
           return;
         }
       }
-      // ─────────────────────────────────────────────────────────────────────
+      // ──────────────────────────────────────────────────────────────────────
 
       let sourceOk = true;
 
@@ -6237,23 +6195,15 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
         }
       }
 
-      // Pickup / Delivery review rows
-      const pickupVal   = (document.querySelector('input[name="pickupDelivery"]:checked') || {}).value || "";
-      const r_pickup    = document.getElementById("r_pickupdelivery");
-      const r_delBlock  = document.getElementById("r_deliveryBlock");
-      const r_delAddr   = document.getElementById("r_deliveryAddrRow");
-      const r_delMob    = document.getElementById("r_deliveryMobRow");
-      const r_pickBadge = document.getElementById("r_pickupBadge");
-      const isDelivery  = pickupVal === "Delivery";
-      if (r_pickup)    r_pickup.textContent = isDelivery ? "Deliver to my address" : (pickupVal === "Pick-up" ? "Pick-up (Parqal Mall, Manila)" : "-");
-      if (r_pickBadge) r_pickBadge.textContent = pickupVal || "—";
-      if (r_delBlock)  r_delBlock.style.display  = isDelivery ? "flex" : "none";
-      if (r_delAddr)   r_delAddr.style.display   = isDelivery ? "flex" : "none";
-      if (r_delMob)    r_delMob.style.display    = isDelivery ? "flex" : "none";
-      if (isDelivery) {
+      // Delivery review rows — door-to-door is always the mode
+      {
+        const r_pickup    = document.getElementById("r_pickupdelivery");
+        const r_pickBadge = document.getElementById("r_pickupBadge");
         const rn = document.getElementById("r_deliveryRecipient");
         const ra = document.getElementById("r_deliveryAddress");
         const rm = document.getElementById("r_deliveryMobile");
+        if (r_pickup)    r_pickup.textContent    = "Deliver to my address";
+        if (r_pickBadge) r_pickBadge.textContent = "Door-to-Door";
         if (rn) rn.textContent = (document.getElementById("deliveryRecipientName")?.value.trim()) || "-";
         if (ra) ra.textContent = (document.getElementById("deliveryAddress")?.value.trim()) || "-";
         if (rm) rm.textContent = (document.getElementById("deliveryMobile")?.value.trim()) || "-";
@@ -6405,9 +6355,8 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
       const muniOrAddress = (residentVal === "Yes") ? muniYes : provNo;
 
 
-      const pickupDeliveryRadio = document.querySelector('input[name="pickupDelivery"]:checked');
-      const pickupDeliveryVal   = pickupDeliveryRadio ? pickupDeliveryRadio.value : "";
-      const isDelivery          = pickupDeliveryVal === "Delivery";
+      // Delivery is always door-to-door
+      const pickupDeliveryVal = "Delivery";
 
       const data = {
         email: document.getElementById("email").value.trim(),
@@ -6421,10 +6370,10 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
         ofw: ofwVal,
         resident_address: (residentVal === "No") ? provNo : "",
 
-        pickup_or_delivery: pickupDeliveryVal,
-        delivery_recipient_name: isDelivery ? (document.getElementById("deliveryRecipientName")?.value.trim() || "") : "",
-        delivery_address:        isDelivery ? (document.getElementById("deliveryAddress")?.value.trim() || "")        : "",
-        delivery_mobile:         isDelivery ? (document.getElementById("deliveryMobile")?.value.trim() || "")         : "",
+        pickup_or_delivery: "Delivery",
+        delivery_recipient_name: (document.getElementById("deliveryRecipientName")?.value.trim() || ""),
+        delivery_address:        (document.getElementById("deliveryAddress")?.value.trim() || ""),
+        delivery_mobile:         (document.getElementById("deliveryMobile")?.value.trim() || ""),
 
         country_name: countryName,
         country_id: countryId,
