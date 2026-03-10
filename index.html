@@ -4567,7 +4567,7 @@
         serviceSelect.innerHTML = `<option value="" disabled ${current ? "" : "selected"}>Select service</option>`;
 
         matches.forEach(r => {
-          const label = `${r.service_name} (Pax ${r.pax_min}-${r.pax_max})`;
+          const label = `${r.service_name}`;
           const opt = document.createElement("option");
           opt.value = r.price_id || label;
           opt.textContent = label;
