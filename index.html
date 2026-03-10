@@ -2835,7 +2835,7 @@
         </div>
         <div class="brandCenter">
           <div class="brandTitle">VAYD · Appointment</div>
-          <div class="brandSub">Visa at Your Doorstep Application Scheduling System</div>
+          <div class="brandSub">"visa at your doorstep" Application Scheduling System</div>
         </div>
         <div class="brandAccent">🗓 Online Booking</div>
       </div>
@@ -2856,7 +2856,7 @@
         <div class="success-card">
           <div class="success-icon">✅</div>
           <div class="success-title">Application Request Submitted</div>
-          <div class="success-sub">VAYD Global will send you a link to pay your processing fee</div>
+          <div class="success-sub">VFS Global will send you a link to pay your processing fee</div>
 
           <div class="success-details" id="successDetails"></div>
 
@@ -3008,7 +3008,7 @@
             </div>
 
             <div class="field full" id="addressWrap" style="display:none;">
-              <label>Province<span class="req">* Applicants are encouraged to book an appointment at the nearest VAYD center within their region.</span></label>
+              <label>Province<span class="req">* Applicants are encouraged to book an appointment at the nearest VFS center within their region.</span></label>
               <select id="outsideProvince">
                 <option value="" disabled selected>Select your province</option>
                 <option>Aurora</option>
@@ -3120,7 +3120,7 @@
                       <div class="pdis-item-icon">📧</div>
                       <div>
                         <div class="pdis-item-title">Online Payment Process</div>
-                        <div class="pdis-item-text">You will receive a separate email from VAYD Global containing a secure link to settle your fees online.</div>
+                        <div class="pdis-item-text">You will receive a separate email from VFS Global containing a secure link to settle your fees online.</div>
                       </div>
                     </div>
                     <div class="pdis-item">
@@ -3271,7 +3271,7 @@
                       </div>
                       <div class="cal-empty-text" id="calEmptyText">
                         Earliest available appointment date: <b style="color:#ea580c;">(no slots found up to allowed limit)</b><br>
-                        <span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VAYD Global for your selected location.</span><br>
+                        <span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VFS Global for your selected location.</span><br>
                         Please pick another Intended Travel Date in Step 2.
                       </div>
                     </div>
@@ -3340,7 +3340,7 @@
               </label>
               <label class="radio-option">
                 <input type="radio" name="pickupDelivery" value="Delivery" />
-                📦 Delivery to my address
+                📦 Deliver to my address
               </label>
             </div>
             <div class="helper" id="pickupDeliveryHelper">Please select how you would like to receive your documents.</div>
@@ -3384,7 +3384,7 @@
 
           <div class="field full" style="margin-top:16px;">
             <label>
-              Source (where did you find out about VAYD Global @ the Bunker?) Click all that apply.
+              Source (where did you find out about VFS Global @ the Bunker?) Click all that apply.
               <span class="req">*</span>
             </label>
 
@@ -3584,14 +3584,14 @@
                     <div class="cons-item-icon">&#128274;</div>
                     <div>
                       <div class="cons-item-title">Data Privacy</div>
-                      <div class="cons-item-text">I acknowledge that my personal data may be collected, used, shared, and processed by the <b>Provincial Government of Bataan</b> and <b>VAYD Global</b> solely for appointment scheduling and coordination, in accordance with applicable data privacy laws.</div>
+                      <div class="cons-item-text">I acknowledge that my personal data may be collected, used, shared, and processed by the <b>Provincial Government of Bataan</b> and <b>VFS Global</b> solely for appointment scheduling and coordination, in accordance with applicable data privacy laws.</div>
                     </div>
                   </div>
                   <div class="cons-item">
                     <div class="cons-item-icon">&#128197;</div>
                     <div>
                       <div class="cons-item-title">Appointment Availability</div>
-                      <div class="cons-item-text">I understand that appointment availability depends on VAYD capacity and that changes may occur. I agree to follow the instructions provided and to bring required documents on the appointment date.</div>
+                      <div class="cons-item-text">I understand that appointment availability depends on VFS capacity and that changes may occur. I agree to follow the instructions provided and to bring required documents on the appointment date.</div>
                     </div>
                   </div>
                   <div class="cons-item">
@@ -5272,11 +5272,11 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
         if (NEAREST_AVAILABLE_ISO) {
           nearestTextEl.innerHTML =
             `Earliest available appointment date: <b style="color:#ea580c;font-weight:800;">${fmtLong(isoToDate(NEAREST_AVAILABLE_ISO))}</b><br>` +
-            `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VAYD Global for your selected location.</span>`;
+            `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
         } else {
           nearestTextEl.innerHTML =
             `Earliest available appointment date: <b style="color:#ea580c;font-weight:800;">(no slots found up to allowed limit)</b><br>` +
-            `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VAYD Global for your selected location.</span>`;
+            `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
         }
       }
 
@@ -5517,7 +5517,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
             // show nearest overall IF it exists
             if (NEAREST_ANY_AVAILABLE_ISO){
               html += `<br><br><b>Earliest available overall:</b> <b style="color:#ea580c;font-weight:800;">${fmtLong(isoToDate(NEAREST_ANY_AVAILABLE_ISO))}</b>`+
-              `<span style="color:#94a3b8;font-size:12px;font-weight:500;"><br>This is the soonest available slot currently offered by VAYD Global for your selected location.</span>`;
+              `<span style="color:#94a3b8;font-size:12px;font-weight:500;"><br>This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
             emptyBox.style.display = "flex";;
             }
 
@@ -5570,7 +5570,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
               `Please go back to Step 2 and choose a <b style="color:#ea580c;font-weight:800;">later Intended Travel Date</b> to unlock more available dates. ` +
               `Appointments must be scheduled at least <b style="color:#ea580c;font-weight:800;">${win.procDays} WORKING DAYS</b> before your intended departure.<br>` +
               `<br><b>Earliest available overall:</b> <b style="color:#ea580c;font-weight:800;">${fmtLong(isoToDate(NEAREST_ANY_AVAILABLE_ISO))}</b><br>`+
-              `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VAYD Global for your selected location.</span>`;
+              `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
             emptyBox.style.display = "flex";
             return;
           }
@@ -5580,7 +5580,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
           emptyText.innerHTML =
             `Your travel date is within the allowed processing window, but we currently have <b>no available appointment slots</b>.<br>` +
             `Please check the <b>1BOSSCO Facebook page</b> for updates when we reopen new appointment dates.<br>`+
-            `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VAYD Global for your selected location.</span>`;
+            `<span style="color:#94a3b8;font-size:12px;font-weight:500;">This is the soonest available slot currently offered by VFS Global for your selected location.</span>`;
 
           emptyBox.style.display = "flex";
         }
@@ -6333,9 +6333,9 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
     }
 
     box.innerHTML =
-    `Appointments for the selected country must be scheduled at least` +
+    `Appointments for the selected country must be scheduled at least ` +
     `<b style="color:#ea580c;font-weight:800;">${procDays} WORKING DAYS</b> before your intended departure. <br><br>` +
-    `Available appointment dates depend on VAYD availability. Please note that available slots are subject to VAYD Global’s capacity.<br><br>` +
+    `Available appointment dates depend on VFS availability. Please note that available slots are subject to VFS Global’s capacity.<br><br>` +
     `<span style="color:#9a3412; font-weight:700;">
       Tip: Before selecting your VAYD appointment, please verify that your intended travel date allows for the required <b style="color:#ea580c;">${procDays}</b>-working-day lead time.
     </span>`;
@@ -6767,7 +6767,7 @@ function computeNearestFromLoadedAvail(maxAllowedDate, pax){
             <span style="font-size:15px; flex-shrink:0; margin-top:1px;">⚡</span>
             <div>
               <div style="font-weight:900; color:#92400e; margin-bottom:2px;">Action Required – Online Payment</div>
-              A separate email will be sent by <b>VAYD Global</b> with a secure link and instructions to settle your visa processing fees online.
+              A separate email will be sent by <b>VFS Global</b> with a secure link and instructions to settle your visa processing fees online.
             </div>
           </div>
 
